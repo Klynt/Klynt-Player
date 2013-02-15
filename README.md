@@ -1,16 +1,10 @@
-Klynt Player is a cross-browser, JavaScript engine to playback rich-media sequences.
+Klynt Player is a cross-browser, JavaScript engine to playback rich-media sequences, which can be edited with [Klynt Editor](http://www.klynt.net/).
 
 
-Based on Timesheet.js (implementation of SMIL-Timing and SMIL-Timesheets), Klynt Player includes the following features:
+It uses:
 
-* Customizable Interface Templates (css)
-* Sync HTML content with multimedia streams.
-* Integration with MediaElement.js cross-browser Media Player 
-
-Timesheet.js W3C References:
-
-* [http://www.w3.org/TR/SMIL3/smil-timing.html](http://www.w3.org/TR/SMIL3/smil-timing.html)
-* [http://www.w3.org/TR/timesheets/](http://www.w3.org/TR/timesheets/)
+* [**Timesheets.js**](https://github.com/timesheets/timesheets.js): implementation of SMIL-Timing and SMIL-Timesheets
+* [**MediaElement.js**](http://mediaelementjs.com/): HTML5 <audio> or <video> player with Flash and Silverlight shims that mimics the HTML5 MediaElement API, enabling a consistent UI in all browsers.
 
 Demos and Documentation:
 
