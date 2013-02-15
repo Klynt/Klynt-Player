@@ -1,0 +1,394 @@
+/*///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////   /////    //   //////    /////    /   //////  //           ///
+////   ///     ///   ///////    ///    //    /////  //           ///
+////   //     ////   ///////    //    ///     ////  //////   ///////
+////   /     /////   ////////    /   ////      ///  //////   ///////
+////       ///////   /////////       ////      ///  //////   ///////
+////       ///////   //////////     /////   /   //  //////   ///////
+////         /////   //////////    //////   //   /  //////   ///////
+////   //     ////   ///////////   //////   ///     //////   ///////
+////   ///     ///   ///////////   //////   ///     //////   ///////
+////   ////    ///          ////   //////   ////    //////   ///////
+////   /////    //          ////   //////   /////   //////   ///////
+////////////////////////////////////////////////////////////////////
+/////////////////////////   © Klynt App 2013   /////////////////////
+////////////////////////////////////////////////////////////////////
+/////////////////////////                      /////////////////////
+/////////////////////////  EDIT FOOTER STYLES  /////////////////////
+/////////////////////////                      /////////////////////
+////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////     FOOTER LOGO      ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.klyntLogo {
+    background-image: url('logo_klynt.png');
+    width: 64px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 80%;
+    cursor: default;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    top: 91%;
+    left: 8px;
+    opacity: 0.3;
+    background-color: #000000;
+    /*margin-left: 16px;*/
+    cursor: pointer;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.klyntLogo:hover {
+    opacity: 0.9;
+}
+
+/*////////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////      MENU BUTTON     ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.menu_footer {
+    width: auto;
+    height: 24px;
+    line-height: 26px;
+    color: white;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
+    font-family: Open Sans;
+    text-align: center;
+    font-weight: normal;
+    opacity: 0.3;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    background-color: #000000;
+    margin-left: 10px;
+    top: 91%;
+    text-transform: uppercase;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+
+}
+
+.menu_footer:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+/*////////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////      CREDIT BUTTON     ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.credit {
+    width: auto;
+    height: 24px;
+    line-height: 26px;
+    color: white;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
+    font-family: Open Sans;
+    text-align: center;
+    font-weight: normal;
+    opacity: 0.3;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    background-color: #000000;
+    margin-left: 1px;
+    top: 91%;
+    text-transform: uppercase;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.credit:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+/*///////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////      MAP BUTTON      ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.map_footer {
+    width: auto;
+    height: 24px;
+    line-height: 26px;
+    color: white;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
+    font-family: Open Sans;
+    text-align: left;
+    font-weight: normal;
+    opacity: 0.3;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    background-color: #000000;
+    margin-left: 0px;
+    top: 91%;
+    text-transform: uppercase;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.map_footer:hover {
+    opacity: 1;
+    color: white;
+}
+
+/*///////////////////////////////////////////////////////////////////
+///////////////////                         ////////////////////////
+///////////////////  FACEBOOK SHARE BUTTON  ////////////////////////
+///////////////////                         ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.facebook {
+    background-image: url('logo_facebook.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 1px;
+    top: 91%;
+    width: 26px;
+    height: 24px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.facebook:hover {
+    opacity: 1;
+}
+
+/*///////////////////////////////////////////////////////////////////
+/////////////////////                        ///////////////////////
+/////////////////////  TWITTER SHARE BUTTON  ///////////////////////
+/////////////////////                        ///////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.twitter {
+    width: 26px;
+    height: 24px;
+    background-image: url('logo_twitter.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 0px;
+    z-index: 500;
+    position: relative;
+    top: 91%;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.twitter:hover {
+    opacity: 1;
+}
+
+/*///////////////////////////////////////////////////////////////////
+/////////////////////                        ///////////////////////
+/////////////////////  EMBED BUTTON  ///////////////////////
+/////////////////////                        ///////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.embed {
+    width: 26px;
+    height: 24px;
+    background-image: url('embed.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 1px;
+    z-index: 500;
+    position: relative;
+    top: 91%;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.embed:hover {
+    opacity: 1;
+}
+
+/*///////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////     SOUND BUTTON     ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.sound {
+    background-image: url('sound.png');
+    width: 26px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 1px;
+    top: 91%;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.sound:hover {
+    opacity: 1;
+}
+
+.mute {
+    background-image: url('sound_mute.png');
+    width: 26px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 1px;
+    top: 91%;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.mute:hover {
+    opacity: 1;
+}
+
+/*///////////////////////////////////////////////////////////////////
+//////////////////////                      ////////////////////////
+//////////////////////  FULLSCREEN BUTTON   ////////////////////////
+//////////////////////                      ////////////////////////
+///////////////////////////////////////////////////////////////////*/
+
+.fullscreen {
+    background-image: url('fullscreen.png');
+    width: 26px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: 0px;
+    top: 91%;
+}
+
+.fullscreen:hover {
+    opacity: 1;
+
+}
+
+.cancelfullscreen {
+    float: left;
+    background-image: url('cancelfullscreen.png');
+    width: 26px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    cursor: pointer;
+    padding-left: 5px;
+    display: block !important;
+    position: relative;
+    z-index: 500;
+    float: left;
+    opacity: 0.3;
+    background-color: #000000;
+    margin-left: -31px;
+    top: 91%;
+}
+
+.cancelfullscreen:hover {
+    opacity: 1;
+}

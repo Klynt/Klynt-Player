@@ -1,0 +1,190 @@
+/* This file is auto-generated. */
+
+@font-face {
+	font-family: Arvo;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/Arvo-Bold.ttf');
+}
+
+@font-face {
+	font-family: Arvo;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/Arvo-Italic.ttf');
+}
+
+@font-face {
+	font-family: Arvo;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/Arvo-Regular.ttf');
+}
+
+@font-face {
+	font-family: Economica;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/Economica-Bold.ttf');
+}
+
+@font-face {
+	font-family: Economica;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/Economica-Italic.ttf');
+}
+
+@font-face {
+	font-family: Economica;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/Economica-Regular.ttf');
+}
+
+@font-face {
+	font-family: Quicksand;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/Quicksand-Bold.ttf');
+}
+
+@font-face {
+	font-family: Quicksand;
+	font-weight: light;
+	font-style: normal;
+	src: url('fonts/Quicksand-Light.ttf');
+}
+
+@font-face {
+	font-family: Quicksand;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/Quicksand-Regular.ttf');
+}
+
+@font-face {
+	font-family: Stardos Stencil;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/StardosStencil-Bold.ttf');
+}
+
+@font-face {
+	font-family: Stardos Stencil;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/StardosStencil-Regular.ttf');
+}
+
+@font-face {
+	font-family: Crimson Text;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/CrimsonText-Bold.ttf');
+}
+
+@font-face {
+	font-family: Crimson Text;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/CrimsonText-Italic.ttf');
+}
+
+@font-face {
+	font-family: Crimson Text;
+	font-weight: roman;
+	font-style: normal;
+	src: url('fonts/CrimsonText-Roman.ttf');
+}
+
+@font-face {
+	font-family: Lato;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/Lato-Bold.ttf');
+}
+
+@font-face {
+	font-family: Lato;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/Lato-Italic.ttf');
+}
+
+@font-face {
+	font-family: Lato;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/Lato-Regular.ttf');
+}
+
+@font-face {
+	font-family: Simonetta;
+	font-weight: black;
+	font-style: normal;
+	src: url('fonts/Simonetta-Black.ttf');
+}
+
+@font-face {
+	font-family: Simonetta;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/Simonetta-Italic.ttf');
+}
+
+@font-face {
+	font-family: Simonetta;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/Simonetta-Regular.ttf');
+}
+
+@font-face {
+	font-family: Lobster Two;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/LobsterTwo-Bold.ttf');
+}
+
+@font-face {
+	font-family: Lobster Two;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/LobsterTwo-Italic.ttf');
+}
+
+@font-face {
+	font-family: Lobster Two;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/LobsterTwo-Regular.ttf');
+}
+
+@font-face {
+	font-family: Open Sans;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/OpenSans-Bold.ttf');
+}
+
+@font-face {
+	font-family: Open Sans;
+	font-weight: normal;
+	font-style: italic;
+	src: url('fonts/OpenSans-Italic.ttf');
+}
+
+@font-face {
+	font-family: Open Sans;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: Open Sans Semibold;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/OpenSans-Semibold.ttf');
+}

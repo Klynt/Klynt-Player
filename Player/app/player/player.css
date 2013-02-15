@@ -1,0 +1,144 @@
+/**
+ * Copyright 2013, Honkytonk Films
+ * Licensed under GNU GPL
+ * http://www.klynt.net
+ */
+ 
+.container p, span {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.layer {
+    bottom: 55px;
+    right: 0px;
+    color: white;
+    opacity: 0.5;
+    z-index: 99;
+    position: absolute;
+    visibility: visible;
+    font-size: 4em;
+    text-transform: uppercase;
+    display: block;
+    text-shadow: 0 0 8px rgba(255, 0, 0, .5);
+    margin: 0 auto 0px;
+    padding: 0 0px;
+    font-family: Helvetica, Arial, sans-serif;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.pop {
+    transform-origin: 50% 50%;
+    animation-name: popin;
+    animation-duration: 1s;
+
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation-name: popin;
+    -webkit-animation-duration: 1s;
+
+    -moz-transform-origin: 50% 50%;
+    -moz-animation-name: popin;
+    -moz-animation-duration: 1s;
+
+    -o-transform-origin: 50% 50%;
+    -o-animation-name: popin;
+    -o-animation-duration: 1s;
+}
+
+
+@keyframes popin {
+    from {
+        transform: scale(.2);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes popin {
+    from {
+        -webkit-transform: scale(.2);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes popin {
+    from {
+        -moz-transform: scale(.2);
+        opacity: 0;
+    }
+    to {
+        -moz-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-o-keyframes popin {
+    from {
+        -o-transform: scale(.2);
+        opacity: 0;
+    }
+    to {
+        -o-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.flip {
+    animation-duration: 1s;
+    animation-name: flipin;
+
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: flipin;
+
+    -moz-animation-duration: 1s;
+    -moz-animation-name: flipin;
+
+    -o-animation-duration: 1s;
+    -o-animation-name: flipin;
+
+}
+
+@keyframes flipin {
+    from {
+        transform: rotateY(180deg) scale(.8);
+    }
+    to {
+        transform: rotateY(0) scale(1);
+    }
+}
+
+@-webkit-keyframes flipin {
+    from {
+        -webkit-transform: rotateY(180deg) scale(.8);
+    }
+    to {
+        -webkit-transform: rotateY(0) scale(1);
+    }
+}
+
+@-moz-keyframes flipin {
+    from {
+        -moz-transform: rotateY(180deg) scale(.8);
+    }
+    to {
+        -moz-transform: rotateY(0) scale(1);
+    }
+}
+
+@-o-keyframes flipin {
+    from {
+        -o-transform: rotateY(180deg) scale(.8);
+    }
+    to {
+        -o-transform: rotateY(0) scale(1);
+    }
+}

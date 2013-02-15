@@ -1,0 +1,4414 @@
+data = {
+    "aliases": {
+        "idToAlias": {
+            "5E8535EE-BB42-7C98-38A1-1619C07E1B36": "HOME",
+            "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45": "Mederic",
+            "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF": "SCAT",
+            "0C0D3639-3333-E382-BFB6-1619C0C94307": "SCAT_VIDEOS",
+            "40DF224F-50B8-4A72-08A3-1619C00359D3": "BLUES_VIDEOS",
+            "A54D75D5-C193-809B-8C8C-1619C0439F6F": "CHORUS_TEXTE",
+            "21323AB5-F5E8-A10D-A96F-1619BFF41FF0": "BLUES_TEXTE",
+            "E363C2CB-472D-5C98-D7CC-1619C038728B": "CHORUS",
+            "A57539AD-40A4-3C13-C27C-1619C0BC808A": "SCAT_TEXTE",
+            "7681CFF9-E9BB-4053-F8EC-1619C0592CD9": "dechassy",
+            "0237746B-5464-2935-3AE5-1619BFE4587C": "BLUES",
+            "A29CA2EC-8A7F-32F7-EB30-B1BA66781947": "Credits",
+            "11AA9067-0148-F073-403B-1619C04E1BCA": "CHORUS_VIDEOS"
+        },
+        "aliasToId": {
+            "HOME": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+            "SCAT_VIDEOS": "0C0D3639-3333-E382-BFB6-1619C0C94307",
+            "BLUES_TEXTE": "21323AB5-F5E8-A10D-A96F-1619BFF41FF0",
+            "CHORUS_TEXTE": "A54D75D5-C193-809B-8C8C-1619C0439F6F",
+            "dechassy": "7681CFF9-E9BB-4053-F8EC-1619C0592CD9",
+            "SCAT": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+            "CHORUS_VIDEOS": "11AA9067-0148-F073-403B-1619C04E1BCA",
+            "Mederic": "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45",
+            "Credits": "A29CA2EC-8A7F-32F7-EB30-B1BA66781947",
+            "BLUES": "0237746B-5464-2935-3AE5-1619BFE4587C",
+            "SCAT_TEXTE": "A57539AD-40A4-3C13-C27C-1619C0BC808A",
+            "CHORUS": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+            "BLUES_VIDEOS": "40DF224F-50B8-4A72-08A3-1619C00359D3"
+        }
+    },
+    "map": {
+        "mapMinZoom": 0,
+        "mapMaxZoom": 20,
+        "mapDefaultZoom": 10,
+        "mapTitle": "",
+        "showMapDescription": false,
+        "mapLongitude": null,
+        "mapLatitude": null
+    },
+    "social": {
+        "facebookTitle": "Des mots du jazz",
+        "facebookLink": "http://www.telerama.fr/musique/des-mots-du-jazz,77674.php",
+        "facebookMessage": "",
+        "facebookLogo": null,
+        "twitterLink": "http://bit.ly/z21c4o",
+        "twitterMessage": "En 10 mots clés illustrés, tout ce que vous avez toujours voulu savoir sur le jazz. "
+    },
+    "mainSequence": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+    "advanced": {
+        "useCustomAudiosURL": false,
+        "customVideosURL": "",
+        "autoUpdatePlayer": true,
+        "customPhotosURL": "",
+        "useCustomPhotosURL": false,
+        "customAudiosURL": "",
+        "useCustomVideosURL": false
+    },
+    "footer": {
+        "showMapMenu": false,
+        "mapMenuButtonLabel": "",
+        "showFacebook": true,
+        "showTimer": true,
+        "showIndexMenu": true,
+        "showTwitter": true,
+        "logo": "Player/resources/footer/logo_klynt.png",
+        "indexMenuButtonLabel": "MENU",
+        "logoLink": "http://www.telerama.fr",
+        "logoTooltip": "Telerama 2012",
+        "showLogo": true,
+        "showCredits": true,
+        "showFooter": true,
+        "creditsButtonLabel": ""
+    },
+    "menu": {
+        "showMenuDescription": false,
+        "menuTitle": "MENU"
+    },
+    "sequences": {
+        "5E8535EE-BB42-7C98-38A1-1619C07E1B36": {
+            "iframes": [],
+            "duration": "01:10.28",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [
+                {
+                    "zIndex": 7,
+                    "width": 970,
+                    "autoplay": true,
+                    "loop": false,
+                    "height": 545,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "continuous": true,
+                    "databegin": "00:00.48",
+                    "sequenceEndVolume": 1,
+                    "name": "Loop home",
+                    "link": null,
+                    "overlayVolume": 1,
+                    "id": "44E81E42-C697-60B2-C08C-1619C706E34F",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": [
+                        {
+                            "type": "audio/mp3",
+                            "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Audios/bcl.mp3"
+                        }
+                    ],
+                    "player": true,
+                    "dataend": "01:12.28",
+                    "duration": "01:11.79",
+                    "volume": 1,
+                    "left": 0
+                }
+            ],
+            "images": [
+                {
+                    "zIndex": 5,
+                    "width": 1150,
+                    "height": 725,
+                    "left": -179,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.5,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -68,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.19",
+                    "name": "dizz",
+                    "link": null,
+                    "id": "A01C0394-FBD7-0DE2-33B4-1B1B26650D4C",
+                    "transitionOut": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/dizz.jpg",
+                    "dataend": "00:14.13",
+                    "duration": "00:13.94",
+                    "animation": null
+                },
+                {
+                    "zIndex": 2,
+                    "width": 1264,
+                    "height": 716,
+                    "left": -116,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.45,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -55,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:26.61",
+                    "name": "monk",
+                    "link": null,
+                    "id": "63C17AF7-0FC8-D38D-2488-1619C701EC3C",
+                    "transitionOut": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/monk.jpg",
+                    "dataend": "00:39.66",
+                    "duration": "00:13.04",
+                    "animation": null
+                },
+                {
+                    "zIndex": 4,
+                    "width": 1000,
+                    "height": 563,
+                    "left": -15,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.5,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -9,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:13.54",
+                    "name": "chet",
+                    "link": null,
+                    "id": "6F11746B-83A8-401A-D9E8-1B1AE55F0632",
+                    "transitionOut": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/chet.jpg",
+                    "dataend": "00:27.68",
+                    "duration": "00:14.13",
+                    "animation": null
+                },
+                {
+                    "zIndex": 1,
+                    "width": 1000,
+                    "height": 563,
+                    "left": -15,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.5,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -9,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:38.63",
+                    "name": "sarah",
+                    "link": null,
+                    "id": "E75CEC8A-A550-81B9-877D-1B1F78759B00",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/sarah.jpg",
+                    "dataend": "01:10.71",
+                    "duration": "00:32.07",
+                    "animation": null
+                },
+                {
+                    "zIndex": 6,
+                    "width": 509,
+                    "height": 571,
+                    "left": -2,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -1,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.19",
+                    "name": "gen4",
+                    "link": null,
+                    "id": "55AD39E4-2CD4-9999-7586-1619C6F0CB13",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/gen4.png",
+                    "dataend": "01:15.36",
+                    "duration": "01:15.16",
+                    "animation": null
+                }
+            ],
+            "name": "HOME",
+            "videos": [],
+            "latitude": 0,
+            "id": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,1)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 25,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/gen4.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 10,
+                    "width": 245,
+                    "text": "<p>\n\t<span style=\"color:#cccccc;\"><span style=\"font-size:16px;\"><span style=\"font-family:abril fatface;\">En dix mots-cl&eacute;s illustr&eacute;s,</span></span></span></p>\n<p>\n\t<span style=\"color:#cccccc;\"><span style=\"font-size:16px;\"><span style=\"font-family:abril fatface;\">tout ce que vous avez</span></span></span></p>\n<p>\n\t<span style=\"color:#cccccc;\"><span style=\"font-size:16px;\"><span style=\"font-family:abril fatface;\">toujours voulu savoir</span></span></span></p>\n<p>\n\t<span style=\"color:#cccccc;\"><span style=\"font-size:16px;\"><span style=\"font-family:abril fatface;\">sur le jazz.</span></span></span></p>\n<p>\n\t<span style=\"color:#cccccc;\"><span style=\"font-size:16px;\"><span style=\"font-family:abril fatface;\">Et m&ecirc;me plus...</span></span></span></p>\n",
+                    "left": 21,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 303,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 136,
+                    "databegin": "00:01.58",
+                    "dataend": "01:15.26",
+                    "link": null,
+                    "id": "D76533FB-C978-7F3C-3B2F-1619C70B650D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:13.67",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 12,
+                    "width": 210,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span onmouseout=\"this.style.color='#FFF'\" onmouseover=\"this.style.color='#336666'\" style=\"font-size:48px;\">SCAT</span></span></p>\n",
+                    "left": 806,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 18,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 58,
+                    "databegin": "00:00.48",
+                    "dataend": "01:15.45",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "slideLeft",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "8CAA4F74-FF23-007B-5BE1-1B0A6070DB17",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 17,
+                    "width": 192,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">GRILLE</span></span></p>\n",
+                    "left": 741,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 302,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 56,
+                    "databegin": "00:00.79",
+                    "dataend": "01:15.76",
+                    "link": null,
+                    "id": "8C43A443-71AE-9EB0-2AEA-1B0CD419F5B1",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 14,
+                    "width": 346,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span onmouseout=\"this.style.color='#FFF'\" onmouseover=\"this.style.color='#999933'\" style=\"font-size:48px;\">CHORUS</span></span></p>\n",
+                    "left": 741,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 157,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 82,
+                    "databegin": "00:00.93",
+                    "dataend": "01:15.90",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "7C97BA33-E977-9EB5-8C12-1B0B281951C0",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 20,
+                    "width": 319,
+                    "text": "<p>\n\t<span style=\"font-size:48px;\"><span style=\"font-family:abril fatface;\">BOP / BE-BOP</span></span></p>\n",
+                    "left": 612,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 450,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 72,
+                    "databegin": "00:00.79",
+                    "dataend": "01:15.76",
+                    "link": null,
+                    "id": "D58F9437-E3BF-6AAE-8013-1B0EA46A75D9",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 18,
+                    "width": 104,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">4/4</span></span></p>\n",
+                    "left": 806,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 348,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 70,
+                    "databegin": "00:01.23",
+                    "dataend": "01:16.20",
+                    "link": null,
+                    "id": "8148F6A2-9540-C390-5ECD-1B0D1095EEAC",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 11,
+                    "width": 248,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span onmouseout=\"this.style.color='#FFF'\" onmouseover=\"this.style.color='#993399'\" style=\"font-size:48px;\">BLUES</span></span></p>\n",
+                    "left": 740,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 63,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 82,
+                    "databegin": "00:00.71",
+                    "dataend": "01:15.67",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "0237746B-5464-2935-3AE5-1619BFE4587C",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "3C8F5EDC-7C62-FBE6-8610-1B08BC6FA332",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 19,
+                    "width": 227,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">SWING</span></span></p>\n",
+                    "left": 788,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 399,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 53,
+                    "databegin": "00:00.30",
+                    "dataend": "01:15.26",
+                    "link": null,
+                    "id": "C7AB3CC5-FA81-D415-E903-1B0D4A62B9C3",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 16,
+                    "width": 179,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">II - V - I</span></span></p>\n",
+                    "left": 775,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 255,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 53,
+                    "databegin": "00:00.30",
+                    "dataend": "01:15.26",
+                    "link": null,
+                    "id": "77AE78CA-B5B6-1846-FEAE-1B0C7325EA65",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 13,
+                    "width": 331,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">SHUFFLE</span></span></p>\n",
+                    "left": 671,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 109,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 82,
+                    "databegin": "00:00.30",
+                    "dataend": "01:15.26",
+                    "link": null,
+                    "id": "B259737A-059A-5EC5-724F-1B0B1FE8B66D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 15,
+                    "width": 284,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:48px;\">BLUE NOTE</span></span></p>\n",
+                    "left": 694,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 206,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 62,
+                    "databegin": "00:00.48",
+                    "dataend": "01:15.45",
+                    "link": null,
+                    "id": "C66FCC9C-5C61-5E51-3538-1B0BE56C0954",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:14.96",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 21,
+                    "width": 702,
+                    "text": "<p>\n\t<span style=\"color:#3399cc;\"><span style=\"font-family:abril fatface;\">Extraits du programme r&eacute;alis&eacute; par Henri-Pierre Fargeon, </span></span></p>\n<p>\n\t<span style=\"color:#3399cc;\"><span style=\"font-family:abril fatface;\">&agrave; voir en int&eacute;gralit&eacute; sur </span></span><span style=\"font-family:abril fatface;\"><a href=\"http://www.telerama.fr/musique/des-mots-du-jazz,77674.php\" target=\"parent\"><span style=\"color:#3399cc;\"><u>telerama.fr</u></span></a></span></p>\n<p>\n\t&nbsp;</p>\n",
+                    "left": 19,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 404,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 48,
+                    "databegin": "00:01.87",
+                    "dataend": "01:18.87",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "A29CA2EC-8A7F-32F7-EB30-B1BA66781947",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "307374BB-7649-E9CE-3F59-B148E7CDC8A0",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:17.00",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45": {
+            "iframes": [],
+            "duration": "00:43.11",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 2,
+                    "width": 340,
+                    "height": 544,
+                    "left": 660,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.00",
+                    "name": "black",
+                    "link": null,
+                    "id": "50F20F29-11FF-EA06-EB8F-1619C7BC9C3A",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/black.jpg",
+                    "dataend": "00:55.90",
+                    "duration": "00:55.90",
+                    "animation": null
+                }
+            ],
+            "name": "Mederic",
+            "videos": [],
+            "latitude": 0,
+            "id": "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 30,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/black.jpg.jpg",
+            "texts": [
+                {
+                    "zIndex": 4,
+                    "width": 213,
+                    "text": "<p>\n\t<strong><span style=\"font-size:14px;\">M&eacute;d&eacute;ric Collignon</span></strong></p>\n<p>\n\t<span style=\"font-size:12px;\"><span style=\"font-family:arial;\">Cornettiste et vocaliste de jazz, il a &eacute;t&eacute;, entre autres, couronn&eacute; Artiste de l&#39;ann&eacute;e en 2010 aux Victoires du jazz. Dernier album paru, <em>Shangri-Tunkashi-La</em>, un hommage au Miles Davis des ann&eacute;es &eacute;lectriques chez Plus Loin Music.</span></span></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<a href=\"http://www.myspace.com/medericollignofficial\" target=\"_blank\"><span style=\"font-size:12px;\"><span style=\"font-family:arial;\">Sur le Net</span></span></a></p>\n",
+                    "left": 712,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 109,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 326,
+                    "databegin": "00:00.00",
+                    "dataend": "00:54.80",
+                    "link": null,
+                    "id": "025DFDF3-9D63-D776-80F0-1619C7C9C55A",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:54.80",
+                    "type": "txt-Default"
+                }
+            ]
+        },
+        "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF": {
+            "iframes": [],
+            "duration": "03:22.45",
+            "buttons": [
+                {
+                    "zIndex": 9,
+                    "width": 130,
+                    "height": 49,
+                    "left": 16,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:36.26",
+                    "link": {
+                        "tooltip": "CHORUS",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "0237746B-5464-2935-3AE5-1619BFE4587C",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "27F8D031-BC10-8B21-286D-1619C805B2E0",
+                    "transitionOut": null,
+                    "duration": "03:36.06",
+                    "label": "BLUES",
+                    "type": "btn-arrow-left"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 50,
+                    "height": 50,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "03:29.84",
+                    "dataend": "03:30.84",
+                    "link": null,
+                    "id": "BD8C5442-20E2-4B2D-16CB-1619C83BB16D",
+                    "transitionOut": null,
+                    "duration": "00:01.00",
+                    "label": "Link to : II  V  I",
+                    "type": "btn-button-1"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 201,
+                    "height": 49,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "03:22.45",
+                    "dataend": "03:23.45",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": true,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "008C0BB4-3409-0DB8-0EC6-C01184382AF4",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:01.00",
+                    "label": "BUTTON",
+                    "type": "btn-arrow-right"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 135,
+                    "height": 49,
+                    "left": 820,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:36.26",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "1EDCEBA2-0E93-8511-B871-1619C831E195",
+                    "transitionOut": null,
+                    "duration": "03:36.06",
+                    "label": "CHORUS",
+                    "type": "btn-arrow-right"
+                }
+            ],
+            "indexMenuPosition": 0,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 5,
+                    "width": 12,
+                    "height": 12,
+                    "left": 810,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.8040540540540541,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "195765A4-8ACE-7362-2BA8-1619C7DA022E",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "03:36.26",
+                    "duration": "03:36.06",
+                    "animation": null
+                },
+                {
+                    "zIndex": 3,
+                    "width": 970,
+                    "height": 523,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.20",
+                    "name": "fondJAZZvideos",
+                    "link": null,
+                    "id": "17B691FC-CA3F-5A9D-F15B-1619C7E516A0",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvideos.png",
+                    "dataend": "03:36.26",
+                    "duration": "03:36.06",
+                    "animation": null
+                },
+                {
+                    "zIndex": 2,
+                    "width": 340,
+                    "height": 32,
+                    "left": 700,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 494,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.20",
+                    "name": "black",
+                    "link": null,
+                    "id": "8533360B-32DB-D054-BF0E-1619C7EB303E",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/black.jpg",
+                    "dataend": "03:34.19",
+                    "duration": "03:33.99",
+                    "animation": null
+                },
+                {
+                    "zIndex": 4,
+                    "width": 12,
+                    "height": 12,
+                    "left": 675,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.8040540540540541,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "CE4C73EA-D974-766A-494F-1619C7E0DF00",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "03:36.26",
+                    "duration": "03:36.06",
+                    "animation": null
+                }
+            ],
+            "name": "SCAT",
+            "videos": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "link": null,
+                    "height": 545,
+                    "poster": "http://klynt.net/V2/demos/JAZZ2/Medias/Posters/ScatOK_1.mp4.jpg",
+                    "top": 0,
+                    "fitToWindow": true,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "loop": false,
+                    "databegin": "00:00.00",
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "autoplay": true,
+                    "name": "Scat",
+                    "frameRate": 0,
+                    "volume": 1,
+                    "id": "D1A9C837-4A86-6AB4-790E-1619C7F17D9F",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": [
+                        {
+                            "type": "video/mp4",
+                            "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Videos/ScatOK_1.mp4"
+                        }
+                    ],
+                    "player": true,
+                    "dataend": "03:22.45",
+                    "duration": "03:22.45",
+                    "left": 0
+                }
+            ],
+            "latitude": 0,
+            "id": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,1)",
+            "syncMaster": "D1A9C837-4A86-6AB4-790E-1619C7F17D9F",
+            "shapes": [
+                {
+                    "zIndex": 8,
+                    "width": 116,
+                    "height": 64,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 1,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:36.26",
+                    "link": {
+                        "tooltip": "RETOUR",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "A343AB7C-A37F-C3E5-597A-1619C8287372",
+                    "transitionOut": null,
+                    "duration": "03:36.06",
+                    "label": "RETOUR",
+                    "type": "shape_type_1"
+                }
+            ],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 1,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/ScatOK_1.mp4.jpg",
+            "texts": [
+                {
+                    "zIndex": 15,
+                    "width": 400,
+                    "text": "<p>\n\tCeci est un tr&egrave;s sensationnel sous-titre</p>\n",
+                    "left": 285,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 461,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "height": 49,
+                    "databegin": "00:11.57",
+                    "dataend": "00:17.24",
+                    "link": null,
+                    "id": "1E3B7A25-588F-7976-9BA5-B1FBC15194AE",
+                    "transitionOut": null,
+                    "duration": "00:05.67",
+                    "type": "txt-Subtitle"
+                },
+                {
+                    "zIndex": 15,
+                    "width": 400,
+                    "text": "<p>\n\tCeci est un incroyable sous-titre</p>\n",
+                    "left": 285,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 461,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "height": 49,
+                    "databegin": "00:20.27",
+                    "dataend": "00:25.27",
+                    "link": null,
+                    "id": "0D62962E-4219-E491-E902-B1FBCAB71103",
+                    "transitionOut": null,
+                    "duration": "00:05.00",
+                    "type": "txt-Subtitle"
+                },
+                {
+                    "zIndex": 15,
+                    "width": 400,
+                    "text": "<p>\n\tCeci est un tr&egrave;s beau sous-titre</p>\n",
+                    "left": 285,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 461,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "height": 49,
+                    "databegin": "00:27.14",
+                    "dataend": "00:32.14",
+                    "link": null,
+                    "id": "3A437DBE-7B21-AF4F-8CDA-B1FBD1EDF50A",
+                    "transitionOut": null,
+                    "duration": "00:05.00",
+                    "type": "txt-Subtitle"
+                },
+                {
+                    "zIndex": 15,
+                    "width": 400,
+                    "text": "<p>\n\tCeci est un tr&egrave;s beau sous-titre</p>\n",
+                    "left": 285,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 461,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "height": 49,
+                    "databegin": "00:00.00",
+                    "dataend": "00:03.00",
+                    "link": null,
+                    "id": "4CAE740A-A9F5-3BB2-22D7-B1FA339FBF2A",
+                    "transitionOut": null,
+                    "duration": "00:03.00",
+                    "type": "txt-Subtitle"
+                },
+                {
+                    "zIndex": 15,
+                    "width": 400,
+                    "text": "<p>\n\tWe started Universal Subtitles because we believe</p>\n",
+                    "left": 285,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 461,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "height": 49,
+                    "databegin": "00:04.18",
+                    "dataend": "00:10.18",
+                    "link": null,
+                    "id": "8DB337D6-B69A-7AA9-1984-B1FBA33C1F43",
+                    "transitionOut": null,
+                    "duration": "00:05.99",
+                    "type": "txt-Subtitle"
+                },
+                {
+                    "zIndex": 11,
+                    "width": 90,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">EN SAVOIR PLUS</span></span></p>\n",
+                    "left": 690,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 51,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 23,
+                    "databegin": "00:00.40",
+                    "dataend": "03:36.25",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "slideLeft",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "A57539AD-40A4-3C13-C27C-1619C0BC808A",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "B4E26649-9BF6-BD42-EBA6-1A72A9892D2D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:35.85",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 12,
+                    "width": 132,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">MORCEAUX CHOISIS</span></span></p>\n",
+                    "left": 825,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 49,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 22,
+                    "databegin": "00:00.40",
+                    "dataend": "03:36.25",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "0C0D3639-3333-E382-BFB6-1619C0C94307",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "7AB63BED-A2DD-7FD5-7F3C-1A7394D8102C",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:35.85",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 13,
+                    "width": 185,
+                    "text": "<p>\n\t<span style=\"color:#0099ff;\"><span style=\"font-size:11px;\"><font class=\"Apple-style-span\"><font class=\"Apple-style-span\">&gt; Cornettiste : M&eacute;d&eacute;ric Collignon</font></font></span></span></p>\n",
+                    "left": 719,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 504,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 21,
+                    "databegin": "00:00.40",
+                    "dataend": "03:36.25",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "5F232B35-A68A-C71B-2402-1A7565D9F851",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:35.85",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 10,
+                    "width": 180,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">SCAT</span></p>\n",
+                    "left": 690,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 99,
+                    "databegin": "00:00.20",
+                    "dataend": "03:36.26",
+                    "link": null,
+                    "id": "ADB62718-85AC-2D7F-0255-1619C7FB061B",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:36.06",
+                    "type": "txt-Title-2"
+                }
+            ]
+        },
+        "0C0D3639-3333-E382-BFB6-1619C0C94307": {
+            "iframes": [
+                {
+                    "zIndex": 5,
+                    "width": 300,
+                    "height": 300,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 297,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"196\" height=\"130\" src=\"http://www.youtube.com/embed/ddnkI-EAGWo?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:57.56",
+                    "link": null,
+                    "id": "27A8EC71-9D6C-6F51-3003-1EAAE2BE7FF8",
+                    "databegin": "00:02.23",
+                    "duration": "00:55.33",
+                    "left": 75,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                },
+                {
+                    "zIndex": 3,
+                    "width": 333,
+                    "height": 228,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 293,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"325\" height=\"216\" src=\"http://www.youtube.com/embed/UOEIQKczRPY?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:56.28",
+                    "link": null,
+                    "id": "CCC8FAD3-48EF-FC50-0072-1EA7D5D4699C",
+                    "databegin": "00:00.94",
+                    "duration": "00:55.33",
+                    "left": 540,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                },
+                {
+                    "zIndex": 2,
+                    "width": 392,
+                    "height": 267,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 30,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "3",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"383\" height=\"255\" src=\"http://www.youtube.com/embed/lnh5Tyx2hT8?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:57.12",
+                    "link": null,
+                    "id": "97257BB3-F091-360F-2CCE-1EA617BE3425",
+                    "databegin": "00:00.00",
+                    "duration": "00:57.12",
+                    "left": 279,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                },
+                {
+                    "zIndex": 4,
+                    "width": 264,
+                    "height": 178,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 295,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "2",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"253\" height=\"168\" src=\"http://www.youtube.com/embed/1qOQHB_V2g0?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:56.62",
+                    "link": null,
+                    "id": "3CE868CA-3895-E6BD-D9DF-1EA937EB1A99",
+                    "databegin": "00:01.73",
+                    "duration": "00:54.89",
+                    "left": 279,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                }
+            ],
+            "duration": "00:42.84",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "height": 545,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.85,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.10",
+                    "name": "fondJAZZvid",
+                    "link": null,
+                    "id": "BA5160E0-EC46-FC5C-91DF-1619C89B8CA4",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvid.png",
+                    "dataend": "00:57.56",
+                    "duration": "00:57.46",
+                    "animation": null
+                }
+            ],
+            "name": "SCAT VIDEOS",
+            "videos": [],
+            "latitude": 0,
+            "id": "0C0D3639-3333-E382-BFB6-1619C0C94307",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 23,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZvid.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 8,
+                    "width": 212,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">MORCEAUX CHOISIS</span></p>\n",
+                    "left": 36,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 108,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 55,
+                    "databegin": "00:00.94",
+                    "dataend": "01:00.44",
+                    "link": null,
+                    "id": "677762FA-2C53-8EF2-C336-1619C8E223FF",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.49",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 10,
+                    "width": 184,
+                    "text": "<p>\n\t<strong><span style=\"font-size:14px;\"><span style=\"font-family:arial;\">M&eacute;deric Collignon</span></span></strong></p>\n<p>\n\t<span style=\"font-size:10px;\"><span style=\"font-family:arial;\">Victoires du jazz, 2010 </span></span></p>\n<p>\n\t<span style=\"font-size:10px;\"><span style=\"font-family:arial;\">(artiste de l&#39;ann&eacute;e)</span></span></p>\n",
+                    "left": 77,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 429,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 56,
+                    "databegin": "00:03.07",
+                    "dataend": "01:02.56",
+                    "link": null,
+                    "id": "4CA3095F-4F5C-ED77-231E-1619C8C310AA",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.49",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 12,
+                    "width": 243,
+                    "text": "<p>\n\t<strong><span style=\"font-size:14px;\">Bobby McFerrin</span></strong></p>\n<p>\n\t<em><span style=\"font-size:14px;\">Drive</span></em></p>\n<p>\n\t<span style=\"font-size:10px;\">Live, Montr&eacute;al, 2005</span></p>\n",
+                    "left": 419,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 466,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 162,
+                    "databegin": "00:02.23",
+                    "dataend": "01:01.28",
+                    "link": null,
+                    "id": "70917F56-9FE8-15E5-6EB4-1619C8A71F4D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.05",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 11,
+                    "width": 150,
+                    "text": "<p>\n\t<span style=\"font-size:14px;\"><strong>Chet Baker</strong></span></p>\n<p>\n\t<em><span style=\"font-size:14px;\">My Funny</span></em></p>\n<p>\n\t<span style=\"font-size:14px;\"><em>Valentine</em></span></p>\n<p>\n\t<span style=\"font-size:10px;\">Extrait de </span></p>\n<p>\n\t<span style=\"font-size:10px;\">l&#39;album&nbsp;live</span></p>\n<p>\n\t<span style=\"font-size:10px;\">&quot;Chet Baker</span></p>\n<p>\n\t<span style=\"font-size:10px;\">in Tokyo&quot;, </span></p>\n<p>\n\t<span style=\"font-size:10px;\">1987</span></p>\n",
+                    "left": 874,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 293,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 265,
+                    "databegin": "00:01.73",
+                    "dataend": "01:00.78",
+                    "link": null,
+                    "id": "E4164C13-E699-D1DD-7094-1619C8B3F9BB",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.05",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 9,
+                    "width": 117,
+                    "text": "<p>\n\t<strong><span style=\"font-size:14px;\">Sarah Vaughan</span></strong></p>\n<p>\n\t<em><span style=\"font-size:14px;\">Scat blues</span></em></p>\n<p>\n\t<span style=\"font-size:10px;\">Live, Berlin, 1969</span></p>\n",
+                    "left": 669,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 31,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 64,
+                    "databegin": "00:01.39",
+                    "dataend": "01:00.44",
+                    "link": null,
+                    "id": "0167F328-A369-8998-0349-1619C8D0BB0E",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.05",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 231,
+                    "text": "<p>\n\t<span style=\"font-size:72px;\"><span style=\"font-family:abril fatface;\">SCAT</span></span></p>\n",
+                    "left": 33,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 30,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 84,
+                    "databegin": "00:00.94",
+                    "dataend": "00:58.21",
+                    "link": null,
+                    "id": "BDB6095B-73C4-97EA-E316-1619C8EEB87E",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:57.26",
+                    "type": "txt-Title-1"
+                }
+            ]
+        },
+        "40DF224F-50B8-4A72-08A3-1619C00359D3": {
+            "iframes": [
+                {
+                    "zIndex": 3,
+                    "width": 565,
+                    "height": 381,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 175,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "3",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"422\" height=\"241\" src=\"http://www.youtube.com/embed/hIkmNNmAnAM?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:10.28",
+                    "link": null,
+                    "id": "4A944D62-2962-0667-B505-1B34659BB721",
+                    "databegin": "00:00.10",
+                    "duration": "00:10.18",
+                    "left": 440,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                },
+                {
+                    "zIndex": 2,
+                    "width": 536,
+                    "height": 355,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 216,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "3",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"277\" height=\"200\" src=\"http://www.youtube.com/embed/Gji4EASzyS0?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "00:10.33",
+                    "link": null,
+                    "id": "C16FBB72-A9B3-E925-985D-1B36C2953A85",
+                    "databegin": "00:00.10",
+                    "duration": "00:10.23",
+                    "left": 151,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                }
+            ],
+            "duration": "00:09.81",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "height": 545,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.85,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.10",
+                    "name": "fondJAZZvid",
+                    "link": null,
+                    "id": "F1F885DD-A581-C71D-F23B-1619C2EC66A5",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvid.png",
+                    "dataend": "00:12.06",
+                    "duration": "00:11.96",
+                    "animation": null
+                }
+            ],
+            "name": "BLUES VIDEOS",
+            "videos": [],
+            "latitude": 0,
+            "id": "40DF224F-50B8-4A72-08A3-1619C00359D3",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 9,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZvid.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 4,
+                    "width": 245,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:72px;\">BLUES</span></span></p>\n",
+                    "left": 137,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 97,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 77,
+                    "databegin": "00:00.59",
+                    "dataend": "01:00.63",
+                    "link": null,
+                    "id": "6F7B0D8F-B3E0-0B2A-070C-1619C318958E",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:00.04",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 307,
+                    "text": "<p>\n\t<span style=\"font-size:14px;\"><span style=\"font-family:arial;\"><strong>Thelonious Monk</strong></span></span></p>\n<p>\n\t<span style=\"font-size:14px;\"><span style=\"font-family:arial;\"><em>Straight, No Chaser</em></span></span></p>\n<p>\n\t<span style=\"font-size:10px;\"><span style=\"font-family:arial;\">Marquee Club, Londres, 1965</span></span></p>\n",
+                    "left": 442,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 420,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 59,
+                    "databegin": "00:01.04",
+                    "dataend": "01:01.08",
+                    "link": null,
+                    "id": "9F6ECF2B-ED57-D534-9B9F-1619C2F912B0",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:00.04",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 5,
+                    "width": 146,
+                    "text": "<p>\n\t<span style=\"font-size:12px;\"><span style=\"font-family:abril fatface;\">MORCEAUX CHOISIS</span></span></p>\n",
+                    "left": 145,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 177,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 21,
+                    "databegin": "00:00.59",
+                    "dataend": "01:01.97",
+                    "link": null,
+                    "id": "50B9423B-16D6-B122-6809-1619C30F3CBC",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:01.38",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 150,
+                    "text": "<p style=\"text-align: right; \">\n\t<strong><span style=\"font-size:14px;\"><span style=\"font-family:arial;\">John Coltrane</span></span></strong></p>\n<p style=\"text-align: right; \">\n\t<em><span style=\"font-size:14px;\"><span style=\"font-family:arial;\">Mr. Pc</span></span></em></p>\n<p style=\"text-align: right; \">\n\t<span style=\"font-family:arial;\"><span style=\"font-size:10px;\">Album &quot;Giant Steps&quot;, 1960</span></span></p>\n",
+                    "left": 276,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 417,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 60,
+                    "databegin": "00:01.04",
+                    "dataend": "01:00.63",
+                    "link": null,
+                    "id": "6F5938BF-49F6-6630-52C4-1619C3047F3B",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:59.59",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "A54D75D5-C193-809B-8C8C-1619C0439F6F": {
+            "iframes": [],
+            "duration": "00:16.40",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "height": 545,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": true,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.00",
+                    "name": "fondJAZZtexte",
+                    "link": null,
+                    "id": "E79D108E-25A9-5172-3272-1619C52E321D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZtexte.png",
+                    "dataend": "00:24.73",
+                    "duration": "00:24.73",
+                    "animation": null
+                }
+            ],
+            "name": "CHORUS TEXTE",
+            "videos": [],
+            "latitude": 0,
+            "id": "A54D75D5-C193-809B-8C8C-1619C0439F6F",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 21,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZtexte.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 3,
+                    "width": 269,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">CHORUS</span></p>\n",
+                    "left": 696,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 98,
+                    "databegin": "00:00.23",
+                    "dataend": "00:25.22",
+                    "link": null,
+                    "id": "4BC79868-B3FB-E004-FF09-1619C53FCF5C",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:24.99",
+                    "type": "txt-Title-2"
+                },
+                {
+                    "zIndex": 2,
+                    "width": 227,
+                    "text": "<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Un chorus, c&#39;est une improvisation. Un solo, devrait-on dire. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Au saxophone, &agrave; la voix, &agrave; la batterie, chaque instrumentiste a le droit &agrave; une sorte de &laquo;&nbsp;monologue accompagn&eacute; &raquo; au cours d&#39;une composition ou de la reprise d&#39;un standard. De fa&ccedil;on assez paradoxale, le chorus est un v&eacute;ritable moment d&#39;&eacute;change, puisque tous les musiciens doivent &ecirc;tre extr&ecirc;mement attentifs et suivre le soliste dans ses id&eacute;es musicales impromptues. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Le but est de raconter une &laquo;&nbsp;histoire&nbsp;&raquo;, coh&eacute;rente, en essayant de convaincre son auditoire. Du pur ressenti donc, mais aussi une bonne dose de technique. Parce qu&#39;un chorus est souvent le moyen de d&eacute;baller son savoir et sa virtuosit&eacute;. Exemples avec le lyrisme du tr&egrave;s regrett&eacute; Esbj&ouml;rn Svensson ou la fougue coltranienne.</span></p>\n",
+                    "left": 712,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 57,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 422,
+                    "databegin": "00:00.23",
+                    "dataend": "00:24.98",
+                    "link": null,
+                    "id": "9F6D4509-0F57-0E86-844A-1619C552938D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:24.75",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "21323AB5-F5E8-A10D-A96F-1619BFF41FF0": {
+            "iframes": [],
+            "duration": "00:14.82",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "height": 545,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.00",
+                    "name": "fondJAZZtexte",
+                    "link": null,
+                    "id": "32B0D3CF-F736-26BB-DE87-1619C2BAF3F2",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZtexte.png",
+                    "dataend": "00:19.59",
+                    "duration": "00:19.59",
+                    "animation": null
+                }
+            ],
+            "name": "BLUES TEXTE",
+            "videos": [],
+            "latitude": 0,
+            "id": "21323AB5-F5E8-A10D-A96F-1619BFF41FF0",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 6,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZtexte.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 3,
+                    "width": 343,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">BLUES</span></p>\n",
+                    "left": 697,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 2,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 103,
+                    "databegin": "00:00.00",
+                    "dataend": "00:19.59",
+                    "link": null,
+                    "id": "1046A108-2239-114A-B129-1619C2C5936A",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:19.59",
+                    "type": "txt-Title-2"
+                },
+                {
+                    "zIndex": 2,
+                    "width": 248,
+                    "text": "<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">&Agrave; l&#39;instar de la majeure partie des musiques populaires &nbsp; contemporaines, c&#39;est dans le blues que le jazz trouve ses fondamentaux. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Outre le fait d&#39;&ecirc;tre un genre dont Skip James, Stevie Ray Vaughan et Jimi Hendrix furent parmi tant d&#39;autres les h&eacute;rauts, le terme de &laquo;&nbsp;blues&nbsp;&raquo; renvoie &agrave; une forme musicale dont la base se r&eacute;sume en trois accords organis&eacute;s en douze mesures. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Cette structure n&#39;a jamais cess&eacute; d&#39;&eacute;voluer, particuli&egrave;rement entre les mains des jazzmen, qui l&#39;ont largement complexifi&eacute;e en y ajoutant des extensions harmoniques. De nombreux standards de jazz sont bas&eacute;s sur la grille du blues&nbsp;: &quot;Mr P.C.&quot;, de John Coltrane, et &quot;Straight no chaser&quot;, de Thelonious Monk, en sont des exemples &eacute;loquents.</span></p>\n",
+                    "left": 705,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 58,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 482,
+                    "databegin": "00:00.00",
+                    "dataend": "00:19.83",
+                    "link": null,
+                    "id": "47522123-EEDB-F549-2F14-1619C2CDD43D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:19.83",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "E363C2CB-472D-5C98-D7CC-1619C038728B": {
+            "iframes": [],
+            "duration": "03:03.29",
+            "buttons": [
+                {
+                    "zIndex": 9,
+                    "width": 125,
+                    "height": 49,
+                    "left": 16,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:22.77",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "39729165-D3A2-FC2E-BF33-1619C4DD2BD9",
+                    "transitionOut": null,
+                    "duration": "03:22.57",
+                    "label": "SCAT",
+                    "type": "btn-arrow-left"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 134,
+                    "height": 49,
+                    "left": 821,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:22.77",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "0237746B-5464-2935-3AE5-1619BFE4587C",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "04FDF1D3-120E-705F-3D50-1619C4FE3A2C",
+                    "transitionOut": null,
+                    "duration": "03:22.57",
+                    "label": "BLUES",
+                    "type": "btn-arrow-right"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 50,
+                    "height": 50,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "03:03.29",
+                    "dataend": "03:04.29",
+                    "link": {
+                        "tooltip": "Link to : SCAT",
+                        "closeButton": true,
+                        "automaticTransition": true,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "10CEEDBF-5FFB-EF58-F0CF-1619C50B9D7D",
+                    "transitionOut": null,
+                    "duration": "00:01.00",
+                    "label": "Link to : SCAT",
+                    "type": "btn-button-1"
+                }
+            ],
+            "indexMenuPosition": 1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 2,
+                    "width": 340,
+                    "height": 32,
+                    "left": 700,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 492,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.20",
+                    "name": "black",
+                    "link": null,
+                    "id": "458A8921-FB2B-A951-BD4F-1619C47BCFE8",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/black.jpg",
+                    "dataend": "03:20.64",
+                    "duration": "03:20.44",
+                    "animation": null
+                },
+                {
+                    "zIndex": 4,
+                    "width": 12,
+                    "height": 12,
+                    "left": 675,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.8040540540540541,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "FE676D68-7496-B1B3-B50C-1619C46212FB",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "03:22.77",
+                    "duration": "03:22.57",
+                    "animation": null
+                },
+                {
+                    "zIndex": 5,
+                    "width": 12,
+                    "height": 12,
+                    "left": 810,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.8040540540540541,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "5D529D6C-200F-691A-1FE3-1619C45B09B7",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "03:22.77",
+                    "duration": "03:22.57",
+                    "animation": null
+                },
+                {
+                    "zIndex": 3,
+                    "width": 970,
+                    "height": 527,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.10",
+                    "name": "fondJAZZvideos",
+                    "link": null,
+                    "id": "107B383B-80FE-CEE2-E7F8-1619C4719D35",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvideos.png",
+                    "dataend": "03:22.82",
+                    "duration": "03:22.72",
+                    "animation": null
+                }
+            ],
+            "name": "CHORUS",
+            "videos": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "link": null,
+                    "height": 545,
+                    "poster": "http://klynt.net/V2/demos/JAZZ2/Medias/Posters/ChorusOK1.mp4.jpg",
+                    "top": 0,
+                    "fitToWindow": true,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "loop": false,
+                    "databegin": "00:00.00",
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "autoplay": true,
+                    "name": "Chorus",
+                    "frameRate": 0,
+                    "volume": 1,
+                    "id": "6325B809-4E26-F17B-441D-1619C485F9B3",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": [
+                        {
+                            "type": "video/mp4",
+                            "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Videos/ChorusOK1.mp4"
+                        }
+                    ],
+                    "player": false,
+                    "dataend": "03:03.29",
+                    "duration": "03:03.29",
+                    "left": 0
+                }
+            ],
+            "latitude": 0,
+            "id": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,1)",
+            "syncMaster": "6325B809-4E26-F17B-441D-1619C485F9B3",
+            "shapes": [
+                {
+                    "zIndex": 8,
+                    "width": 112,
+                    "height": 62,
+                    "left": 5,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 7,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "03:22.77",
+                    "link": {
+                        "tooltip": "RETOUR",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "F1049B51-7664-F509-EBFB-1619C4EA68EE",
+                    "transitionOut": null,
+                    "duration": "03:22.57",
+                    "label": "RETOUR",
+                    "type": "shape_type_1"
+                }
+            ],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 17,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/ChorusOK1.mp4.jpg",
+            "texts": [
+                {
+                    "zIndex": 12,
+                    "width": 132,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">MORCEAUX CHOISIS</span></span></p>\n",
+                    "left": 825,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 47,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 21,
+                    "databegin": "00:00.20",
+                    "dataend": "03:23.03",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "11AA9067-0148-F073-403B-1619C04E1BCA",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "FD002954-74A5-79DD-B925-1A7A14DCBE8B",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:22.83",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 13,
+                    "width": 185,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><font class=\"Apple-style-span\" color=\"#0099FF\"><font class=\"Apple-style-span\" color=\"#0099FF\"><span style=\"color:#0099ff;\">&gt; Cornettiste : M&eacute;d&eacute;ric Collignon</span></font></font></span></p>\n",
+                    "left": 718,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 502,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 25,
+                    "databegin": "00:00.20",
+                    "dataend": "03:23.27",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "1C542FF3-BCA0-DBB0-FAB6-1619C0A4AB45",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "18064CB7-F9D4-4EA9-D9FB-1A7A36127CD2",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:23.07",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 10,
+                    "width": 240,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">CHORUS</span></p>\n",
+                    "left": 685,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 42,
+                    "databegin": "00:00.20",
+                    "dataend": "03:22.76",
+                    "link": null,
+                    "id": "3B8EA40D-C842-CD2F-496C-1619C49B5498",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:22.56",
+                    "type": "txt-Title-2"
+                },
+                {
+                    "zIndex": 11,
+                    "width": 106,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">EN SAVOIR PLUS</span></span></p>\n",
+                    "left": 689,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 47,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 52,
+                    "databegin": "00:00.20",
+                    "dataend": "03:23.27",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "A54D75D5-C193-809B-8C8C-1619C0439F6F",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "DB1DC8C2-9ABA-18F8-CC28-1A79FA5B273D",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "03:23.07",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "A57539AD-40A4-3C13-C27C-1619C0BC808A": {
+            "iframes": [],
+            "duration": "00:15.13",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "height": 545,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.07",
+                    "name": "fondJAZZtexte",
+                    "link": null,
+                    "id": "0E3C5B99-D559-BB9D-796B-1619C84DD67C",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZtexte.png",
+                    "dataend": "00:19.34",
+                    "duration": "00:19.27",
+                    "animation": null
+                }
+            ],
+            "name": "SCAT TEXTE",
+            "videos": [],
+            "latitude": 0,
+            "id": "A57539AD-40A4-3C13-C27C-1619C0BC808A",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 27,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZtexte.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 4,
+                    "width": 186,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">SCAT</span></p>\n",
+                    "left": 694,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -2,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 96,
+                    "databegin": "00:00.07",
+                    "dataend": "00:19.83",
+                    "link": null,
+                    "id": "4A746018-A51A-8EE0-BFE8-1619C8595EBD",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:19.76",
+                    "type": "txt-Title-2"
+                },
+                {
+                    "zIndex": 3,
+                    "width": 231,
+                    "text": "<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">&quot;Heebie Jeebies&quot;, morceau compos&eacute; et interpr&eacute;t&eacute; par Louis Armstrong en 1926 auquel M&eacute;d&eacute;ric Collignon fait allusion dans la vid&eacute;o, est un des premiers enregistrements de r&eacute;f&eacute;rence. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Le scat est donc apparu peu de temps apr&egrave;s la naissance du jazz (1917 &eacute;tant la naissance du jazz enregistr&eacute;) et, &agrave; l&#39;instar des autres instruments propres &agrave; cette musique, il a connu une &eacute;volution consid&eacute;rable dans sa technicit&eacute;. </span></p>\n<p style=\"text-align: left; \">\n\t&nbsp;</p>\n<p style=\"text-align: left; \">\n\t<span style=\"font-family:droid sans;\">Son statut est pass&eacute; de celui d&#39;une voix imitant les phrases m&eacute;lodiques du saxophone &agrave; celui d&#39;instrument &agrave; part enti&egrave;re, offrant un panel de couleurs musicales in&eacute;puisable. En voici la preuve avec quelques grands noms&nbsp;: Sarah Vaughan, Chet Baker, Bobby McFerrin... Et bien s&ucirc;r M&eacute;d&eacute;ric Collignon.</span></p>\n",
+                    "left": 702,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 52,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 533,
+                    "databegin": "00:00.07",
+                    "dataend": "00:20.08",
+                    "link": null,
+                    "id": "3CAFF4D2-30CE-2DB5-50E1-1619C8630592",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:20.01",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "7681CFF9-E9BB-4053-F8EC-1619C0592CD9": {
+            "iframes": [],
+            "duration": "00:22.65",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 2,
+                    "width": 340,
+                    "height": 544,
+                    "left": 660,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.00",
+                    "name": "black",
+                    "link": null,
+                    "id": "F6580EBB-2E36-87D8-279F-1619C5DC5CB6",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/black.jpg",
+                    "dataend": "00:29.95",
+                    "duration": "00:29.95",
+                    "animation": null
+                }
+            ],
+            "name": "dechassy",
+            "videos": [],
+            "latitude": 0,
+            "id": "7681CFF9-E9BB-4053-F8EC-1619C0592CD9",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 2,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/black.jpg.jpg",
+            "texts": [
+                {
+                    "zIndex": 3,
+                    "width": 213,
+                    "text": "<p>\n\t<span style=\"font-size:14px;\"><strong>Daniel Yvinec</strong></span></p>\n<p>\n\t<span style=\"font-size:12px;\">Contrebassiste, producteur et directeur artistique de l&#39;Orchestre national de jazz, Daniel Yvinec a publi&eacute; sept albums dont Wonderful Word ou Songs from the last century, tous deux avec son complice Guillaume de Chassy.</span></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<span style=\"font-size:12px;\"><a href=\"http://yvinek.blogspot.fr/\" target=\"_blank\">Sur le Net </a></span></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<span style=\"font-size:14px;\"><strong>Guillaume de Chassy</strong></span></p>\n<p>\n\t<span style=\"font-size:12px;\">Pianiste et directeur du d&eacute;partement jazz au Conservatoire de r&eacute;gion de Tours, il fut ing&eacute;nieur chimiste dans une premi&egrave;re vie. Son dernier album, Silences, est paru chez Bee Jazz. Il est &agrave; l&#39;origine, avec Daniel Yvinec, du projet participatif Cl&eacute;s pour le jazz, dont Arte a enregistr&eacute; un live.</span></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<span style=\"font-size:12px;\"><a href=\"http://www.guillaumedechassy.fr/\" target=\"_blank\">Sur le Net</a></span></p>\n",
+                    "left": 712,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 109,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 390,
+                    "databegin": "00:00.00",
+                    "dataend": "00:29.95",
+                    "link": null,
+                    "id": "B19E801F-ED4E-3251-3F89-1619C601A798",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "00:29.95",
+                    "type": "txt-Default"
+                }
+            ]
+        },
+        "0237746B-5464-2935-3AE5-1619BFE4587C": {
+            "iframes": [],
+            "duration": "03:20.20",
+            "buttons": [
+                {
+                    "zIndex": 8,
+                    "width": 121,
+                    "height": 49,
+                    "left": 838,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "04:09.95",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "ABC0E79E-5D8F-380C-B8EB-1619C0B04BAF",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "76B04EC2-2350-8AC7-05D8-1619C29B626D",
+                    "transitionOut": null,
+                    "duration": "04:09.75",
+                    "label": "SCAT",
+                    "type": "btn-arrow-right"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 133,
+                    "height": 49,
+                    "left": 16,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 249,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "04:09.95",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "E363C2CB-472D-5C98-D7CC-1619C038728B",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "7F5D58B8-776F-2AF5-F510-1619C2A314C0",
+                    "transitionOut": null,
+                    "duration": "04:09.75",
+                    "label": "CHORUS",
+                    "type": "btn-arrow-left"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 50,
+                    "height": 50,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "03:29.87",
+                    "dataend": "03:30.87",
+                    "link": null,
+                    "id": "EED9397E-7CAF-5B24-61F1-1619C2ABDB99",
+                    "transitionOut": null,
+                    "duration": "00:01.00",
+                    "label": "Link to : GRILLE",
+                    "type": "btn-button-1"
+                }
+            ],
+            "indexMenuPosition": 2,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 5,
+                    "width": 12,
+                    "height": 12,
+                    "left": 810,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.7094594594594594,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.50",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "FA2E0AD0-DA5B-F2B9-0EF2-1619C24BF985",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "04:09.43",
+                    "duration": "04:08.93",
+                    "animation": null
+                },
+                {
+                    "zIndex": 2,
+                    "width": 500,
+                    "height": 50,
+                    "left": 740,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 481,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.40",
+                    "name": "black",
+                    "link": null,
+                    "id": "7B50EAA3-7DDF-6FF5-58A9-1619C25DE49F",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/black.jpg",
+                    "dataend": "04:11.03",
+                    "duration": "04:10.63",
+                    "animation": null
+                },
+                {
+                    "zIndex": 3,
+                    "width": 970,
+                    "height": 527,
+                    "left": 0,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -1,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.20",
+                    "name": "fondJAZZvideos",
+                    "link": null,
+                    "id": "2B340C8C-DB02-BC93-40CD-1619C25739A6",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvideos.png",
+                    "dataend": "04:09.95",
+                    "duration": "04:09.75",
+                    "animation": null
+                },
+                {
+                    "zIndex": 4,
+                    "width": 12,
+                    "height": 12,
+                    "left": 675,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.7027027027027027,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 50,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.50",
+                    "name": "flech9",
+                    "link": null,
+                    "id": "42958D39-D288-5FC2-A5C7-1619C2506FD8",
+                    "transitionOut": null,
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/flech9.png",
+                    "dataend": "04:09.43",
+                    "duration": "04:08.93",
+                    "animation": null
+                }
+            ],
+            "name": "BLUES",
+            "videos": [
+                {
+                    "zIndex": 1,
+                    "width": 970,
+                    "link": null,
+                    "height": 545,
+                    "poster": "http://klynt.net/V2/demos/JAZZ2/Medias/Posters/bluesOK.mp4.jpg",
+                    "top": 0,
+                    "fitToWindow": true,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "loop": false,
+                    "databegin": "00:00.00",
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "autoplay": true,
+                    "name": "blues",
+                    "frameRate": 0,
+                    "volume": 1,
+                    "id": "A5F11163-D7BC-77EA-53CB-1619C262A379",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": [
+                        {
+                            "type": "video/mp4",
+                            "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Videos/bluesOK.mp4"
+                        }
+                    ],
+                    "player": false,
+                    "dataend": "03:20.20",
+                    "duration": "03:20.20",
+                    "left": 0
+                }
+            ],
+            "latitude": 0,
+            "id": "0237746B-5464-2935-3AE5-1619BFE4587C",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,1)",
+            "syncMaster": "A5F11163-D7BC-77EA-53CB-1619C262A379",
+            "shapes": [
+                {
+                    "zIndex": 9,
+                    "width": 117,
+                    "height": 67,
+                    "left": -3,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": -2,
+                    "fitToWindow": false,
+                    "transitionIn": null,
+                    "databegin": "00:00.20",
+                    "dataend": "04:09.95",
+                    "link": {
+                        "tooltip": "RETOUR",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "3969C3A0-28CE-5E20-2DE1-1619C27AEF19",
+                    "transitionOut": null,
+                    "duration": "04:09.75",
+                    "label": "RETOUR",
+                    "type": "shape_type_1"
+                }
+            ],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 29,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/bluesOK.mp4.jpg",
+            "texts": [
+                {
+                    "zIndex": 14,
+                    "width": 165,
+                    "text": "<p>\n\t<font class=\"Apple-style-span\" color=\"#0099FF\" size=\"3\"><span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">&gt; Contrebasse : Daniel Yvinec<br />\n\t&gt; Piano : Guillaume de Chassy</span></span></font></p>\n",
+                    "left": 770,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 490,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 48,
+                    "databegin": "00:00.40",
+                    "dataend": "04:09.72",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "7681CFF9-E9BB-4053-F8EC-1619C0592CD9",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "7A7BA261-E737-C89B-527B-1A781F7EF614",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "04:09.32",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 12,
+                    "width": 106,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">EN SAVOIR PLUS</span></span></p>\n",
+                    "left": 690,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 51,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 122,
+                    "databegin": "00:00.40",
+                    "dataend": "04:09.18",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "21323AB5-F5E8-A10D-A96F-1619BFF41FF0",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "077F194E-47DB-6F0E-3865-19B8BE61FB9E",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "04:08.77",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 13,
+                    "width": 132,
+                    "text": "<p>\n\t<span style=\"font-size:11px;\"><span style=\"color:#0099ff;\">MORCEAUX CHOISIS</span></span></p>\n",
+                    "left": 825,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 51,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 36,
+                    "databegin": "00:00.40",
+                    "dataend": "04:09.18",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "fade",
+                        "closeButtonY": 16,
+                        "overlay": true,
+                        "targetSequence": "40DF224F-50B8-4A72-08A3-1619C00359D3",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "41CEAE08-414D-16BF-B576-19BAFE375300",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "04:08.77",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 11,
+                    "width": 147,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"color:#ffffff;\"><span style=\"font-size:36px;\">BLUES</span></span></span></p>\n",
+                    "left": 687,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 2,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 42,
+                    "databegin": "00:00.30",
+                    "dataend": "04:09.23",
+                    "link": null,
+                    "id": "32181537-DA2B-63F6-E354-1619C270BEE1",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "04:08.93",
+                    "type": "txt-Title-2"
+                }
+            ]
+        },
+        "A29CA2EC-8A7F-32F7-EB30-B1BA66781947": {
+            "iframes": [],
+            "duration": "01:00.00",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 47,
+                    "height": 32,
+                    "left": 910,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 17,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.69",
+                    "name": "close.png",
+                    "link": {
+                        "tooltip": "",
+                        "closeButton": true,
+                        "automaticTransition": false,
+                        "pauseParent": true,
+                        "transition": "none",
+                        "closeButtonY": 16,
+                        "overlay": false,
+                        "targetSequence": "5E8535EE-BB42-7C98-38A1-1619C07E1B36",
+                        "targetURL": "",
+                        "linkType": "linkToSequence",
+                        "window": "_self",
+                        "closeButtonX": 907,
+                        "automaticClose": false
+                    },
+                    "id": "A5A94BEA-2EE4-526E-24BE-B1CA91BF5B85",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/close.png",
+                    "dataend": "01:01.12",
+                    "duration": "01:00.43",
+                    "animation": null
+                }
+            ],
+            "name": "Credits",
+            "videos": [],
+            "latitude": 0,
+            "id": "A29CA2EC-8A7F-32F7-EB30-B1BA66781947",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.75)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 19,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/miles.jpg.jpg",
+            "texts": [
+                {
+                    "zIndex": 5,
+                    "width": 397,
+                    "text": "<p>\n\tId&eacute;e originale et textes : <strong>Louis Michaud</strong></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">Tournage et montage : <strong>Louis Michaud</strong>, <strong>Pierrick Allain</strong>,<br />\n\t<strong>Jean-Baptiste Roch</strong> et <strong>Henri-Pierre Fargeon</strong></font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">Edition : <strong>B&eacute;atrice Kahn</strong></font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">R&eacute;alisation et conception : <strong>Henri-Pierre Fargeon</strong></font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\"><strong>UNE PRODUCTION TELERAMA.FR</strong></font></p>\n<p>\n\t&nbsp;</p>\n",
+                    "left": 45,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 210,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 187,
+                    "databegin": "00:00.69",
+                    "dataend": "01:02.85",
+                    "link": null,
+                    "id": "7CFE6AA2-B35B-70A2-8825-B1DFD55F6330",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:02.16",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 400,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">CREDITS</span></p>\n",
+                    "left": 42,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 126,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 43,
+                    "databegin": "00:00.00",
+                    "dataend": "01:00.72",
+                    "link": null,
+                    "id": "68273E0E-C783-3B10-570F-B1DA744841B3",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:00.72",
+                    "type": "txt-Default"
+                },
+                {
+                    "zIndex": 4,
+                    "width": 397,
+                    "text": "<p>\n\t<strong>UN GRAND MERCI AUX MUSICIENS</strong></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">R&eacute;mi Vignolo &agrave; la batterie</font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">M&eacute;d&eacute;ric Collignon &agrave; la trompette, et cordes vocales</font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">Daniel Yvinec &agrave; la contrebasse</font></p>\n<p>\n\t&nbsp;</p>\n<p>\n\t<font class=\"Apple-style-span\">Guillaume de Chassy au piano</font></p>\n",
+                    "left": 536,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 210,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 242,
+                    "databegin": "00:01.09",
+                    "dataend": "01:03.25",
+                    "link": null,
+                    "id": "14B9C4DC-AE7A-C390-E925-B1BEC034566F",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:02.16",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 702,
+                    "text": "<p>\n\t<span style=\"color:#3399cc;\"><span style=\"font-family:abril fatface;\">Extraits du programme r&eacute;alis&eacute; par Henri-Pierre Fargeon, &agrave; voir en int&eacute;gralit&eacute; sur </span></span><span style=\"font-family:abril fatface;\"><a href=\"http://www.telerama.fr/musique/des-mots-du-jazz,77674.php\" target=\"parent\"><span style=\"color:#3399cc;\"><u>telerama.fr</u></span></a></span></p>\n<p>\n\t&nbsp;</p>\n",
+                    "left": 46,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 81,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 47,
+                    "databegin": "00:00.32",
+                    "dataend": "01:13.60",
+                    "link": null,
+                    "id": "84FDAD9B-D78C-D2C7-6EF8-B1DC6A5A3230",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:13.28",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        },
+        "11AA9067-0148-F073-403B-1619C04E1BCA": {
+            "iframes": [
+                {
+                    "zIndex": 3,
+                    "width": 347,
+                    "height": 234,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 227,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "3",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"330\" height=\"220\" src=\"http://www.youtube.com/embed/ibURCPx4Iug?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "01:02.52",
+                    "link": null,
+                    "id": "09C05290-490E-A64A-D6B5-1EB78CF6E442",
+                    "databegin": "00:00.94",
+                    "duration": "01:01.58",
+                    "left": 73,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                },
+                {
+                    "zIndex": 2,
+                    "width": 527,
+                    "height": 358,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 99,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "3",
+                        "type": "fade"
+                    },
+                    "code": "<iframe width=\"520\" height=\"347\" src=\"http://www.youtube.com/embed/gtEztYjk88s?autoplay=0;autohide=1;controls=1;showinfo=0;theme=light;rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "dataend": "01:01.68",
+                    "link": null,
+                    "id": "2CDA1D2A-0540-766A-1826-1EB538569D47",
+                    "databegin": "00:00.10",
+                    "duration": "01:01.58",
+                    "left": 408,
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    }
+                }
+            ],
+            "duration": "00:51.31",
+            "buttons": [],
+            "indexMenuPosition": -1,
+            "externalVideos": [],
+            "mapMenuPosition": -1,
+            "audios": [],
+            "images": [
+                {
+                    "zIndex": 1,
+                    "width": 991,
+                    "height": 590,
+                    "left": -3,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 0.85,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 0,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "databegin": "00:00.10",
+                    "name": "fondJAZZvid",
+                    "link": null,
+                    "id": "C83D8E2D-4C04-1914-0382-1619C5919016",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "src": "http://klynt.net/V2/demos/JAZZ2/Medias/Photos/fondJAZZvid.png",
+                    "dataend": "01:03.36",
+                    "duration": "01:03.26",
+                    "animation": null
+                }
+            ],
+            "name": "CHORUS VIDEOS",
+            "videos": [],
+            "latitude": 0,
+            "id": "11AA9067-0148-F073-403B-1619C04E1BCA",
+            "longitude": 0,
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "syncMaster": null,
+            "shapes": [],
+            "tags": "",
+            "description": "",
+            "exportScriptPosition": 28,
+            "thumbnailUrl": "http://klynt.net/V2/demos/JAZZ2/Medias/Thumbnails/fondJAZZvid.png.jpg",
+            "texts": [
+                {
+                    "zIndex": 5,
+                    "width": 287,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\">MORCEAUX CHOISIS</span></p>\n",
+                    "left": 61,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 113,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 21,
+                    "databegin": "00:00.30",
+                    "dataend": "01:03.36",
+                    "link": null,
+                    "id": "530F36AC-BD71-34C3-90CD-1619C5C24765",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:03.06",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 6,
+                    "width": 511,
+                    "text": "<p>\n\t<span style=\"font-size:14px;\"><strong>Esbjoern Svensson Trio</strong>, <em>Elevation of Love</em> </span></p>\n<p>\n\t<span style=\"font-size:10px;\">Live, Allemagne, 2004</span></p>\n",
+                    "left": 652,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 447,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 73,
+                    "databegin": "00:00.94",
+                    "dataend": "01:04.45",
+                    "link": null,
+                    "id": "7FA1C010-9566-E881-3543-1619C5B427E8",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:03.51",
+                    "type": "txt-Paragraph"
+                },
+                {
+                    "zIndex": 4,
+                    "width": 330,
+                    "text": "<p>\n\t<span style=\"font-family:abril fatface;\"><span style=\"font-size:72px;\">CHORUS</span></span></p>\n",
+                    "left": 50,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 34,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 87,
+                    "databegin": "00:00.30",
+                    "dataend": "01:02.03",
+                    "link": null,
+                    "id": "024647E1-40A3-EC8A-1155-1619C5CFDF4B",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:01.73",
+                    "type": "txt-Title-1"
+                },
+                {
+                    "zIndex": 7,
+                    "width": 366,
+                    "text": "<p style=\"text-align: right; \">\n\t<span style=\"font-size:14px;\"><strong>John Coltrane</strong></span></p>\n<p style=\"text-align: right; \">\n\t<span style=\"font-size:14px;\"><em>Extrait de l&#39;album Impression </em>(1963)</span></p>\n",
+                    "left": 32,
+                    "style": {
+                        "rotation": 0,
+                        "dropShadowBlur": 0,
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "opacity": 1,
+                        "borderColor": "rgba(0,0,0,1)",
+                        "roundedEdges": 0,
+                        "dropShadowX": 0,
+                        "dropShadowColor": "rgba(0,0,0,1)",
+                        "borderSize": 0,
+                        "dropShadowY": 0
+                    },
+                    "top": 450,
+                    "fitToWindow": false,
+                    "transitionIn": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "height": 76,
+                    "databegin": "00:01.39",
+                    "dataend": "01:04.45",
+                    "link": null,
+                    "id": "2CC5F585-ECC7-7549-5FC4-1619C5A55888",
+                    "transitionOut": {
+                        "duration": "1",
+                        "type": "fade"
+                    },
+                    "duration": "01:03.06",
+                    "type": "txt-Paragraph"
+                }
+            ]
+        }
+    },
+    "general": {
+        "creationDate": 1329472774000,
+        "width": 970,
+        "height": 545,
+        "modificationDate": 1360923246930,
+        "ratio": "16/9",
+        "projectHost": "",
+        "title": "JAZZ",
+        "analyticsKey": "",
+        "author": "mariagemayel",
+        "mapsKey": "",
+        "level": 2,
+        "description": "null",
+        "credits": "",
+        "editorVersionLabel": "Klynt 2.0 Beta 3 (1294)",
+        "editorVersionNumber": "2.0.023"
+    }
+}
