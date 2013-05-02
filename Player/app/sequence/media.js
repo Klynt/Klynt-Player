@@ -4,7 +4,7 @@
  * http://www.klynt.net
  */
  
-function getMediaHTML(tag, data) {
+function getMediaHTML(tag, data, sequence) {
 	
 	var mediaHTML =
 		'<' + tag + getMediaProperties() + '>' +
@@ -29,13 +29,13 @@ function getMediaHTML(tag, data) {
 	function getMediaProperties() {
 		var properties = "";
 		
-		properties += ' id = "' + data.id + 'Element"';
+		properties += ' id="' + data.id + 'Element"';
 		properties += ' width="' + data.width +'"';
 		properties += ' height="' + data.height +'"';
 		
 		var autoplay = false;
 		var controls = false;
-		if (data.id == SEQUENCE.syncMaster) {
+		if (data.id == sequence.syncMaster) {
 			controls = true;
 			autoplay = data.autoplay;
 		} else {
@@ -64,7 +64,7 @@ function getMediaHTML(tag, data) {
 			var databegin = getTimeFromString(data.databegin);
 			 // Prevents preloading media that start at 0.
 			if (databegin > 0) {
-				SEQUENCE.addMetaElement(Math.max(0, databegin - 2), "loadMedia('" + data.id + "');");
+				sequence.addMetaElement(Math.max(0, databegin - 2), "loadMedia('" + data.id + "');");
 			}
 		}
 	}
@@ -72,7 +72,7 @@ function getMediaHTML(tag, data) {
 
 function playMedia(mediaId) {
 	var media = document.getElementById(mediaId);
-	if (media.timing.isActive() || mediaId == SEQUENCE.syncMaster) {
+	if (media.timing.isActive() || media.isSyncMaster) {
 		showMedia(mediaId);
 		getMediaAPI(mediaId).play();
 	}

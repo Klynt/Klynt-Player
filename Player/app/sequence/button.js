@@ -4,17 +4,16 @@
  * http://www.klynt.net
  */
  
-function addButton(data) {
-	addButton_old('#' + SEQUENCE.container.id, data.id, data.label, data.label, data.databegin, data.dataend, data.duration, '', '', '', data.left, data.top, data.type, '', '', data.width, data.height, data.link, data.zIndex, data.transitionIn, data.transitionOut);
+function addButton(data, sequence) {
+	addButton_old(sequence, data.id, data.label, data.label, data.databegin, data.dataend, data.duration, '', '', '', data.left, data.top, data.type, '', '', data.width, data.height, data.link, data.zIndex, data.transitionIn, data.transitionOut);
 }
 
-function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duration, onbegin, onend, onclick, left, top, type, onmouseover, onmouseout, width, height, lnk, btnZindex, animationIn, animationOut) {
+function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, duration, onbegin, onend, onclick, left, top, type, onmouseover, onmouseout, width, height, lnk, btnZindex, animationIn, animationOut) {
 
 	function createButton() {
 		var btn = document.createElement('button');
 		btn.id = btnID;
 		btn.innerHTML = label;
-		btn.title = tooltip || null;
 		btn.className = type;
 		btn.setAttribute('name', 'button');
 
@@ -40,12 +39,12 @@ function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duratio
 					var animate = 'elementBarWipeOut(\'' + btnID + '\',' + animationOut.duration + ')';
 					break;
 			}
-			SEQUENCE.addMetaElement(getTransitionBegin(dataend, animationOut.duration), animate);
+			sequence.addMetaElement(getTransitionBegin(dataend, animationOut.duration), animate);
 		}
 		onbegin = 'resetTransitionOut(\'' + btnID + '\',1,' + left + ');' + onbegin;
 		setCommonAttributes(btn);
-		$(seqId).append(btn);
-		$(seqId).append('<br />');
+		$(sequence.div).append(btn);
+		$(sequence.div).append('<br />');
 		return btn;
 	}
 
@@ -53,7 +52,6 @@ function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duratio
 	function createArrow(arrow_type) {
 		var container = document.createElement('div');
 		container.className = 'btn-arrow_container';
-		container.title = tooltip || null;
 		container.setAttribute('name', 'button_arrow_container');
 		container.id = "_" + btnID;
 		setCommonAttributes(container);
@@ -73,11 +71,11 @@ function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duratio
 		arrow.setAttribute('onmouseover', "mouseOut('" + tooltip.id + "')");
 		arrow.setAttribute('onmouseout', "mouseOver('" + tooltip.id + "')");
 
-		$(seqId).append(container);
+		$(sequence.div).append(container);
 		$(container).append(arrow);
 		$(container).append(tooltip);
 
-		$(seqId).append('<br/>');
+		$(sequence.div).append('<br/>');
 
 		tooltip.style.width = getWidth(container) - getWidth(arrow) - getHorizontalPadding(tooltip) + 'px';
 
@@ -132,16 +130,19 @@ function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duratio
 			return;
 
 		root_element.linkData = lnk;
-		
-		root_element.title = lnk.tooltip || null;
+
+        if (lnk.tooltip)
+		    root_element.title = lnk.tooltip;
 
 		if (lnk.automaticTransition) {
 			root_element.style.display = 'none';
-			SEQUENCE.automaticLink = lnk;
-			root_element.setAttribute('data-onbegin', "SEQUENCE.executeEnd();");
+			sequence.automaticLink = lnk;
+			root_element.setAttribute('data-onbegin', 'endSequence("' + sequence.div.id + '");');
 		} else {
 			root_element.style.cursor = "pointer";
-			root_element.setAttribute('onclick', "SEQUENCE.runLink('" + root_element.id + "');");
+			$(root_element).click(function () {
+				sequence.runLink(root_element.id);
+			});
 		}
 		return root_element;
 	}
@@ -169,11 +170,15 @@ function addButton_old(seqId, btnID, label, tooltip, databegin, dataend, duratio
 }
 
 function mouseOut(id) {
-	var myTooltip = document.getElementById(id).id;
-	$('#' + myTooltip).fadeIn(500, "swing");
+	if (document.getElementById(id)) {
+		var myTooltip = document.getElementById(id).id;
+		$('#' + myTooltip).fadeIn(500, "swing");
+	}
 }
 
 function mouseOver(id) {
-	var myTooltip = document.getElementById(id).id;
-	$('#' + myTooltip).fadeOut(500, "swing");
+	if (document.getElementById(id)) {
+		var myTooltip = document.getElementById(id).id;
+		$('#' + myTooltip).fadeOut(500, "swing");
+	}
 }

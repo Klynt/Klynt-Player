@@ -4,8 +4,8 @@
  * http://www.klynt.net
  */
  
-function addShape(data) {
-	addElement(data, {
+function addShape(data, sequence) {
+	addElement(sequence, data, {
 		name: 'shape',
 		className: 'shape'
 	});

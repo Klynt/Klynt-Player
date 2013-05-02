@@ -79,7 +79,6 @@ function addMap(parentElement, width, height, title, showMapDescription, longitu
 			map:googleMap,
 			icon:image,
 			shape:shape,
-			title:seq.id,
 			zIndex:seq.mapMenuPosition
 		});
 
@@ -138,6 +137,8 @@ function showMap() {
 	//$("#map_canvas").show();
 	$("#mapTitle").show();
 	$("#mapClose").show();
+	
+	trackPageView("Open Map");
 }
 
 function hideMap() {

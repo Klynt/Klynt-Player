@@ -500,7 +500,7 @@ if (!Date.now) Date.now = function() {
 (function(){
 
 // note: all lines containing "consoleLog" will be deleted by the minifier
-var DEBUG = false;                             // consoleLog
+var DEBUG = false;                            // consoleLog
 function consoleLog(message) {                // consoleLog
   if (DEBUG && (typeof(console) == "object")) // consoleLog
     console.log(message);                     // consoleLog
@@ -628,6 +628,14 @@ EVENTS.onSMILReady(function() {
 // Find all <audio|video> elements in the current document
 // ===========================================================================
 function parseMediaElement(node) {
+// Klynt start
+	if (node.alreadyParsed) {
+		EVENTS.trigger(document, "MediaElementLoaded");
+		return;
+	} else {
+		node.alreadyParsed = true;
+	}
+// Klynt end
   // use MediaElement.js when available: http://mediaelementjs.com/
   if (window.MediaElement) {
 // Klynt start
@@ -637,8 +645,13 @@ function parseMediaElement(node) {
       autoRewind: false,
       enablePluginSmoothing: true,
 	  clickToPlayPause: true,
+	  alwaysShowControls: true,
 	  pauseOtherPlayers: false,
 	  features: getMediaControlFeatures(node),
+	  playpauseText: '',
+	  stopText: '',
+	  muteText: '',
+	  fullscreenText: '',	  
 // Klynt end
       success: function(mediaAPI, element) {
         // note: element == node here
@@ -679,8 +692,10 @@ function parseMediaElement(node) {
 	    nodeDiv.pluginElement = element.pluginElement;
 	    nodeDiv.mediaAPI = element.mediaAPI || element;
 		// Quick fix to a problem where the sequence doesn't end when flash sync masters end.
-		if (nodeDiv.id == SEQUENCE.syncMaster) {
-		    nodeDiv.mediaAPI.addEventListener('ended', SEQUENCE.executeEnd, false);
+		if (nodeDiv.isSyncMaster) {
+		    nodeDiv.mediaAPI.addEventListener('ended', function () {
+				nodeDiv.sequence.executeEnd();
+			}, false);
 		}
 // Klynt end
         EVENTS.trigger(document, "MediaElementLoaded");
@@ -1721,7 +1736,7 @@ function smilTimeContainer_generic(timeContainerNode, parentNode, timerate) {
   timer.onTimeUpdate = function() {
 	  self.onTimeUpdate();
 // Klynt start
-	  updateSequenceTime(timer.getTime());
+	  self.target.sequence.updateSequenceTime(timer.getTime());
 // Klynt end
   };
 

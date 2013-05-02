@@ -22,6 +22,20 @@
 }
 
 @font-face {
+	font-family: Droid Sans;
+	font-weight: bold;
+	font-style: normal;
+	src: url('fonts/DroidSans-Bold.ttf');
+}
+
+@font-face {
+	font-family: Droid Sans;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/DroidSans.ttf');
+}
+
+@font-face {
 	font-family: Economica;
 	font-weight: bold;
 	font-style: normal;
@@ -78,6 +92,13 @@
 }
 
 @font-face {
+	font-family: Abril Fatface;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/AbrilFatface-Regular.ttf');
+}
+
+@font-face {
 	font-family: Crimson Text;
 	font-weight: bold;
 	font-style: normal;
@@ -108,15 +129,15 @@
 @font-face {
 	font-family: Lato;
 	font-weight: normal;
-	font-style: italic;
-	src: url('fonts/Lato-Italic.ttf');
+	font-style: normal;
+	src: url('fonts/Lato-Regular.ttf');
 }
 
 @font-face {
 	font-family: Lato;
 	font-weight: normal;
-	font-style: normal;
-	src: url('fonts/Lato-Regular.ttf');
+	font-style: italic;
+	src: url('fonts/Lato-Italic.ttf');
 }
 
 @font-face {

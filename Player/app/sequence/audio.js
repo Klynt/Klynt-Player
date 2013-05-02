@@ -4,13 +4,11 @@
  * http://www.klynt.net
  */
  
-function addAudio(data) {
+function addAudio(data, sequence) {
 	
-	var audioHTML = getMediaHTML('audio', data);
+	var audioHTML = getMediaHTML('audio', data, sequence);
 	
-	console.log("setMediaVolume('" + data.id + "', " + data.volume + ");" + "showMedia('" + data.id + "');");
-	
-	var audioDiv = addElement(data, {
+	var audioDiv = addElement(sequence, data, {
 		name: 'audio',
 		className: 'audioClass',
 		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",
@@ -21,6 +19,5 @@ function addAudio(data) {
 	
 	audioDiv.innerHTML = audioHTML;
 	
-	var audio = $('#' + data.id + 'Element')[0];
-	audio.continuous = data.continuous;
+	audioDiv.firstChild.continuous = data.continuous;
 }

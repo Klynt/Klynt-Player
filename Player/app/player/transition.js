@@ -7,30 +7,31 @@
 var TRANSITION = (function () {
 	var TRANSITION = {};
 
-	TRANSITION.applyToSequence = function (frame, transitionType, callback) {
+	TRANSITION.applyToSequence = function (sequence, transitionType, callback) {
 		var duration = 1000;
+		var div = sequence.div;
 
 		switch (transitionType) {
 			case 'fade':
-				fadeIn(frame, 1, duration, callback);
+				fadeIn(div, 1, duration, callback);
 				break;
 			case 'slideLeft':
-				slideHorizontally(frame, PLAYER.width, 0, duration, callback);
+				slideHorizontally(div, PLAYER.width, 0, duration, callback);
 				break;
 			case 'slideRight':
-				slideHorizontally(frame, -PLAYER.width, 0, duration, callback);
+				slideHorizontally(div, -PLAYER.width, 0, duration, callback);
 				break;
 			case 'slideUp':
-				slideVertically(frame, PLAYER.height, 0, duration, callback);
+				slideVertically(div, PLAYER.height, 0, duration, callback);
 				break;
 			case 'slideDown':
-				slideVertically(frame, -PLAYER.height, 0, duration, callback);
+				slideVertically(div, -PLAYER.height, 0, duration, callback);
 				break;
 			case 'pop':
-				pop(frame, duration, callback);
+				pop(div, duration, callback);
 				break;
 			case 'flip':
-				flip(frame, duration, callback);
+				flip(div, duration, callback);
 				break;
 			default:
 				if (callback) {

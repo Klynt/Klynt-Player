@@ -3,56 +3,43 @@
  * Licensed under GNU GPL
  * http://www.klynt.net
  */
+
+(function () {
+	if (window.mediaControls && window.mediaControls.customSkin) {
+		loadCSSFile(window.mediaControls.customSkin);
+	} else {
+		loadCSSFile("Player/resources/media-controls/mediaelementplayer.css");
+	}
+})();
  
 $(function () {
-
 	PLAYER.init();
 	SPLASHSCREEN.show();
-	PLAYER.setSequenceResourceFiles(getSequenceCSSFiles(), getSequenceJsFiles());
-	window.setTimeout("startPlayer()", 1000);
 	
-	function getSequenceCSSFiles() {
-		var sequenceCssFiles = [
-			"Player/resources/buttons/btn-style.css",
-			"Player/resources/texts/txt-style.css",
-			"Player/resources/texts/fonts.css",
-			"Player/resources/index-menu/index-menu.css",
-			"Player/resources/map-menu/map-menu.css",
-			"Player/resources/misc/player.css",
-			"Player/resources/footer/footer.css",
-			"Player/app/player/player.css",
-		];
-
-		if (window.mediaControls && window.mediaControls.customSkin) {
-			sequenceCssFiles.push(window.mediaControls.customSkin);
-		} else {
-			sequenceCssFiles.push("Player/resources/media-controls/mediaelementplayer.css");
-		}
-		
-		return sequenceCssFiles;
-	}
-	
-	function getSequenceJsFiles() {
-		return [
-			"Player/libs/jquery/jquery-1.8.2.js",
-			"Player/libs/mediaelement/mediaelement-and-player.js",
-			"Player/libs/timesheets/timesheets.js",
-			"Player/app/player/fullscreen.js",
-			"Player/app/sequence/transition.js",
-			"Player/app/sequence/element.js",
-			"Player/app/sequence/media.js",
-			"Player/app/sequence/image.js",
-			"Player/app/sequence/video.js",
-			"Player/app/sequence/externalVideo.js",
-			"Player/app/sequence/audio.js",
-			"Player/app/sequence/text.js",
-			"Player/app/sequence/button.js",
-			"Player/app/sequence/iframe.js",
-			"Player/app/sequence/shape.js",
-			"Player/app/sequence/sequence.js"
-		];
+	if (checkPlayer()) {
+		window.setTimeout("startPlayer()", 1000);
+	} else {
+		displayBrowserNotSupported();
 	}
 });
+
+function checkPlayer() {
+	if (!Modernizr.video || !Modernizr.audio) {
+		return false;
+	}
+	if (!Modernizr.postmessage) {
+		return false;
+	}
+	if (!document.addEventListener) {
+		return false;
+	}
+	return true;
+}
+
+function displayBrowserNotSupported() {
+	$('#splashSubtitle').html('Your browser is not supported. Please upgrade to the latest version.');
+	$('#splashLoader').hide();
+}
 
 /* Updates the timer in the editor. */
 /* The implementation of this function will be overriden by the editor. */
@@ -61,7 +48,7 @@ function updateTimer(time) {
 }
 
 function showEmbedCode(){
-	var embedCode = '<iframe height="' + data.general.height + '" width="' + data.general.width + ' "src="' + window.location + '" frameborder="0" webkitallowfullscreen allowfullscreen></iframe>';
+	var embedCode = '<iframe height="' + data.general.height + '" width="' + data.general.width + '" src="' + window.location + '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
 	alert(embedCode);
 }
 
@@ -122,4 +109,23 @@ function addMapToPlayer() {
 
 var Constants = {
 	SEQUENCE_READY:		"sequenceReady"
+};
+
+function loadCSSFile(href) {
+	var cssLink = document.createElement('link');
+	cssLink.rel = 'stylesheet';
+	cssLink.type = 'text/css';
+	cssLink.href = href;
+	
+	var head = document.getElementsByTagName("head")[0];
+	head.appendChild(cssLink);
+}
+
+function loadScript(src) {
+	var script = document.createElement('script');
+	script.src = src;
+	script.type = 'text/javascript';
+	
+	var head = document.getElementsByTagName("head")[0];
+	head.appendChild(script);
 }

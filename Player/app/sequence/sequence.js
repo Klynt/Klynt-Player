@@ -3,233 +3,228 @@
  * Licensed under GNU GPL
  * http://www.klynt.net
  */
- 
-var SEQUENCE = (function (PLAYER) {
 
-	var finished = false,
-		endExecuted = false;
+function Sequence(data, autoClose) {
+	var self = this,
+		finished = false,
+		endExecuted = false,
+		duration = getTimeFromString(data.duration),
+		width = PLAYER.width,
+		height = PLAYER.height,
+		syncMaster = data.syncMaster,
+		div = null;
+	
+	this.automaticLink = null;
 
-	var SEQUENCE = {
-		data: DATA,
-		width: PLAYER.width,
-		height: PLAYER.height,
-		syncMaster: DATA.syncMaster,
-		container: null,
-		automaticLink: null
-	};
-
-	SEQUENCE.init = function () {
-		addTimeSheetContainer();
-		addSequenceElements();
-		addSequenceEndMetaElement();
-		initializeTimesheet();
-		if (callBackFn) {
-			callBackFn();
-		}
-		
-		// Override onTimeUpdate()
-		/*var onTimeUpdate = SEQUENCE.container.timing.onTimeUpdate;
-		SEQUENCE.container.timing.onTimeUpdate = function () {
-			onTimeUpdate.call(SEQUENCE.container.timing);
-			PLAYER.updateTime(SEQUENCE.container.timing.getCurrentTime(), SEQUENCE);
-		};*/
-
-		function addTimeSheetContainer() {
-			SEQUENCE.container = document.createElement('div');
-			SEQUENCE.container.id = "container";
-			SEQUENCE.container.name = "container";
-			SEQUENCE.container.className = "container";
-			SEQUENCE.container.style.position = "absolute";
-			SEQUENCE.container.style.overflow = 'hidden';
-			SEQUENCE.container.style.width = SEQUENCE.width + "px";
-			SEQUENCE.container.style.height = SEQUENCE.height + "px";
-			SEQUENCE.container.style.backgroundColor = SEQUENCE.data.backgroundColor;
-			SEQUENCE.container.setAttribute("data-timecontainer", "par");
-			SEQUENCE.container.setAttribute("data-timeaction", "visibility");
-			document.body.appendChild(SEQUENCE.container);
-		}
-
-		function addSequenceElements() {
-			$.each({
-				images: addImage,
-				videos: addVideo,
-				//externalVideos: addExternalVideo,
-				audios: addAudio,
-				shapes: addShape,
-				buttons: addButton,
-				texts: addText,
-				iframes: addFrame
-			}, function (arrayName, fn) {
-				SEQUENCE.data[arrayName].forEach(fn);
-			});
-		}
-
-		function addSequenceEndMetaElement() {
-			SEQUENCE.addMetaElement(SEQUENCE.data.duration, "SEQUENCE.executeEnd();");
-		}
-
-		function initializeTimesheet() {
-			// Dispatch a DOMContentLoaded event to make timesheet parse the dom.
-			var event = document.createEvent("Event");
-			event.initEvent("DOMContentLoaded", true, true);
-			document.dispatchEvent(event);
-		}
+	this.addMetaElement = function (begin, onBegin) {
+		var meta = document.createElement('div');
+		meta.setAttribute('data-begin', begin);
+		meta.setAttribute('data-dur', 1);
+		meta.setAttribute('data-onbegin', onBegin);
+		div.appendChild(meta);
 	};
 	
-	SEQUENCE.executeEnd = function () {
+	this.executeEnd = function () {
 		if (!endExecuted) {
 			endExecuted = true;
-			console.log('SEQUENCE.executeEnd()');
-			if (SEQUENCE.automaticLink) {
-				PLAYER.runLink(SEQUENCE.automaticLink);
-			} else if (window.autoClose) {
+			if (this.automaticLink) {
+				PLAYER.runLink(this.automaticLink);
+			} else if (autoClose) {
 				PLAYER.closeOverlay();
 			} else {
-				SEQUENCE.stop();
+				this.stop();
 			}
 		}
 	};
-
-	SEQUENCE.dispose = function () {
-		document.body.removeChild(SEQUENCE.container);
-	};
-
-	SEQUENCE.stop = function () {
-		SEQUENCE.pause("sequenceEndVolume");
+	
+	this.stop = function () {
+		this.pause("sequenceEndVolume");
 		finished = true;
 	};
-
+	
 	/*
 	 * When continuousAudioVolumeProperty is not set, all audios are paused.
 	 * Otherwise, continuous audios are not paused, and their volume is changed.
 	 */
-	SEQUENCE.pause = function (continuousAudioVolumeProperty) {
+	this.pause = function (continuousAudioVolumeProperty) {
 		if (!finished) {
 			try {
-				SEQUENCE.container.timing.Pause();
-				SEQUENCE.data.videos.forEach(function (video) {
-					pauseMedia(video.id);
-				});
-				SEQUENCE.data.audios.forEach(function (audio) {
-					if (continuousAudioVolumeProperty && audio.continuous) {
-						setMediaVolume(audio.id, audio[continuousAudioVolumeProperty]);
+				div.timing.Pause();
+				getMedias().forEach(function (media) {
+					if (continuousAudioVolumeProperty && media.continuous) {
+						setMediaVolume(media.id, media[continuousAudioVolumeProperty]);
 					} else {
-						pauseMedia(audio.id);
+						pauseMedia(media.id);
 					}
 				});
 			} catch (e) {
 			}
 		} else if (continuousAudioVolumeProperty) {
-			SEQUENCE.data.audios.forEach(function (audio) {
-				if (audio.continuous) {
-					setMediaVolume(audio.id, audio[continuousAudioVolumeProperty]);
+			getMedias().forEach(function (media) {
+				if (media.continuous) {
+					setMediaVolume(media.id, media[continuousAudioVolumeProperty]);
 				}
 			});
 		}
 	};
-
-	SEQUENCE.resume = function (resetContinuousAudioVolume) {
+	
+	this.resume = function (resetContinuousAudioVolume) {
 		if (!finished) {
 			try {
-				SEQUENCE.container.timing.Play();
-				SEQUENCE.data.videos.forEach(function (video) {
-					playMedia(video.id);
-				});
-				SEQUENCE.data.audios.forEach(function (audio) {
-					if (audio.continuous && resetContinuousAudioVolume) {
-						setMediaVolume(audio.id, audio.volume);
+				div.timing.Play();
+				getMedias().forEach(function (media) {
+					if (media.continuous && resetContinuousAudioVolume) {
+						setMediaVolume(media.id, media.volume);
 					}
-					playMedia(audio.id);
+					playMedia(media.id);
 				});
 			} catch (e) {
 			}
 		} else {
-			SEQUENCE.data.audios.forEach(function (audio) {
-				if (audio.continuous) {
-					setMediaVolume(audio.id, audio.sequenceEndVolume);
-					playMedia(audio.id);
+			getMedias().forEach(function (media) {
+				if (media.continuous) {
+					setMediaVolume(media.id, media.volume);
+					playMedia(media.id);
 				}
 			});
 		}
 	};
-
-	SEQUENCE.seek = function (time) {
+	
+	this.seek = function (time) {
 		if (!finished) {
-			var duration = getTimeFromString(SEQUENCE.data.duration);
 			time = Math.max(Math.min(time, duration), 0);
-			SEQUENCE.container.timing.setCurrentTime(time);
+			if (div && div.timing) {
+				div.timing.setCurrentTime(time);
+			}
 			/*
-			SEQUENCE.data.videos.forEach(function (video) {
-				var start = getTimeFromString(video.databegin);
-				var end = getTimeFromString(video.dataend);
+			getMedias().forEach(function (media) {
+				var start = getTimeFromString(media.databegin);
+				var end = getTimeFromString(media.dataend);
 				if (start < time && time < end) {
-					seekMedia(video.id, time - start);
-					playMedia(video.id);
+					seekMedia(media.id, time - start);
+					playMedia(media.id);
 				}
 			});
 			*/
 		}
 	};
-
-	SEQUENCE.mute = function () {
-		SEQUENCE.data.videos.forEach(function (video) {
-			setMediaVolume(video.id, 0);
-		});
-		SEQUENCE.data.audios.forEach(function (audio) {
-			setMediaVolume(audio.id, 0);
+	
+	this.mute = function () {
+		getMedias().forEach(function (media) {
+			setMediaVolume(media.id, 0);
 		});
 	};
 
-	SEQUENCE.unmute = function () {
-		SEQUENCE.data.videos.forEach(function (video) {
-			setMediaVolume(video.id, video.volume);
-		});
-		SEQUENCE.data.audios.forEach(function (audio) {
-			setMediaVolume(audio.id, audio.volume);
+	this.unmute = function () {
+		getMedias().forEach(function (media) {
+			setMediaVolume(media.id, media.volume);
 		});
 	};
 
-	SEQUENCE.runLink = function (itemId) {
+	this.runLink = function (itemId) {
 		var item = document.getElementById(itemId);
 		if (item && item.linkData) {
 			PLAYER.runLink(item.linkData);
 		}
 	};
-
-	SEQUENCE.enterFullScreen = function () {
-		fullScreenBrowser(Fullscreen.PARENT_IS_SEQUENCE);
+	
+	this.getCurrentTime = function() {
+		div.timing.getCurrentTime();
 	};
-
-	SEQUENCE.exitFullScreen = function () {
-		cancelFullScreen();
+	
+	this.updateSequenceTime = function (time) {
+		PLAYER.updateTime(time, this);
 	};
-
-	SEQUENCE.addMetaElement = function (begin, onBegin) {
-		var meta = document.createElement('div');
-		meta.setAttribute('data-begin', begin);
-		meta.setAttribute('data-dur', 1);
-		meta.setAttribute('data-onbegin', onBegin);
-		SEQUENCE.container.appendChild(meta);
+	
+	/* Adds a close button to the given sequence div. */
+	this.addCloseButton = function (closeButtonX, closeButtonY) {
+		var button = document.createElement("div");
+		button.setAttribute("name", "closeOverlay");
+		button.className = "closeOverlay";
+		button.style.position = "absolute";
+		button.style.left = closeButtonX + 'px';
+		button.style.top = closeButtonY + 'px';
+		button.style.width = '46px';
+		button.style.height = '46px';
+		button.style.zIndex = 600;
+		button.setAttribute("onClick", "PLAYER.closeOverlay();");
+		div.appendChild(button);
 	};
-
-	SEQUENCE.getCurrentTime = function () {
-		return SEQUENCE.container.timing.getCurrentTime();
-	};
-
-	return SEQUENCE;
-})(PLAYER);
-
-SEQUENCE.init();
-
-var Constants = {
-	SEQUENCE_READY:		"sequenceReady"
+	
+	function initSequenceDiv() {
+		var container = document.createElement('div');
+		container.id = data.id;
+		container.name = "container";
+		container.className = "container";
+		container.style.position = "absolute";
+		container.style.overflow = "hidden";
+		container.style.display = "block";
+		container.style.width = width + "px";
+		container.style.height = height + "px";
+		container.style.left = '0px';
+		container.style.top = '0px';
+		container.style.backgroundColor = data.backgroundColor;
+		container.setAttribute("data-timecontainer", "par");
+		container.setAttribute("data-timeaction", "visibility");
+		container.sequence = self;
+		//document.body.appendChild(container);
+		return container;
+	}
+	
+	function addSequenceElements() {
+		$.each({
+			images: addImage,
+			videos: addVideo,
+			//externalVideos: addExternalVideo,
+			audios: addAudio,
+			shapes: addShape,
+			buttons: addButton,
+			texts: addText,
+			iframes: addFrame
+		}, function (arrayName, fn) {
+			data[arrayName].forEach(function (elementData) {
+				fn(elementData, self);
+			});
+		});
+		
+		$(div).tooltip({
+			track: true
+	    });
+		$("#" + div.id + " > .nano-container").nanoScroller({
+			paneClass: 'nano-pane',
+			contentClass: 'nano-content',
+			scroll: 'top',
+			preventPageScrolling: true
+		});
+	}
+	
+	function getMedias() {
+		var medias = [];
+		if (data.videos) {
+			medias = medias.concat(data.videos);
+		}
+		if (data.audios) {
+			medias = medias.concat(data.audios);
+		}
+		/*if (data.externalVideos) {
+			medias = medias.concat(data.externalVideos);
+		}*/
+		return medias;
+	}
+	
+	this.div = div = initSequenceDiv();
+	this.duration = duration;
+	this.syncMaster = syncMaster;
+	PLAYER.div.appendChild(div);
+	addSequenceElements();
+	this.addMetaElement(data.duration, "endSequence('" + data.id + "');");
 }
-var event = document.createEvent("Event");
-event.initEvent(Constants.SEQUENCE_READY, true, false);
-dispatchEvent(event);
 
-function updateSequenceTime(time) {
-	PLAYER.updateTime(time, SEQUENCE);
+function endSequence(sequenceId) {
+	var sequenceDiv = document.getElementById(sequenceId);
+	if (sequenceDiv && sequenceDiv.sequence) {
+		sequenceDiv.sequence.executeEnd();
+	}
 }
 
 /**

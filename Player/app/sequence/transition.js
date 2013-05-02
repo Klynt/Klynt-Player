@@ -3,103 +3,75 @@
  * Licensed under GNU GPL
  * http://www.klynt.net
  */
- 
+
 function elementFadeIn(elementId, opacity, duration) {
-	$('#' + elementId)
-		.css({ opacity:0 })
-		.fadeTo(duration * 1000, opacity);
+	$('#' + elementId).css({
+		opacity:0
+	}).fadeTo(duration * 1000, opacity);
 }
 
 function elementFadeOut(elementId, duration) {
 	$('#' + elementId).fadeOut(duration * 1000);
 }
 
-function resetFadeOut(elementId) {
-	$('#' + elementId).css({ opacity:1 });
+function setLeftPosition(elementId, left) {
+	$('#' + elementId).css({
+		position: 'absolute',
+		left: left + 'px'
+	});
 }
 
 function elementBarWipeIn(elementId, left, duration) {
-	$('#' + elementId)
-		.css({ left:0 })
-		.animate({left:left + "px" }, duration * 1000);
-}
-
-function setLeftPosition(elementId, left) {
-	var element = document.getElementById(elementId);
-	element.style.position = 'absolute';
-	element.style.left = left + 'px';
+	$('#' + elementId).css({
+		clip: getClipString(elementId, 0, 0)
+	}).animate({
+		clip: getClipString(elementId, 0, 1)
+	}, duration * 1000);
 }
 
 function elementBarWipeOut(elementId, duration) {
-	var leftFactor = PLAYER.width;
-	$('#' + elementId).animate({left:leftFactor + "px" }, duration * 1000);
+	$('#' + elementId).css({
+		clip: getClipString(elementId, 0, 1)
+	}).animate({
+		clip: getClipString(elementId, 1, 1)
+	}, duration * 1000);
 }
 
 function resetTransitionOut(elementId, opacity, left) {
-	var element = document.getElementById(elementId);
-	element.style.opacity = opacity;
-	element.style.left = left + "px";
+	$('#' + elementId).css({
+		opacity: opacity,
+		left: left + 'px',
+		clip: null
+	});
 }
 
-function elementSlideUpDown(elementId, fromPos, toPos) {
-	$('#' + elementId)
-		.css({ top:fromPos + "px" })
-		.animate({top:toPos + "px" }, 1000);
-}
-
-function elementSlideLeftRight(elementId, fromPos, toPos) {
-	$('#' + elementId)
-		.css({ left:fromPos + "px" })
-		.animate({left:toPos + "px" }, 1000);
-}
-
-function elementFlip(elementId) {
-	$('#' + elementId).addClass('flip');
-}
-
-function elementPop(elementId) {
-	$('#' + elementId).addClass('pop');
-}
-
-function removeTransitClass(elementId) {
+function getClipString(elementId, leftFactor, rightFactor) {
 	var element = $('#' + elementId);
-	if (element.hasClass('pop')) {
-		element.removeClass('pop');
-	}
-	if (element.hasClass('flip')) {
-		element.removeClass('flip');
-	}
+	var width = element.width();
+	var height = element.height();
+	return 'rect(' + 0 + 'px ' + parseInt(width * rightFactor) + 'px ' + height + 'px ' + parseInt(width * leftFactor) + 'px)';
 }
 
-function SeqTransition(targetSeqId, transitionType) {
-	var maxLeft = data.general.width;
-	var minLeft = -maxLeft;
-	var maxTop = data.general.height;
-	var minTop = -maxTop;
-	switch (transitionType) {
-		case 'fade' :
-			//elementFadeOut(currentSeqId, 1);
-			elementFadeIn(targetSeqId, 1, 1);
-			break;
-		case 'slideLeft' :
-			elementSlideLeftRight(targetSeqId, maxLeft, 0);
-			break;
-		case 'slideRight' :
-			elementSlideLeftRight(targetSeqId, minLeft, 0);
-			break;
-		case 'slideUp' :
-			elementSlideUpDown(targetSeqId, maxTop, 0);
-			break;
-		case 'slideDown' :
-			elementSlideUpDown(targetSeqId, minTop, 0);
-			break;
-		case 'pop' :
-			elementPop(targetSeqId);
-			break;
-		case 'flip' :
-			elementFlip(targetSeqId);
-			break;
-		case 'none' :
-			break;
+(function(jQuery){
+	jQuery.fx.step.clip = function(fx){
+		if ( fx.pos == 0 ) {
+			var cRE = /rect\(([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)\)/;
+			fx.start = cRE.exec( fx.elem.style.clip.replace(/,/g, '') );
+			fx.end = cRE.exec( splitFxEnd() );
+			
+			function splitFxEnd(){
+				var end = (fx.end instanceof Array)? fx.end[0] : fx.end;
+				return end.replace(/,/g, '');
+			}
+		}
+		var sarr = new Array(), earr = new Array(), spos = fx.start.length, epos = fx.end.length,
+			emOffset = fx.start[ss+1] == 'em' ? ( parseInt($(fx.elem).css('fontSize')) * 1.333 * parseInt(fx.start[ss]) ) : 1;
+		for ( var ss = 1; ss < spos; ss+=2 ) { sarr.push( parseInt( emOffset * fx.start[ss] ) ); }
+		for ( var es = 1; es < epos; es+=2 ) { earr.push( parseInt( emOffset * fx.end[es] ) ); }
+		fx.elem.style.clip = 'rect(' + 
+			parseInt( ( fx.pos * ( earr[0] - sarr[0] ) ) + sarr[0] ) + 'px ' + 
+			parseInt( ( fx.pos * ( earr[1] - sarr[1] ) ) + sarr[1] ) + 'px ' +
+			parseInt( ( fx.pos * ( earr[2] - sarr[2] ) ) + sarr[2] ) + 'px ' + 
+			parseInt( ( fx.pos * ( earr[3] - sarr[3] ) ) + sarr[3] ) + 'px)';
 	}
-}
+})(jQuery);

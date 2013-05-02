@@ -4,10 +4,10 @@
  * http://www.klynt.net
  */
  
-function addVideo(data) {
-	var videoHTML = getMediaHTML('video', data);
+function addVideo(data, sequence) {
+	var videoHTML = getMediaHTML('video', data, sequence);
 	
-	var videoDiv = addElement(data, {
+	var videoDiv = addElement(sequence, data, {
 		name: 'video',
 		className: 'videoClass',
 		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",

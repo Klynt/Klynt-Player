@@ -3,7 +3,7 @@ mediaControls = {
 	videoFeatures: ["playpause","progress"],
 	audioFeatures: ["playpause", "progress"],
 	customSkin: "Player/resources/media-controls/mediaelementplayer.css",
-}
+};
 
 
 /* button model
@@ -43,4 +43,4 @@ footerButtons = [
 		clickParams: null	// see click params
 	},
 */
-]
+];

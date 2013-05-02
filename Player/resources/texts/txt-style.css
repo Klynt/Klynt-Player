@@ -4,7 +4,6 @@
     font-size: 25px;
     color: #ffffff;
     text-align: left;
-    padding: 2px;
     line-height:1.3;
 }
 
@@ -33,8 +32,6 @@
     color: #ffffff;
     text-align: left;
     line-height:1.2;
-
-
 }
 
 .txt-Subtitle {
@@ -45,7 +42,6 @@
     text-align: center;
     text-shadow: -1px 1px black;
     line-height:1.2;
-
 }
 
 .txt-Paragraph {

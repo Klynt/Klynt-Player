@@ -5,8 +5,7 @@
  */
  
 var PLAYER = (function () {
-	var sequenceCssFiles,
-		sequenceScriptFiles;
+	var elapsedTime = 0;
 
 	var PLAYER = {
 		width: data.general.width,
@@ -17,18 +16,19 @@ var PLAYER = (function () {
 	/* Public API */
 
 	PLAYER.init = function () {
-		this.div = document.createElement("div");
-		this.div.id = 'player';
-		this.div.className = 'player';
-		this.div.style.position = 'absolute';
-		this.div.style.overflow = 'hidden';
-		this.div.style.top = '0px';
-		this.div.style.left = '0px';
-		this.div.style.width = this.width + 'px';
-		this.div.style.height = this.height + 'px';
-		document.getElementById("main").appendChild(this.div);
+		PLAYER.div = document.createElement("div");
+		PLAYER.div.id = 'player';
+		PLAYER.div.className = 'player';
+		PLAYER.div.style.position = 'absolute';
+		PLAYER.div.style.overflow = 'hidden';
+		PLAYER.div.style.top = '0px';
+		PLAYER.div.style.left = '0px';
+		PLAYER.div.style.width = this.width + 'px';
+		PLAYER.div.style.height = this.height + 'px';
+		document.getElementById("main").appendChild(PLAYER.div);
 
 		window.onkeyup = keyUpHandler;
+		window.setInterval(updatePlayPauseStatus, 50);
 	};
 
 	/* All parameters are optional */
@@ -44,22 +44,41 @@ var PLAYER = (function () {
 			link = null;
 		}
 		
-		var frameSequence = (link && link.overlay)? showOverlayFrame(sequenceId, link) : showNormalFrame(sequenceId, link, time);
+		if (link && link.overlay) {
+			showOverlayFrame(sequenceId, link);
+		}  else {
+			showNormalFrame(sequenceId, link, time);
+		}
+	};
+	
+	PLAYER.openSequence = function (params) {
+	    var sequenceId = getSequenceIdFromAliases(params);
+		if (sequenceId) {
+		    PLAYER.showSequence(sequenceId);
+		}
+	};
+	
+	PLAYER.openOverlay = function (params) {
+		var targetSequence = params.targetSequence || params;
+	    targetSequence = getSequenceIdFromAliases(targetSequence);
 		
-		frameSequence.contentWindow.addEventListener(Constants.SEQUENCE_READY, function(event){ 
-			if (STATE.fullScreenActive)
-				getFrameSequence(frameSequence).enterFullScreen();
-		});
-
-		/*if (link && link.overlay) {
-			showOverlayFrame(createFrame(sequenceId, link.automaticClose, link.closeButton, link.closeButtonX, link.closeButtonY), link);
-		} else {
-			showNormalFrame(createFrame(sequenceId), link);
-		}*/
+		if (targetSequence && (typeof targetSequence === "string") && data.sequences[targetSequence]) {
+			var link = {
+				targetSequence: targetSequence,
+				overlay: true,
+				transition: params.transition || "fade",
+				pauseParent: params.pauseParent || true,
+				automaticClose: params.automaticClose || false,
+				closeButton: params.hasOwnProperty("closeButton") ? params.closeButton : true,
+				closeButtonX: params.hasOwnProperty("closeButtonX") ? params.closeButtonX : data.general.overlayCloseButtonX || 0,
+				closeButtonY: params.hasOwnProperty("closeButtonY") ? params.closeButtonY : data.general.overlayCloseButtonY || 0
+			};
+			PLAYER.showSequence(targetSequence, link);
+		}
 	};
 
 	PLAYER.closeOverlay = function () {
-		removeFrame(STATE.getOverlayFrame());
+		removeSequence(STATE.getOverlaySequence());
 	};
 
 	PLAYER.runLink = function (link) {
@@ -78,27 +97,53 @@ var PLAYER = (function () {
 				break;
 		}
 	};
+	
+	function updatePlayPauseStatus() {
+		if (elapsedTime > 320) {
+			PLAYER.setIsPlaying(false);
+		}
+		elapsedTime += 50;
+	}
+	
+	PLAYER.isPlaying = function () {
+		return !$(PLAYER.div).hasClass("paused");
+	};
+	
+	PLAYER.setIsPlaying = function (playing) {
+		if (playing != PLAYER.isPlaying()) {
+			if (playing) {
+				$(PLAYER.div).removeClass("paused");
+				$(PLAYER.div).addClass("playing");
+			} else {
+				$(PLAYER.div).removeClass("playing");
+				$(PLAYER.div).addClass("paused");
+			}
+		}
+	};
 
 	PLAYER.updateTime = function (time, sequence) {
 		if (sequence == STATE.getActiveSequence()) {
+			playerTime = time;
+			elapsedTime = 0;
+			PLAYER.setIsPlaying(true);
 			updateTimer(time);
 		}
 	};
 
 	PLAYER.togglePause = function () {
-		STATE.pausedByUser ? PLAYER.resume() : PLAYER.pause();
+		PLAYER.isPlaying() ? PLAYER.pause() : PLAYER.resume();
 	};
 
 	PLAYER.pause = function () {
-		if (!STATE.pausedByUser) {
-			STATE.pausedByUser = true;
+		if (PLAYER.isPlaying()) {
+			PLAYER.setIsPlaying(false);
 			STATE.getActiveSequence().pause();
 		}
 	};
 
 	PLAYER.resume = function () {
-		if (STATE.pausedByUser) {
-			STATE.pausedByUser = false;
+		if (!PLAYER.isPlaying()) {
+			PLAYER.setIsPlaying(true);
 			STATE.getActiveSequence().resume();
 		}
 	};
@@ -114,6 +159,8 @@ var PLAYER = (function () {
 	PLAYER.mute = function () {
 		if (!STATE.mutedByUser) {
 			STATE.mutedByUser = true;
+			$(PLAYER.div).removeClass("unmuted");
+			$(PLAYER.div).addClass("muted");
 			STATE.getCurrentSequences().forEach(function (sequence) {
 				sequence.mute();
 			});
@@ -123,6 +170,8 @@ var PLAYER = (function () {
 	PLAYER.unmute = function () {
 		if (STATE.mutedByUser) {
 			STATE.mutedByUser = false;
+			$(PLAYER.div).removeClass("muted");
+			$(PLAYER.div).addClass("unmuted");
 			STATE.getCurrentSequences().forEach(function (sequence) {
 				sequence.unmute();
 			});
@@ -153,7 +202,7 @@ var PLAYER = (function () {
 		}
 	};
 
-	PLAYER.setMapsEnabled = function(enabled) {
+	PLAYER.setMapsEnabled = function (enabled) {
 		STATE.mapsEnabled = enabled;
 	};
 
@@ -161,259 +210,170 @@ var PLAYER = (function () {
 		STATE.fullScreenActive ? PLAYER.exitFullScreen() : PLAYER.enterFullScreen();
 	};
 
-	PLAYER.enterFullScreen = function() {
+	PLAYER.enterFullScreen = function () {
 		if (!STATE.fullScreenActive) {
-			fullScreenBrowser();
 			fullScreen("main");
-			if($.browser.chrome) {
-				STATE.getCurrentSequences().forEach(function(sequence) {
-					sequence.enterFullScreen();
-				});
-			}
-			STATE.fullScreenActive = true;
-		}
+        }
 	};
 
-	PLAYER.exitFullScreen = function() {
+	PLAYER.exitFullScreen = function () {
 		if (STATE.fullScreenActive) {
-			cancelFullScreen();
 			fullScreenCancel("main");
-			if($.browser.chrome) {
-				STATE.getCurrentSequences().forEach(function(sequence) {
-					sequence.exitFullScreen();
-				});
-			}
-			STATE.fullScreenActive = false;
 		}
 	};
-
-	PLAYER.setSequenceResourceFiles = function (cssFiles, scriptFiles) {
-		sequenceCssFiles = cssFiles;
-		sequenceScriptFiles = scriptFiles;
+	
+	PLAYER.handleFullScreenEvent = function () {
+		if (document.fullScreenElement || document.webkitIsFullScreen || document.mozFullScreen) {
+			fullScreenBrowser();
+			STATE.fullScreenActive = true;
+			$(PLAYER.div).addClass("fullscreen");
+		} else {
+			cancelFullScreen();
+			STATE.fullScreenActive = false;
+			$(PLAYER.div).removeClass("fullscreen");
+		}
+		
+		PLAYER.notifyFullscreenStateToAPI();
 	};
+	
+	PLAYER.notifyFullscreenStateToAPI = function () {
+		APIHandler.dispatchNotification('fullscreen', {
+			chrome: 		$.browser.chrome,
+			fullscreen: 	STATE.fullScreenActive,
+			scale:			Fullscreen.scale
+		});
+	}
 
 	/* Sequence creation */
 
 	function showNormalFrame(sequenceId, link, time) {
-		var oldFrames = STATE.getCurrentFrames();
-
-		var sequenceFrame = createFrame(sequenceId, function() {
-			if (time) {
-				getFrameSequence(sequenceFrame).seek(time);
-			}
-			sequenceFrame.style.visibility = "visible";
-			if (link) {
-				TRANSITION.applyToSequence(sequenceFrame, link.transition, function () {
-					oldFrames.forEach(removeFrame);
-				});
-			} else {
-				oldFrames.forEach(removeFrame);
-			}
+		var oldSequences = STATE.getCurrentSequences();
+		oldSequences.forEach(function (seq) {
+			seq.pause();
 		});
 
-		sequenceFrame.style.visibility = "hidden";
-		PLAYER.div.appendChild(sequenceFrame);
-		STATE.setMainFrame(sequenceFrame);
+		var sequence = createSequence(sequenceId);
 
+		PLAYER.div.appendChild(sequence.div);
+		STATE.setMainSequence(sequence);
+		
+		updateTimeSheetsContainers();
+
+		if (time) {
+			sequence.seek(time);
+		}
+		if (link) {
+			sequence.div.style.zIndex = 2;
+			TRANSITION.applyToSequence(sequence, link.transition, function () {
+				oldSequences.forEach(removeSequence);
+				sequence.div.style.zIndex = 0;
+			});
+		} else {
+			oldSequences.forEach(removeSequence);
+			sequence.div.style.zIndex = 0;
+		}
+		
 		//updatePlayerURL(sequenceId);
-		Hashtag.currentSequence = sequenceId;
-		return sequenceFrame;
+		Hashtag.setCurrentSequence(sequenceId);
+		return sequence;
 	}
 
 	function showOverlayFrame(sequenceId, link) {
-		var currentOverlay = STATE.getOverlayFrame();
+		var currentOverlay = STATE.getOverlaySequence();
 		if (currentOverlay) {
-			removeFrame(currentOverlay);
+			removeSequence(currentOverlay);
 		}
-
-		var sequenceFrame = createFrame(sequenceId, function() {
-			sequenceFrame.style.visibility = "visible";
-			TRANSITION.applyToSequence(sequenceFrame, link.transition);
-		}, link.automaticClose, link.closeButton, link.closeButtonX, link.closeButtonY);
-
-		sequenceFrame.style.visibility = "hidden";
-		STATE.setOverlayFrame(sequenceFrame);
-		PLAYER.div.appendChild(sequenceFrame);
-
+		
 		if (link.pauseParent) {
 			STATE.mainDeactivatedByOverlay = true;
 			STATE.getMainSequence().pause("overlayVolume");
 		}
-		return sequenceFrame;
+
+		var sequence = createSequence(sequenceId, link.automaticClose, link.closeButton, link.closeButtonX, link.closeButtonY);
+		
+		STATE.setOverlaySequence(sequence);
+		PLAYER.div.appendChild(sequence.div);
+		
+		updateTimeSheetsContainers();
+		
+		sequence.div.style.zIndex = 1;
+		TRANSITION.applyToSequence(sequence, link.transition);
+		
+		return sequence;
 	}
 
-	function createFrame(sequenceId, callback, autoClose, closeButton, closeButtonX, closeButtonY) {
-		var frame = document.createElement('iframe');
-		frame.id = sequenceId;
-		//frame.frameBorder = 0;//Not supported in HTML5.
-		//frame.scrolling = "no";//Not supported in HTML5.
-		//frame.seamless = "seamless";
-		//new in HTML 5, Chrome OK, others KO
-		//frame.sandbox =	""; //[allow-forms|allow-same-origin|allow-scripts|allow-top-navigation
-		//new in HTML 5 moz safari et chrome OK - Opera et IE KO
-		frame.style.position = 'absolute';
-		frame.style.left = '0px';
-		frame.style.top = '0px';
-		frame.style.width = PLAYER.width + 'px';
-		frame.style.height = PLAYER.height + 'px';
-		frame.style.border = '0px';
-		frame.style.overflow = 'hidden';
+	function createSequence(sequenceId, autoClose, closeButton, closeButtonX, closeButtonY) {
+		var sequenceData = data.sequences[sequenceId];
+		var sequence = new Sequence(sequenceData, autoClose);
+		if (closeButton) {
+			sequence.addCloseButton(closeButtonX, closeButtonY);
+		}
+		
+		trackPageView(sequenceData.name);
 
-		frame.onload = function () {
-			frame.contentWindow.DATA = data.sequences[sequenceId];
-			frame.contentWindow.PLAYER = PLAYER;
-			frame.contentWindow.autoClose = autoClose;
-			frame.contentWindow.mediaControls = window.mediaControls;
-			frame.contentWindow.callBackFn = callback;
-			frame.contentWindow.onkeyup = keyUpHandler;
-
-			var frameDocument = getFrameDocument(frame);
-			frameDocument.body.style.padding = 0;
-			frameDocument.body.style.margin = 0;
-			frameDocument.body.style.width = PLAYER.width + 'px';
-			frameDocument.body.style.height = PLAYER.height + 'px';
-			frameDocument.body.style.overflow = 'hidden';
-
-			frameDocument.createElement('title');
-			frameDocument.title = frame.contentWindow.DATA.name;
-			
-			if (closeButton) {
-				addCloseButton(frame, closeButtonX, closeButtonY);
-			}
-			
-			var head = frameDocument.getElementsByTagName("head")[0];
-			
-			// Disable cache
-			
-			function addMetaTag(httpEquiv, content) {
-				var metaTag = frameDocument.createElement('meta');
-				metaTag.httpEquiv = httpEquiv;
-				metaTag.content = content;
-				head.appendChild(metaTag);
-			}
-			
-			/*
-			addMetaTag('cache-control', 'max-age=0');
-			addMetaTag('cache-control', 'no-cache');
-			addMetaTag('expires', '0');
-			addMetaTag('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
-			addMetaTag('pragma', 'no-cache');
-			*/
-			
-			sequenceCssFiles.forEach(function (href) {
-				var cssLink = frameDocument.createElement('link');
-				cssLink.href = href;
-				cssLink.rel = 'stylesheet';
-				cssLink.type = 'text/css';
-				head.appendChild(cssLink);
-			});
-
-			// Load scripts sequentially
-			loadNextScript(sequenceScriptFiles.slice(0));
-
-			function loadNextScript(queue) {
-				if (queue && queue.length) {
-					var script = frameDocument.createElement('script');
-					script.src = queue.shift();
-					script.type = 'text/javascript';
-					script.onload = function() {
-						loadNextScript(queue);
-					};
-					script.onreadystatechange = function () { // same as onload for IE
-						if (this.readyState == 'complete') {
-							loadNextScript(queue);
-						}
-					};
-					head.appendChild(script);
-				}
-			}
-		};
-
-		return frame;
+		return sequence;
 	}
 
-	function removeFrame(sequenceFrame) {
-		getFrameSequence(sequenceFrame).dispose();
-			
-		PLAYER.div.removeChild(sequenceFrame);
+	function removeSequence(sequence) {
+		PLAYER.div.removeChild(sequence.div);
 
-		if (sequenceFrame == STATE.getOverlayFrame()) {
-			STATE.setOverlayFrame(null);
+		if (sequence == STATE.getOverlaySequence()) {
+			STATE.setOverlaySequence(null);
 			var mainSequence = STATE.getMainSequence();
-			if (/*STATE.mainDeactivatedByOverlay && */!STATE.pausedByUser) {
-				mainSequence.resume(true);
-			}
+			mainSequence.resume(true);
 			PLAYER.updateTime(mainSequence.getCurrentTime(), mainSequence);
 		}
 		STATE.mainDeactivatedByOverlay = false;
+	}
+	
+	function updateTimeSheetsContainers() {
+		var event = document.createEvent("Event");
+		event.initEvent("DOMContentLoaded", true, true);
+		document.dispatchEvent(event);
 	}
 
 	/* Player state */
 
 	var STATE = (function () {
-		/*
-		 * The storage variables mainFrame and overlayFrame refer
-		 * to the sequence frame and not the SEQUENCE object in their doms.
-		 * Setter methods accept the frame as a parameter, and there are getter methods
-		 * for both the frame and the SEQUENCE object.
-		 */
-
-		var mainFrame,
-			overlayFrame;
+		var mainSequence,
+			overlaySequence;
 
 		var STATE = {
-			pausedByUser:false, // Indicates whether the user has paused the player.
 			mutedByUser:false, // Indicates whether the user has muted the player.
 			mainDeactivatedByOverlay:false, // Indicates whether the main sequence was deactivated by an overlay sequence.
 			fullScreenActive:false,
 			mapsEnabled:false
 		};
 
-		STATE.getActiveFrame = function () {
-			return overlayFrame || mainFrame;
-		};
-
 		STATE.getActiveSequence = function () {
-			return getFrameSequence(STATE.getActiveFrame());
+			return overlaySequence || mainSequence;
 		};
 
-		STATE.getCurrentFrames = function () {
+		STATE.getCurrentSequences = function () {
 			var sequences = [];
-			if (mainFrame) {
-				sequences.push(mainFrame);
+			if (mainSequence) {
+				sequences.push(mainSequence);
 			}
-			if (overlayFrame) {
-				sequences.push(overlayFrame);
+			if (overlaySequence) {
+				sequences.push(overlaySequence);
 			}
 			return sequences;
 		};
 
-		STATE.getCurrentSequences = function () {
-			return STATE.getCurrentFrames().map(getFrameSequence);
-		};
-
-		STATE.getMainFrame = function () {
-			return mainFrame;
-		};
-
 		STATE.getMainSequence = function () {
-			return getFrameSequence(STATE.getMainFrame());
+			return mainSequence;
 		};
 
-		STATE.setMainFrame = function (frame) {
-			mainFrame = frame;
-		};
-
-		STATE.getOverlayFrame = function () {
-			return overlayFrame;
+		STATE.setMainSequence = function (sequence) {
+			mainSequence = sequence;
 		};
 
 		STATE.getOverlaySequence = function () {
-			return getFrameSequence(STATE.getOverlayFrame());
+			return overlaySequence;
 		};
-
-		STATE.setOverlayFrame = function (frame) {
-			overlayFrame = frame;
+		
+		STATE.setOverlaySequence = function (sequence) {
+			overlaySequence = sequence;
 		};
 
 		return STATE;
@@ -423,99 +383,97 @@ var PLAYER = (function () {
 
 	function keyUpHandler(event) {
 		switch (event.keyCode) {
-			case 27: // Escape key
-				PLAYER.exitFullScreen();
-				break;
 			case 32: // Space key
 				PLAYER.togglePause();
 				break;
 		}
 	}
-
-	/* Returns the document object of an iframe. */
-	function getFrameDocument(frame) {
-		return frame.contentDocument || frame.contentWindow.document;
-	}
-
-	/* Returns the sequence object of an iframe. */
-	function getFrameSequence(frame) {
-		return frame.contentWindow.SEQUENCE;
-	}
-
-	/* Adds a close button to the given sequence frame. */
-	function addCloseButton(sequenceFrame, closeButtonX, closeButtonY) {
-		var frameDocument = getFrameDocument(sequenceFrame);
-		var button = frameDocument.createElement("div");
-		button.setAttribute("name", "closeOverlay");
-		button.className = "closeOverlay";
-		button.style.position = "absolute";
-		button.style.left = closeButtonX + 'px';
-		button.style.top = closeButtonY + 'px';
-		button.style.width = '46px';
-		button.style.height = '46px';
-		button.style.zIndex = 600;
-		button.setAttribute("onClick", "PLAYER.closeOverlay();");
-		frameDocument.body.appendChild(button);
+	
+	function getSequenceIdFromAliases(sequenceId) {
+	    if (sequenceId) {
+	        if (data.sequences[sequenceId]) {
+	            return sequenceId;
+			}
+			sequenceId = data.aliases.aliasToId[sequenceId];
+	        if (sequenceId) {
+	            return sequenceId;
+			}
+	    }
+	    return null;
 	}
 	
-	var Hashtag = (function(){
+	var Hashtag = (function () {
 	
 		var ignorePendingHashChange = false;
 		var currentSequenceIdOrHash;
+		var canAccessTopLocation = window.top != window && !!window.top.location.href;
 	
-		var HashtagClass = function(){
-			window.addEventListener('hashchange', this.onHashChange);
-		};
-		HashtagClass.prototype = {			
-			get hashtag(){
-				var hashtag = window.location.hash.split('?');
-				return hashtag[0].split('#')[1];
-			},
-			
-			get currentSequence(){
-				return currentSequenceIdOrHash;
-			},
-			set currentSequence(value){
-				currentSequenceIdOrHash = value;
-				this.setSequenceAliasAsHashtag();
+		var HashtagClass = function () {
+			if (window.addEventListener) {
+				window.addEventListener('hashchange', this.onHashChange);
+				if (canAccessTopLocation) {
+					top.window.addEventListener('hashchange', this.onHashChange);
+				}
 			}
 		};
+			
+		HashtagClass.prototype.getCurrentSequence = function () {
+			return currentSequenceIdOrHash;
+		};
 		
-		HashtagClass.prototype.toSequenceId = function(){
-			var hashtag = this.hashtag;
+		HashtagClass.prototype.setCurrentSequence = function (value) {
+			currentSequenceIdOrHash = value;
+			this.setSequenceAliasAsHashtag();
+		};
+		
+		HashtagClass.prototype.toSequenceId = function () {
+			var hashtag = getHashtag();
 			return getSequenceIdByAlias(hashtag) || hashtag;
 		};
 		
-		HashtagClass.prototype.onHashChange = function(event){
-			if (ignorePendingHashChange)
+		HashtagClass.prototype.onHashChange = function (event) {
+			if (ignorePendingHashChange) {
 				ignorePendingHashChange = false;
-			else
-				PLAYER.showSequence(getSequenceIdByAlias(this.hashtag));
-		}
+			} else {
+				PLAYER.showSequence(getSequenceIdByAlias(getHashtag()));
+			}
+		};
 		
-		HashtagClass.prototype.setSequenceAliasAsHashtag = function(){
+		HashtagClass.prototype.setSequenceAliasAsHashtag = function () {
 			var displayedHashtag = getAliasBySequenceId(currentSequenceIdOrHash) || currentSequenceIdOrHash;
-			var currentHashtag = this.hashtag;
+			var currentHashtag = getHashtag();
 			
-			if (!displayedMatches())
+			if (!displayedMatches()) {
 				changeHashtag();
+			}
 			
-			function displayedMatches(){
+			function displayedMatches() {
 				return (displayedHashtag == currentHashtag);
 			}
 			
-			function changeHashtag(){	
+			function changeHashtag() {	
 				ignorePendingHashChange = true;
 				location.hash = "#" + displayedHashtag;
+				
+				if (canAccessTopLocation) {
+					window.top.location.hash = window.location.hash;
+				}
 			}
-		}
+		};
 		
-		function getSequenceIdByAlias(alias){
+		function getSequenceIdByAlias(alias) {
 			return data.aliases.aliasToId[alias];
 		}
 		
-		function getAliasBySequenceId(sequenceId){
+		function getAliasBySequenceId(sequenceId) {
 			return data.aliases.idToAlias[sequenceId];
+		}
+		
+		function getHashtag() {
+			var hash = canAccessTopLocation ? window.top.location.hash : null;
+			var hash = hash || window.location.hash || "";
+			var hashtag = hash.split('?');
+			return hashtag[0].split('#')[1];
 		}
 		
 		return new HashtagClass();

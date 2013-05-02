@@ -4,7 +4,7 @@ Klynt Player is a cross-browser, JavaScript engine to playback rich-media sequen
 
 ## Demos and documentation
 
-* [Demo project](http://www.klynt.net/V2/projects/JAZZ/JAZZ.html)
+* [Demo project](http://www.klynt.net/demo/)
 * [klynt.net](http://www.klynt.net)
 * [Github project](http://www.github.com/Klynt/Klynt-Player)
 

@@ -4,7 +4,7 @@
  * http://www.klynt.net
  */
  
-function addElement(data, options) {
+function addElement(sequence, data, options) {
 	function createElement() {
 		element = options.element || document.createElement('div');
 		element.id = options.id || data.id;
@@ -14,6 +14,8 @@ function addElement(data, options) {
 		if (options.className) {
 			element.className = options.className;
 		}
+		element.isSyncMaster = element.id == sequence.syncMaster;
+		element.sequence = sequence;
 	}
 
 	function addElementPosition() {
@@ -46,7 +48,7 @@ function addElement(data, options) {
 	}
 
 	function addElementTiming() {
-		if (element.id == SEQUENCE.syncMaster) {
+		if (element.id == sequence.syncMaster) {
 			element.setAttribute('data-syncmaster', true);
 			element.setAttribute('data-timeaction', 'none');
 		} else {
@@ -64,9 +66,12 @@ function addElement(data, options) {
 
 	function addElementLink() {
 		element.linkData = data.link;
-		element.setAttribute('onclick', "SEQUENCE.runLink('" + element.id + "');");
+		$(element).click(function () {
+			sequence.runLink(element.id);
+		});
 		element.style.cursor = "pointer";
-		element.title = data.link.tooltip || null;
+        if (data.link.tooltip)
+            element.title = data.link.tooltip;
 	}
 
 	function addElementTransitionIn() {
@@ -82,6 +87,14 @@ function addElement(data, options) {
 	}
 
 	function addElementTransitionOut() {
+		if (getTimeFromString(data.dataend) < sequence.duration && element.id != sequence.syncMaster) {
+			var transitionFunction = getTransitionFunction();
+			if (transitionFunction) {
+				transitionFunction += "('" + element.id + "'," + data.transitionOut.duration + ");";
+				sequence.addMetaElement(getTransitionBegin(data.dataend, data.transitionOut.duration), transitionFunction);
+			}
+		}
+		
 		function getTransitionFunction() {
 			switch (data.transitionOut.type) {
 				case "fade":
@@ -90,14 +103,6 @@ function addElement(data, options) {
 					return "elementBarWipeOut";
 				default:
 					return null;
-			}
-		}
-		
-		if (element.id != SEQUENCE.syncMaster) {
-			var transitionFunction = getTransitionFunction();
-			if (transitionFunction) {
-				transitionFunction += "('" + element.id + "'," + data.transitionOut.duration + ");";
-				SEQUENCE.addMetaElement(getTransitionBegin(data.dataend, data.transitionOut.duration), transitionFunction);
 			}
 		}
 	}
@@ -137,7 +142,7 @@ function addElement(data, options) {
 	}
 	addElementTiming();
 
-	SEQUENCE.container.appendChild(element);
+	sequence.div.appendChild(element);
 
 	return element;
 }
@@ -145,16 +150,16 @@ function addElement(data, options) {
 /* Pan and zoom */
 
 function panZoom(elementId, endWidth, endHeight, endLeft, endTop, duration) {
-	//var element = document.getElementById(elementId);
-	//var stepFunction = element.animationStepFunction;
 	$('#' + elementId).animate({
 		left:endLeft + "px",
 		top:endTop + "px",
 		width:endWidth + "px",
 		height:endHeight + "px"
 	}, {
-		duration: duration * 1000
-		//step: stepFunction
+		duration: duration * 1000,
+		progress: function () {
+			resizeImage(this.firstChild);
+		}
 	});
 }
 

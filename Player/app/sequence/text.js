@@ -4,11 +4,13 @@
  * http://www.klynt.net
  */
  
-function addText(data) {
-	var txt = addElement(data, {
+function addText(data, sequence) {
+	var textContainer = addElement(sequence, data, {
 		name: 'text',
 		className: data.type
 	});
-
-	txt.innerHTML = data.text;
+	
+	$(textContainer)
+		.addClass('nano-container')
+		.append($('<div class="nano-content">' + data.text + '</div>'));
 }

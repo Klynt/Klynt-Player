@@ -44,8 +44,6 @@ var Fullscreen =
 			this.player.setAttribute('style', 'width:' + this.playerDimensions.width + 'px; height:' + this.playerDimensions.height + 'px; position: absolute; top:0; left:0; overflow:hidden; background-color: white');
 		
 		this.scalePlayer();
-		if (this.isPlayer())
-			this.swapToCancelButton();
 	},
 	
 	getPlayer: function()
@@ -108,28 +106,10 @@ var Fullscreen =
 		if (this.isPlayer())
 			this.player.style.top = ((screen.height - this.playerDimensions.height * this.scale) / (2 * this.scale)) + "px";
 	},
-
-	swapToCancelButton: function()
-	{
-		if(document.getElementById('cancelfullscreen'))
-			document.getElementById('cancelfullscreen').style.visibility = 'visible';
-		if(document.getElementById('fullscreen'))
-			document.getElementById('fullscreen').style.visibility = 'hidden';
-	},
-	
-	swapToFullscreenButton: function()
-	{
-		if(document.getElementById('cancelfullscreen'))
-			document.getElementById('cancelfullscreen').style.visibility = 'hidden';
-		if(document.getElementById('fullscreen'))
-			document.getElementById('fullscreen').style.visibility = 'visible';
-	},
 	
 	cancel: function()
 	{
 		this.resetScale();
-		if (this.isPlayer())
-			this.swapToFullscreenButton();
 	},
 	
 	resetScale: function()
@@ -167,29 +147,18 @@ function fullScreenBrowser(parent)
 	Fullscreen.activate();
 }
 
-/************************ retour à la taille d'origine ***************************/
-
 function cancelFullScreen() 
 {
 	Fullscreen.cancel();
 }
 
-/************************************************************************************/
-
 function enterFullScreen(element) {
 	if (element.requestFullScreen) {
-		//fonction officielle du w3c
 		element.requestFullScreen();
 	} else if (element.webkitRequestFullScreen) {
-		if ($.browser.safari)
-			element.webkitRequestFullScreen();
-		else
-			element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+		element.webkitRequestFullScreen();
 	} else if (element.mozRequestFullScreen) {
-		//fonction pour Firefox
 		element.mozRequestFullScreen();
-	} else {
-		alert("Le mode plein ecran n'est pas supporté par votre navigateur");
 	}
 }
 
@@ -199,17 +168,24 @@ function fullScreen(eltId) {
 
 function exitFullscreen() {
 	if (document.cancelFullScreen) {
-		//fonction officielle du w3c
 		document.cancelFullScreen();
 	} else if (document.webkitCancelFullScreen) {
-		//fonction pour Google Chrome
 		document.webkitCancelFullScreen();
 	} else if (document.mozCancelFullScreen) {
-		//fonction pour Firefox
 		document.mozCancelFullScreen();
 	}
 }
 
 function fullScreenCancel(eltId) {
 	exitFullscreen(document.getElementById(eltId));
+}
+
+if (document.addEventListener) {
+	document.addEventListener("fullscreenchange", handleFullScreenEvent, false);
+	document.addEventListener("mozfullscreenchange", handleFullScreenEvent, false);
+	document.addEventListener("webkitfullscreenchange", handleFullScreenEvent, false);
+}
+
+function handleFullScreenEvent() {
+	PLAYER.handleFullScreenEvent();
 }

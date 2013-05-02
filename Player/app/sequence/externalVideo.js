@@ -4,139 +4,37 @@
  * http://www.klynt.net
  */
  
-function addExternalVideo(data) {
-	addExternalVideo_old("#" + SEQUENCE.container.id, data.id, data.externalId, data.platform, data.volume, data.loop, data.player, data.autoplay, data.databegin, data.dataend, data.duration, data.left, data.top, data.width, data.height, data.style, data.zIndex);
-}
-
-function addExternalVideo_old(seqId, videoId, externalId, platform, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex) {
-	if (platform == "youtube") {
-		addYoutubeVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex);
-	} else if (platform == "dailymotion") {
-		addDailymotionVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex);
-	} else if (platform == "vimeo") {
-		addVimeoVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex);
-	}
-}
-/* ***** Video Youtube ***** */
-function addYoutubeVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex) {
-	var onbegin = "showYoutube('" + videoId + "');";
-	var onend = "hideYoutube('" + videoId + "');";
-	if (autoplay == true) {
-		onbegin = onbegin + "playYoutube('" + videoId + "');";
-	}
-	if (!/Chrome/.test(navigator.appVersion)) { //non chrome
-		$(seqId).append('<div id="_YT' + videoId + '" style="position:absolute;float:left;z-index:' + videoZindex + ';left: ' + left + 'px;top:' + top +
-			'px; width:' + width + 'px; height:' + height + 'px;" data-begin="' + databegin + '" data-end="' + dataend + '" data-dur="' + duration +
-			'" data-onbegin="' + onbegin + '" data-onend="' + onend + '"><div id="ytapiplayer"></div></div>');
-
-		var params = { allowScriptAccess:"always"};
-		var atts = { id:"YT" + videoId };
-		var url = "http://www.youtube.com/v/" + externalId + "?enablejsapi=1&playerapiid=ytplayer&version=3";
-
-		//faut aussi ajouter une div pour les data-begin...
-		//expressInstall was removed
-		swfobject.embedSWF(url, "ytapiplayer", width, height, "8", "Player/libs/expressInstall.swf", null, params, atts);
-
-		//adjustVolumeYoutube(videoId,volume); // marche sur FF et AirBrowser mais pas sur chrome
+function addExternalVideo(data, sequence) {
+	switch (data.platform) {
+		case "youtube":
+			return addYoutubeVideo(data, sequence);
+		case "vimeo":
+			return addVimeoVideo(data, sequence);
+		case "dailymotion":
+			return addDailymotionVideo(sequence.div, data.id, data.externalId, data.platform, data.volume, data.loop, data.player, data.autoplay, data.databegin, data.dataend, data.duration, data.left, data.top, data.width, data.height, data.style, data.zIndex);
+		default:
+			return null;
 	}
 }
 
-function onYouTubePlayerReady(ytplayer, videoId) {
-	myYt = document.getElementById("YT" + videoId);
-}
-// les méthodes suivantes ne marchent pas sur chrome
-function playYoutube(videoId) {
-	myYt = document.getElementById("YT" + videoId);
-	myYt.playVideo();
-}
-
-function pauseYoutube(videoId) {
-	myYt = document.getElementById("YT" + videoId);
-	myYt.pauseVideo();
+function addYoutubeVideo(data, sequence) {
+	data.src = [{
+		src: "http://www.youtube.com/watch?v=" + data.externalId,
+		type: "video/youtube"
+	}];
+	return addVideo(data, sequence);
 }
 
-function stopYoutube(videoId) {
-	myYt = document.getElementById("YT" + videoId);
-	myYt.seekTo(0);
-	myYt.pauseVideo();
+function addVimeoVideo(data, sequence) {
+	data.src = [{
+		src: "http://www.vimeo.com/" + data.externalId,
+		type: "video/vimeo"
+	}];
+	return addVideo(data, sequence);
 }
 
-function loadYoutube(videoId, externalId) { // ça load la vidéo et la play
-	myYt = document.getElementById("YT" + videoId);
-	myYt.loadVideoById(externalId, 0); // load and play video a la seconde 0
-}
+/* Video Dailymotion */
 
-function seekYoutube(videoId, time) {
-	myYt = document.getElementById("YT" + videoId);
-	myYt.seekTo(time); //secondes
-}
-
-function adjustVolumeYoutube(videoId, volume) {
-	myYt = document.getElementById("YT" + videoId);
-	myYt.setVolume(volume * 100);
-}
-
-function hideYoutube(videoId) {
-	$("#YT" + videoId).hide();
-}
-
-function showYoutube(videoId) {
-	$("#YT" + videoId).show();
-}
-
-/* ***** Video Vimeo ***** */
-function addVimeoVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex) {
-	var onbegin = "showVimeo('" + videoId + "');";
-	var onend = "hideVimeo('" + videoId + "');";
-	var videoSrc = "http://player.vimeo.com/video/" + externalId + "?api=1&amp;player_id=VM" + videoId;
-	if (loop == true) {
-		videoSrc = videoSrc + "&amp;loop=1";
-	}
-	if (autoplay == true) {
-		onbegin = onbegin + "playVimeo('" + videoId + "');";
-	}
-	$(seqId).append('<div id="_VM' + videoId + '" style="position:absolute;z-index:' + videoZindex + ';left: ' + left + 'px;top:' + top +
-		'px; width:' + width + 'px; height:' + height + 'px;" data-begin="' + databegin + '" data-end="' + dataend + '" data-dur="' + duration +
-		'" data-onbegin="' + onbegin + '" data-onend="' + onend + '"></div>');
-
-	$("#_VM" + videoId).append('<iframe id="VM' + videoId + '" src="' + videoSrc + '" width="' + width + '" height="' + height + '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>');
-	adjustVolumeVimeo(videoId, volume);
-}
-
-function playVimeo(videoId) {
-	var myVideo = $f(document.getElementById('VM' + videoId));
-	myVideo.api('play');
-}
-
-function pauseVimeo(videoId) {
-	var myVideo = $f(document.getElementById('VM' + videoId));
-	myVideo.api('pause');
-}
-function stopVimeo(videoId) {
-	var myVideo = $f(document.getElementById('VM' + videoId));
-	myVideo.api('seekTo', 0);
-	myVideo.api('pause');
-}
-
-function seekVimeo(videoId, time) {
-	var myVideo = $f(document.getElementById('VM' + videoId));
-	myVideo.api('seekTo', time);
-}
-
-function adjustVolumeVimeo(videoId, volume) {
-	var myVideo = $f(document.getElementById('VM' + videoId));
-	myVideo.api('setVolume', volume); // 0-1
-}
-
-function hideVimeo(videoId) {
-	$("#VM" + videoId).hide();
-}
-
-function showVimeo(videoId) {
-	$("#VM" + videoId).show();
-}
-
-/* ***** Video Dailymotion ***** */
 function addDailymotionVideo(seqId, videoId, externalId, volume, loop, controls, autoplay, databegin, dataend, duration, left, top, width, height, style, videoZindex) {
 	var PARAMS = {}; //logo:0 pour ne pas afficher le logo dailymotion
 	var onbegin = "showDailymotion('" + videoId + "');";

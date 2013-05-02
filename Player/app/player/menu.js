@@ -58,6 +58,8 @@ function showMenu() {
 	$("#menuLayer").show();
 	$("#menuTitle").show();
 	$("#menuClose").show();
+	
+	trackPageView("Open Menu");
 }
 
 function hideMenu() {

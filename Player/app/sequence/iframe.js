@@ -4,8 +4,8 @@
  * http://www.klynt.net
  */
  
-function addFrame(data) {
-	var frame = addElement(data, {
+function addFrame(data, sequence) {
+	var frame = addElement(sequence, data, {
 		name: 'iframe',
 		className: 'iframe',
 		onBeginRight: "displayFrame('" + data.id + "', '" + data.code + "');",
