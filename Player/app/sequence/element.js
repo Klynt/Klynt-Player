@@ -178,9 +178,5 @@ function hasValue(data, value) {
 }
 
 function getTransitionBegin(dataend, duration) {
-	var m = parseInt(dataend.substring(0,3));
-	var s = parseInt(dataend.substring(3,5)) - parseInt(duration) ;
-	var myDate = new Date();
-	myDate.setMinutes(m , s);
-	return myDate.getMinutes() + ":" + myDate.getSeconds();
+	return getStringFromTime(getTimeFromString(dataend) - duration);
 }

@@ -19,8 +19,10 @@ var PLAYER = (function () {
 		PLAYER.div = document.createElement("div");
 		PLAYER.div.id = 'player';
 		PLAYER.div.className = 'player';
-		PLAYER.div.style.position = 'absolute';
+		PLAYER.div.style.position = 'relative';
 		PLAYER.div.style.overflow = 'hidden';
+		PLAYER.div.style.margin = '0 auto';
+		PLAYER.div.style.padding = '0';
 		PLAYER.div.style.top = '0px';
 		PLAYER.div.style.left = '0px';
 		PLAYER.div.style.width = this.width + 'px';
@@ -29,6 +31,31 @@ var PLAYER = (function () {
 
 		window.onkeyup = keyUpHandler;
 		window.setInterval(updatePlayPauseStatus, 50);
+		
+		PLAYER.center();
+	};
+	
+	PLAYER.center = function() {
+		var main = document.getElementById('main');
+		main.style.top = main.style.left = "50%";
+		main.style.marginLeft = (-PLAYER.width / 2) + "px";
+		main.style.marginTop = (-PLAYER.height / 2) + "px";
+		main.style.marginRight = main.style.marginBottom = "auto";
+	};
+	
+	PLAYER.uncenter = function() {
+		var main = document.getElementById('main');
+		main.style.top = main.style.left = 0;
+		main.style.marginLeft = main.style.marginTop = 0;
+		main.style.marginRight = main.style.marginBottom = "auto";
+	};
+	
+	PLAYER.hide = function() {
+		PLAYER.div.style.display = 'none';
+	};
+	
+	PLAYER.show = function() {
+		PLAYER.div.style.display = 'block';
 	};
 
 	/* All parameters are optional */
@@ -43,30 +70,57 @@ var PLAYER = (function () {
 			}
 			link = null;
 		}
-		
-		if (link && link.overlay) {
-			showOverlayFrame(sequenceId, link);
-		}  else {
-			showNormalFrame(sequenceId, link, time);
-		}
+
+        var overlay = !!(link && link.overlay);
+        (overlay)? showOverlayFrame(sequenceId, link) : showNormalFrame(sequenceId, link, time);
+
+
 	};
 	
 	PLAYER.openSequence = function (params) {
-	    var sequenceId = getSequenceIdFromAliases(params);
-		if (sequenceId) {
-		    PLAYER.showSequence(sequenceId);
+		var targetSequence = null;
+		if (params) {
+			targetSequence = params.targetSequence || params;
+		    targetSequence = getSequenceIdFromAliases(targetSequence);	
 		}
-	};
-	
-	PLAYER.openOverlay = function (params) {
-		var targetSequence = params.targetSequence || params;
-	    targetSequence = getSequenceIdFromAliases(targetSequence);
 		
 		if (targetSequence && (typeof targetSequence === "string") && data.sequences[targetSequence]) {
 			var link = {
 				targetSequence: targetSequence,
-				overlay: true,
 				transition: params.transition || "fade",
+				overlay: params.overlay || false,
+				pauseParent: params.pauseParent || true,
+				automaticClose: params.automaticClose || false,
+				closeButton: params.hasOwnProperty("closeButton") ? params.closeButton : true,
+				closeButtonX: params.hasOwnProperty("closeButtonX") ? params.closeButtonX : data.general.overlayCloseButtonX || 0,
+				closeButtonY: params.hasOwnProperty("closeButtonY") ? params.closeButtonY : data.general.overlayCloseButtonY || 0
+			};
+		    PLAYER.showSequence(targetSequence, link);
+		}
+	};
+	
+	PLAYER.openOverlay = function (params) {
+		if (params && params.targetSequence) {
+			params.overlay = true;
+		} else {
+			params = {
+				targetSequence: params,
+				overlay: true
+			}
+		}
+		PLAYER.openSequence(params);
+		/*
+		var targetSequence = null;
+		if (params) {
+			targetSequence = params.targetSequence || params;
+		    targetSequence = getSequenceIdFromAliases(targetSequence);	
+		}
+		
+		if (targetSequence && (typeof targetSequence === "string") && data.sequences[targetSequence]) {
+			var link = {
+				targetSequence: targetSequence,
+				transition: params.transition || "fade",
+				overlay: true,
 				pauseParent: params.pauseParent || true,
 				automaticClose: params.automaticClose || false,
 				closeButton: params.hasOwnProperty("closeButton") ? params.closeButton : true,
@@ -75,10 +129,15 @@ var PLAYER = (function () {
 			};
 			PLAYER.showSequence(targetSequence, link);
 		}
+		*/
 	};
 
 	PLAYER.closeOverlay = function () {
-		removeSequence(STATE.getOverlaySequence());
+        var currentOverlay = STATE.getOverlaySequence();
+        if (!currentOverlay)
+            return;
+		removeSequence(currentOverlay);
+        APIHandler.dispatchNotification('overlayClosed', {id: currentOverlay.sequenceId});
 	};
 
 	PLAYER.runLink = function (link) {
@@ -227,10 +286,12 @@ var PLAYER = (function () {
 			fullScreenBrowser();
 			STATE.fullScreenActive = true;
 			$(PLAYER.div).addClass("fullscreen");
+			PLAYER.uncenter();
 		} else {
 			cancelFullScreen();
 			STATE.fullScreenActive = false;
 			$(PLAYER.div).removeClass("fullscreen");
+			PLAYER.center();
 		}
 		
 		PLAYER.notifyFullscreenStateToAPI();
@@ -257,7 +318,7 @@ var PLAYER = (function () {
 		PLAYER.div.appendChild(sequence.div);
 		STATE.setMainSequence(sequence);
 		
-		updateTimeSheetsContainers();
+		updateTimeSheetsContainers(sequence);
 
 		if (time) {
 			sequence.seek(time);
@@ -275,14 +336,14 @@ var PLAYER = (function () {
 		
 		//updatePlayerURL(sequenceId);
 		Hashtag.setCurrentSequence(sequenceId);
+
+        APIHandler.dispatchNotification('sequenceOpened', { id: sequenceId });
+
 		return sequence;
 	}
 
 	function showOverlayFrame(sequenceId, link) {
-		var currentOverlay = STATE.getOverlaySequence();
-		if (currentOverlay) {
-			removeSequence(currentOverlay);
-		}
+		PLAYER.closeOverlay();
 		
 		if (link.pauseParent) {
 			STATE.mainDeactivatedByOverlay = true;
@@ -290,14 +351,16 @@ var PLAYER = (function () {
 		}
 
 		var sequence = createSequence(sequenceId, link.automaticClose, link.closeButton, link.closeButtonX, link.closeButtonY);
-		
+		$(sequence.div).addClass("overlay");
 		STATE.setOverlaySequence(sequence);
 		PLAYER.div.appendChild(sequence.div);
 		
-		updateTimeSheetsContainers();
+		updateTimeSheetsContainers(sequence);
 		
 		sequence.div.style.zIndex = 1;
 		TRANSITION.applyToSequence(sequence, link.transition);
+
+        APIHandler.dispatchNotification('overlayOpened', { id: sequenceId });
 		
 		return sequence;
 	}
@@ -315,6 +378,7 @@ var PLAYER = (function () {
 	}
 
 	function removeSequence(sequence) {
+		sequence.pause();
 		PLAYER.div.removeChild(sequence.div);
 
 		if (sequence == STATE.getOverlaySequence()) {
@@ -326,8 +390,9 @@ var PLAYER = (function () {
 		STATE.mainDeactivatedByOverlay = false;
 	}
 	
-	function updateTimeSheetsContainers() {
+	function updateTimeSheetsContainers(sequence) {
 		var event = document.createEvent("Event");
+		event.sequence = sequence;
 		event.initEvent("DOMContentLoaded", true, true);
 		document.dispatchEvent(event);
 	}
@@ -415,9 +480,10 @@ var PLAYER = (function () {
 	
 		var HashtagClass = function () {
 			if (window.addEventListener) {
-				window.addEventListener('hashchange', this.onHashChange);
 				if (canAccessTopLocation) {
 					top.window.addEventListener('hashchange', this.onHashChange);
+				} else {
+					window.addEventListener('hashchange', this.onHashChange);
 				}
 			}
 		};

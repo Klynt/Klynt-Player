@@ -19,6 +19,8 @@ var KlyntAPI = (function(){
 
     var scaleInFullscreen = true;
 	
+    var apiFrame = apiHandlerIsDefined() ? this : parent;
+	
 	var KlyntAPIClass = function(){};
 	KlyntAPIClass.prototype = {
 		get commands(){
@@ -60,7 +62,7 @@ var KlyntAPI = (function(){
             destination:    PARENT,
             type:           type
         };
-        parent.postMessage(JSON.stringify(data), domain);
+        apiFrame.postMessage(JSON.stringify(data), domain);
     }
 
 	window.addEventListener('message', function(event){
@@ -128,7 +130,7 @@ var KlyntAPI = (function(){
     postToParent(CHILD_READY);
 
     notifications.addEventListener('fullscreen', function(event){
-        if (scaleInFullscreen)
+        if (!apiHandlerIsDefined() && scaleInFullscreen)
             scaleTo((event.data.fullscreen)? event.data.scale : 1);
     });
 
@@ -137,23 +139,23 @@ var KlyntAPI = (function(){
         if (event.data.chrome)
             document.body.style.zoom = scale;
         else {
-            setStyle(document.body, 'transform', 'scale(#)'.replace(/#/, scale));
-            setStyle(document.body, 'transformOrigin', '0px 0px');
+            setStyleProperty(document.body, 'transform', 'scale(#)'.replace(/#/, scale));
+            setStyleProperty(document.body, 'transformOrigin', '0px 0px');
         }
-
-        function setStyle(element, style, value){
-
-            vendorPrefix(style).forEach(function(style){
-                element.style[style] = value;
-            });
-
-            function vendorPrefix(style){
-                return ["", 'O', 'ms', 'Moz', 'Webkit'].map(function(vendor){
-                    return (vendor.length == 0)? style : vendor + (style.charAt(0).toUpperCase()) + style.splice(1);
-                })
-            }
-        }
+		
+		// Duplicates same function in fullscreen.js
+		function setStyleProperty(element, property, value) {
+			element.style[property] = value;
+			property = property.charAt(0).toUpperCase() + property.slice(1);
+			["o", "ms", "moz", "webkit"].forEach(function (prefix) {
+				element.style[prefix + property] = value;
+			});
+		}
     }
+	
+	function apiHandlerIsDefined() {
+		return typeof APIHandler !== "undefined";
+	}
 
 	return new KlyntAPIClass();
 })();

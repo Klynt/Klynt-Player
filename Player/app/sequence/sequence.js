@@ -188,10 +188,18 @@ function Sequence(data, autoClose) {
 			});
 		});
 		
-		$(div).tooltip({
-			track: true
-	    });
-		$("#" + div.id + " > .nano-container").nanoScroller({
+		createTooltips();
+		createScrollBars();
+	}
+	
+	function createTooltips() {
+		if (!isiOS()) {
+			$(div).tooltip({track: true});
+		}
+	}
+	
+	function createScrollBars() {
+		$(div).find(".nano-container").nanoScroller({
 			paneClass: 'nano-pane',
 			contentClass: 'nano-content'
 		});

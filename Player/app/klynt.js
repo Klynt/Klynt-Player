@@ -14,6 +14,7 @@
  
 $(function () {
 	PLAYER.init();
+	PLAYER.hide();
 	SPLASHSCREEN.show();
 	
 	if (checkPlayer()) {
@@ -53,6 +54,9 @@ function showEmbedCode(){
 }
 
 function startPlayer() {
+
+	PLAYER.show();
+
 	if (getProtocol() != "file:" && isDemo()) {
 		addLayer('#splash');
 		$('#splashSubtitle').html('this project is made with a demo version');
@@ -101,6 +105,10 @@ function startPlayer() {
 		script.src = "http://maps.googleapis.com/maps/api/js?key=" + mapsKey + "&sensor=false" + "&async=2&callback=addMapToPlayer";
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
+}
+
+function isiOS() {
+	return !!navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
 function addMapToPlayer() {

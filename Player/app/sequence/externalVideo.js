@@ -29,7 +29,9 @@ function addYoutubeVideo(data, sequence) {
 		src: "http://www.youtube.com/watch?v=" + data.externalId,
 		type: "video/youtube"
 	}];
-	return addVideo(data, sequence);
+	var video = addVideo(data, sequence);
+	$(video).addClass("youtube");
+	return video;
 }
 
 function addVimeoVideo(data, sequence) {

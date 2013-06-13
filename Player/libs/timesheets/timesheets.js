@@ -628,35 +628,27 @@ EVENTS.onSMILReady(function() {
 // Find all <audio|video> elements in the current document
 // ===========================================================================
 function parseMediaElement(node) {
-// Klynt start
-	if (node.alreadyParsed) {
-		EVENTS.trigger(document, "MediaElementLoaded");
-		return;
-	} else {
-		node.alreadyParsed = true;
-	}
-// Klynt end
   // use MediaElement.js when available: http://mediaelementjs.com/
   if (window.MediaElement) {
 // Klynt start
     var nodeDiv = node.parentNode;
-	
-	if (!nodeDiv.isSyncMaster) {
-		nodeDiv.style.visibility = 'visible'; // Quick fix to a problem where youtube videos don't start in IE.
-	}
+  
+  if (!nodeDiv.isSyncMaster) {
+    nodeDiv.style.visibility = 'visible'; // Quick fix to a problem where youtube videos don't start in IE.
+  }
     
-	var constructor = (node.controls && window.MediaElementPlayer) || MediaElement;
+  var constructor = (node.controls && window.MediaElementPlayer) || MediaElement;
     var m = new constructor(node, {
       autoRewind: false,
       enablePluginSmoothing: true,
-	  clickToPlayPause: true,
-	  alwaysShowControls: true,
-	  pauseOtherPlayers: false,
-	  features: getMediaControlFeatures(node),
-	  playpauseText: '',
-	  stopText: '',
-	  muteText: '',
-	  fullscreenText: '',  
+      clickToPlayPause: true,
+      alwaysShowControls: true,
+      pauseOtherPlayers: false,
+      features: getMediaControlFeatures(node),
+      playpauseText: '',
+      stopText: '',
+      muteText: '',
+      fullscreenText: '',
 // Klynt end
       success: function(mediaAPI, element) {
         // note: element == node here
@@ -694,25 +686,31 @@ function parseMediaElement(node) {
           element.mediaAPI      = mediaAPI;
         }
 // Klynt start
-		if (!nodeDiv.isSyncMaster) {
-			nodeDiv.style.visibility = 'hidden'; // Quick fix to a problem where youtube videos don't start in IE.
-		}
-		
-	    nodeDiv.pluginElement = element.pluginElement;
-	    nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
-		
-		// Quick fix to a problem where the sequence doesn't end when flash sync masters end.
-		if (nodeDiv.isSyncMaster) {
-		    nodeDiv.mediaAPI.addEventListener('ended', function () {
-				nodeDiv.sequence.executeEnd();
-			}, false);
-		}
-		
-		function volumeSetter() {
-			setMediaVolume(nodeDiv.id, element.getAttribute("volume") | 0);
-			nodeDiv.mediaAPI.removeEventListener("play", volumeSetter);
-		}
-		nodeDiv.mediaAPI.addEventListener("play", volumeSetter, false);
+        if (!nodeDiv.isSyncMaster) {
+          nodeDiv.style.visibility = 'hidden'; // Quick fix to a problem where youtube videos don't start in IE.
+        }
+        
+        nodeDiv.pluginElement = element.pluginElement;
+        nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
+        
+        // Quick fix to a problem where the sequence doesn't end when flash sync masters end.
+        if (nodeDiv.isSyncMaster) {
+          nodeDiv.mediaAPI.addEventListener('ended', function () {
+            nodeDiv.sequence.executeEnd();
+          }, false);
+        }
+        
+        // Remove play button for youtube videos
+        if ($(nodeDiv).hasClass("youtube")) {
+          $(nodeDiv).find(".mejs-overlay-button").hide();
+        }
+        
+        // Set video volume
+        function volumeSetter() {
+          setMediaVolume(nodeDiv.id, parseFloat(element.getAttribute("volume")));
+          nodeDiv.mediaAPI.removeEventListener("play", volumeSetter);
+        }
+        nodeDiv.mediaAPI.addEventListener("play", volumeSetter, false);
 // Klynt end
         EVENTS.trigger(document, "MediaElementLoaded");
       },
@@ -721,7 +719,6 @@ function parseMediaElement(node) {
         alert("MediaElement error");
       }
     });
-	
   }
   else { // native HTML5 media element
     //node.pause(); // disable autoplay
@@ -732,9 +729,9 @@ function parseMediaElement(node) {
     EVENTS.trigger(document, "MediaElementLoaded");
   }
 }
-function parseAllMediaElements() {
-  var allAudioElements = document.getElementsByTagName("audio");
-  var allVideoElements = document.getElementsByTagName("video");
+function parseAllMediaElements(div) {
+  var allAudioElements = div.getElementsByTagName("audio");
+  var allVideoElements = div.getElementsByTagName("video");
   var meLength = allAudioElements.length + allVideoElements.length;
   if (meLength === 0) {
     // early way out: no <audio|video> element in the current document
@@ -899,10 +896,15 @@ function parseAllTimeContainers() {
 // ===========================================================================
 // Startup: get all media elements first, then all time containers
 // ===========================================================================
-EVENTS.onDOMReady(function() {
+EVENTS.onDOMReady(function(event) {
+  var div = event && event.sequence && event.sequence.div;
+  if (div) {
   consoleLog("SMIL/HTML Timing: startup");
-  EVENTS.onMediaReady(parseAllTimeContainers);
-  parseAllMediaElements();
+    EVENTS.onMediaReady(function () {
+    parseAllTimeContainers(div);
+  });
+  parseAllMediaElements(div);
+  }
 });
 
 
@@ -1751,9 +1753,9 @@ function smilTimeContainer_generic(timeContainerNode, parentNode, timerate) {
   this.Pause          = timer.Pause;
   this.Stop           = timer.Stop;
   timer.onTimeUpdate = function() {
-	  self.onTimeUpdate();
+    self.onTimeUpdate();
 // Klynt start
-	  self.target.sequence.updateSequenceTime(timer.getTime());
+    self.target.sequence.updateSequenceTime(timer.getTime());
 // Klynt end
   };
 

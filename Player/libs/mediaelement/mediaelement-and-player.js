@@ -1169,7 +1169,7 @@ mejs.HtmlMediaElementShim = {
 		container.className = 'me-plugin';
 		container.id = pluginid + '_container';
 		
-		if (playback.isVideo) {
+		if (true || playback.isVideo) { // Klynt: forced the addition of container into the parentnode of the audio medias.
 				htmlMediaElement.parentNode.insertBefore(container, htmlMediaElement);
 		} else {
 				document.body.insertBefore(container, document.body.childNodes[0]);

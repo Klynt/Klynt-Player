@@ -4,6 +4,20 @@
  * http://www.klynt.net
  */
  
+body {
+    background-color: #333333;
+}
+
+#main {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.player {
+    background-color: #FFFFFF;
+}
+
 .container p, span {
 	margin-bottom: 0px;
 	margin-top: 0px;

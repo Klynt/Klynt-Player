@@ -17,4 +17,6 @@ function addVideo(data, sequence) {
 	});
 	
 	videoDiv.innerHTML = videoHTML;
+	
+	return videoDiv;
 }

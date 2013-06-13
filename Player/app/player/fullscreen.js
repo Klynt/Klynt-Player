@@ -3,53 +3,34 @@
  * Licensed under GNU GPL
  * http://www.klynt.net
  */
- 
-//Helper function
-function getPixelValue(value)
-{
-	if (!value)
-		return 0;
-	var split = value.split("px");
-	return (split && split.length > 1)? parseInt(split[0], 10) : 0;
-}
 
 var Fullscreen = 
 {
-	PARENT_IS_PLAYER: "parentIsPlayer",
-	PARENT_IS_SEQUENCE: "parentIsSequence",
-	parent: null,
 	player: null,
 	playerDimensions: null,
 	screenDimensions: null,
 	scale: 1,
 	active:	false,
 	
-	isPlayer: function()
-	{
-		return (this.parent == this.PARENT_IS_PLAYER);
-	},
-	
-	isSequence: function()
-	{
-		return (this.parent == this.PARENT_IS_SEQUENCE);
-	},
-	
 	activate: function()
 	{
+		this.active = true;
 		this.getPlayer();
 		this.getPlayerDimensions();
 		this.getScreenDimensions();
 		this.getFullscreenScale();
-		if (this.isPlayer())
-			this.player.setAttribute('style', 'width:' + this.playerDimensions.width + 'px; height:' + this.playerDimensions.height + 'px; position: absolute; top:0; left:0; overflow:hidden; background-color: white');
+		$(this.player)
+			.width(this.playerDimensions.width)
+			.height(this.playerDimensions.height)
+			.css('position', 'absolute');
 		
 		this.scalePlayer();
-        this.scaleMediaElementFlash();
+		this.scaleMediaElementFlash();
 	},
 	
 	getPlayer: function()
 	{
-		this.player = this.player || ((this.isPlayer())? document.getElementById('player'): document.body);
+		this.player = this.player || document.getElementById('player');
 	},
 	
 	getPlayerDimensions: function()
@@ -60,13 +41,20 @@ var Fullscreen =
 			width: getPixelValue(playerStyles.width),
 			height:	getPixelValue(playerStyles.height)
 		}
+		
+		function getPixelValue(value) {
+			if (!value)
+				return 0;
+			var split = value.split("px");
+			return (split && split.length > 1)? parseInt(split[0], 10) : 0;
+		}
 	},
 	
 	getScreenDimensions: function()
 	{
 		this.screenDimensions = {
-			width: (this.isPlayer())? screen.width : document.width,
-			height: (this.isPlayer())? screen.height : document.height,
+			width: screen.width,
+			height: screen.height
 		}
 	},
 	
@@ -79,147 +67,138 @@ var Fullscreen =
 
 	scalePlayer: function()
 	{
-		if ($.browser.chrome)
-			return this.scalePlayerForChrome();
-		var transform = 'scale(' + this.scale + ')';
-		
-		this.player.style.transform = transform;
-		this.player.style.OTransform = transform;
-		this.player.style.msTransform = transform;
-		this.player.style.MozTransform = transform;
-		this.player.style.WebkitTransform = transform;
-		
-		var originX = 0;
-		var originY = -(screen.height - this.playerDimensions.height * this.scale);
-		
-		var origin = originX + "px " + originY + "px";
-		
-		this.player.style.transformOrigin = origin;
-		this.player.style.OTransformOrigin = origin;
-		this.player.style.msTransformOrigin = origin;
-		this.player.style.MozTransformOrigin = origin;
-		this.player.style.WebkitTransformOrigin = origin;
+		if ($.browser.chrome) {
+			this.scalePlayerForChrome();
+		} else {
+			var translateX = Math.round(screen.width / this.scale - this.playerDimensions.width) / 2;
+			var translateY = Math.round(screen.height / this.scale - this.playerDimensions.height) / 2;
+			var transform = 'scale(' + this.scale + ') translate(' + translateX + 'px,' + translateY + 'px)';
+			setTransform(this.player, transform, "0px 0px");
+		}
 	},
 	
 	scalePlayerForChrome: function()
 	{
 		this.player.style.zoom = this.scale;
-		if (this.isPlayer())
-			this.player.style.top = ((screen.height - this.playerDimensions.height * this.scale) / (2 * this.scale)) + "px";
+		this.player.style.left = (screen.width / this.scale - this.playerDimensions.width) / 2 + "px";
+		this.player.style.top = (screen.height / this.scale - this.playerDimensions.height) / 2 + "px";
 	},
 
-    scaleMediaElementFlash: function()
-    {
-        var scale = this.scale;
-        mejs.players.map(setPlayerDimensions);
+	scaleMediaElementFlash: function()
+	{
+		var scale = this.scale;
+		mejs.players.map(setPlayerDimensions);
 
-        function setPlayerDimensions(player){
-            if (player.media.pluginType != 'flash')
-            return;
-            if (!$.browser.chrome)
-                invertScale(player.media.pluginElement);
+		function setPlayerDimensions(player){
+			if (player.media.pluginType != 'flash') {
+				return;
+			}
+			
+			if (!$.browser.chrome) {
+				invertScale(player.media.pluginElement);
+			}
 
-            var current = {
-                width: player.width | 0,
-                height: player.height | 0
-            };
+			var current = {
+				width: player.width | 0,
+				height: player.height | 0
+			};
 
-            var scaled = {
-                width: current.width * scale,
-                height: current.height * scale
-            };
-            player.media.setVideoSize(scaled.width, scaled.height);
-        }
+			var scaled = {
+				width: current.width * scale,
+				height: current.height * scale
+			};
+			
+			player.media.setVideoSize(scaled.width, scaled.height);
+		}
 
-        function invertScale(element){
-            var transform=('scale(' + 1 / scale + ')');
-
-            element.style.transform = transform;
-            element.style.OTransform = transform;
-            element.style.msTransform = transform;
-            element.style.MozTransform = transform;
-            element.style.WebkitTransform = transform;
-
-            var origin = "0px 0px";
-
-            element.style.transformOrigin = origin;
-            element.style.OTransformOrigin = origin;
-            element.style.msTransformOrigin = origin;
-            element.style.MozTransformOrigin = origin;
-            element.style.WebkitTransformOrigin = origin;
-        }
-    },
+		function invertScale(element) {		
+			setTransform(element, 'scale(' + 1 / scale + ')', '0px 0px');
+		}
+	},
 	
 	cancel: function()
 	{
+		this.active = false;
 		this.resetScale();
-        this.resetMediaElementFlashScale();
+		this.resetMediaElementFlashScale();
+
+		$(this.player)
+			.width(this.playerDimensions.width)
+			.height(this.playerDimensions.height)
+			.css('position', 'relative');
 	},
 	
 	resetScale: function()
 	{
-		if ($.browser.chrome)
-			return this.resetScaleForChrome();
-		var transform = 'scale(1)';
-		
-		this.player.style.transform = transform;
-		this.player.style.OTransform = transform;
-		this.player.style.msTransform = transform;
-		this.player.style.MozTransform = transform;
-		this.player.style.WebkitTransform = transform;
-		
-		var origin = "0px 0px";
-		
-		this.player.style.transformOrigin = origin;
-		this.player.style.OTransformOrigin = origin;
-		this.player.style.msTransformOrigin = origin;
-		this.player.style.MozTransformOrigin = origin;
-		this.player.style.WebkitTransformOrigin = origin;
+		if ($.browser.chrome) {
+			this.resetScaleForChrome();
+		} else {
+			setTransform(this.player, 'scale(1)', '0px 0px');
+		}
 	},
 	
 	resetScaleForChrome: function()
 	{
 		this.player.style.zoom = 1;
-		if (this.isPlayer())
-			this.player.style.top = "0px";
+		this.player.style.top = "0px";
+		this.player.style.left = "0px";
 	},
 
-    resetMediaElementFlashScale: function()
-    {
-         mejs.players.map(setPlayerDimensions);
+	resetMediaElementFlashScale: function()
+	{
+		mejs.players.map(setPlayerDimensions);
 
-        function setPlayerDimensions(player){
-            if (player.media.pluginType != 'flash')
-                return;
-            if (!$.browser.chrome)
-                resetScale(player.media.pluginElement);
+		function setPlayerDimensions(player) {
+			if (player.media.pluginType != 'flash') {
+				return;
+			}
+			if (!$.browser.chrome) {
+				resetScale(player.media.pluginElement);
+			}
 
-            var current = {
-                width: player.width | 0,
-                height: player.height | 0
-            };
+			var current = {
+				width: player.width | 0,
+				height: player.height | 0
+			};
 
-            player.media.setVideoSize(current.width, current.height);
-        }
+			player.media.setVideoSize(current.width, current.height);
+		}
 
-        function resetScale(element){
-            element.style.transform = element.transformOrigin =
-                element.OTransform = element.OTransformOrigin =
-                    element.msTransform = element.msTransformOrigin =
-                        element.MozTransform = element.MozTransformOrigin = null;
-        }
-    }
+		function resetScale(element) {
+			setTransform(element, null, null);
+		}
+	},
 };
 
-function fullScreenBrowser(parent)
+function setTransform(element, transformValue, transformOriginValue) {
+	setProperty("transform", transformValue);
+	setProperty("transformOrigin", transformOriginValue);
+
+	function setProperty(property, value) {
+		element.style[property] = value;
+		property = property.charAt(0).toUpperCase() + property.slice(1);
+		["o", "ms", "moz", "webkit"].forEach(function (prefix) {
+			element.style[prefix + property] = value;
+		});
+	}
+}
+
+function fullScreenBrowser()
 {
-	Fullscreen.parent = parent || Fullscreen.PARENT_IS_PLAYER;
 	Fullscreen.activate();
 }
 
 function cancelFullScreen() 
 {
 	Fullscreen.cancel();
+}
+
+function fullScreen(eltId) {
+	enterFullScreen(document.getElementById(eltId));
+}
+
+function fullScreenCancel(eltId) {
+	exitFullscreen();
 }
 
 function enterFullScreen(element) {
@@ -232,10 +211,6 @@ function enterFullScreen(element) {
 	}
 }
 
-function fullScreen(eltId) {
-	enterFullScreen(document.getElementById(eltId));
-}
-
 function exitFullscreen() {
 	if (document.cancelFullScreen) {
 		document.cancelFullScreen();
@@ -244,10 +219,6 @@ function exitFullscreen() {
 	} else if (document.mozCancelFullScreen) {
 		document.mozCancelFullScreen();
 	}
-}
-
-function fullScreenCancel(eltId) {
-	exitFullscreen(document.getElementById(eltId));
 }
 
 if (document.addEventListener) {

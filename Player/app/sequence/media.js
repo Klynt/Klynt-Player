@@ -37,8 +37,7 @@ function getMediaHTML(tag, data, sequence) {
 			data.player = true;
 		}
 		
-		var isiOS = !!navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
-		if (isiOS) {
+		if (isiOS()) {
 			data.autoplay = false;
 		} else {
 			data.autoplay = data.autoplay || !data.player;
