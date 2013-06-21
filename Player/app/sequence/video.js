@@ -11,7 +11,7 @@ function addVideo(data, sequence) {
 		name: 'video',
 		className: 'videoClass',
 		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",
-		onBeginRight: "setMediaVolume('" + data.id + "', " + data.volume + ");" + "showMedia('" + data.id + "');",
+		onBeginRight: "showMedia('" + data.id + "');",
 		onEndLeft: "pauseMedia('" + data.id + "');",
 		onEndRight: "hideMedia('" + data.id + "');"
 	});

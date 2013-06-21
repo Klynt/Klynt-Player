@@ -18,6 +18,13 @@ function addExternalVideo(data, sequence) {
 }
 
 function addYoutubeVideo(data, sequence) {
+	var isLocal = document.location.protocol == 'file:';
+	var isChrome = $.browser.chrome;
+	
+	if (isLocal && isChrome) {
+		alert("Oops! Youtube does not allow its videos to be displayed with Chrome in offline mode.\n\nPlease set either Safari or Firefox as your default browser instead of Chrome to preview your sequences when using Youtube videos.\n\nNB. Once your project is published online, Youtube videos will display properly on any browser, including Chrome.");
+	}
+	
 	data.src = [{
 		src: "http://www.youtube.com/watch?v=" + data.externalId,
 		type: "video/youtube"

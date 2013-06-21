@@ -68,7 +68,7 @@ APIHandler.defineCommand('togglePlayPause', function(){
 });
 
 APIHandler.defineCommand('play', function(){
-	PLAYER.play();
+	PLAYER.resume();
 });
 
 APIHandler.defineCommand('pause', function(){

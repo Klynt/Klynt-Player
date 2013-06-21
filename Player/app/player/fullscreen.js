@@ -44,6 +44,7 @@ var Fullscreen =
 			this.player.setAttribute('style', 'width:' + this.playerDimensions.width + 'px; height:' + this.playerDimensions.height + 'px; position: absolute; top:0; left:0; overflow:hidden; background-color: white');
 		
 		this.scalePlayer();
+        this.scaleMediaElementFlash();
 	},
 	
 	getPlayer: function()
@@ -106,10 +107,53 @@ var Fullscreen =
 		if (this.isPlayer())
 			this.player.style.top = ((screen.height - this.playerDimensions.height * this.scale) / (2 * this.scale)) + "px";
 	},
+
+    scaleMediaElementFlash: function()
+    {
+        var scale = this.scale;
+        mejs.players.map(setPlayerDimensions);
+
+        function setPlayerDimensions(player){
+            if (player.media.pluginType != 'flash')
+            return;
+            if (!$.browser.chrome)
+                invertScale(player.media.pluginElement);
+
+            var current = {
+                width: player.width | 0,
+                height: player.height | 0
+            };
+
+            var scaled = {
+                width: current.width * scale,
+                height: current.height * scale
+            };
+            player.media.setVideoSize(scaled.width, scaled.height);
+        }
+
+        function invertScale(element){
+            var transform=('scale(' + 1 / scale + ')');
+
+            element.style.transform = transform;
+            element.style.OTransform = transform;
+            element.style.msTransform = transform;
+            element.style.MozTransform = transform;
+            element.style.WebkitTransform = transform;
+
+            var origin = "0px 0px";
+
+            element.style.transformOrigin = origin;
+            element.style.OTransformOrigin = origin;
+            element.style.msTransformOrigin = origin;
+            element.style.MozTransformOrigin = origin;
+            element.style.WebkitTransformOrigin = origin;
+        }
+    },
 	
 	cancel: function()
 	{
 		this.resetScale();
+        this.resetMediaElementFlashScale();
 	},
 	
 	resetScale: function()
@@ -138,8 +182,34 @@ var Fullscreen =
 		this.player.style.zoom = 1;
 		if (this.isPlayer())
 			this.player.style.top = "0px";
-	}
-}
+	},
+
+    resetMediaElementFlashScale: function()
+    {
+         mejs.players.map(setPlayerDimensions);
+
+        function setPlayerDimensions(player){
+            if (player.media.pluginType != 'flash')
+                return;
+            if (!$.browser.chrome)
+                resetScale(player.media.pluginElement);
+
+            var current = {
+                width: player.width | 0,
+                height: player.height | 0
+            };
+
+            player.media.setVideoSize(current.width, current.height);
+        }
+
+        function resetScale(element){
+            element.style.transform = element.transformOrigin =
+                element.OTransform = element.OTransformOrigin =
+                    element.msTransform = element.msTransformOrigin =
+                        element.MozTransform = element.MozTransformOrigin = null;
+        }
+    }
+};
 
 function fullScreenBrowser(parent)
 {

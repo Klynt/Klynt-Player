@@ -33,25 +33,26 @@ function getMediaHTML(tag, data, sequence) {
 		properties += ' width="' + data.width +'"';
 		properties += ' height="' + data.height +'"';
 		
-		var autoplay = false;
-		var controls = false;
 		if (data.id == sequence.syncMaster) {
-			controls = true;
-			autoplay = data.autoplay;
-		} else {
-			controls = data.player;
-			data.autoplay = data.autoplay || !data.player;
-			//autoplay = data.autoplay || !data.player;
+			data.player = true;
 		}
 		
-		properties += autoplay ? " autoplay" : "";
-		properties += controls ? " controls" : "";
-		properties += data.loop || data.continuous ? " loop" : "";
-		properties += ' volume="' + 0.0 +'"';
+		var isiOS = !!navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
+		if (isiOS) {
+			data.autoplay = false;
+		} else {
+			data.autoplay = data.autoplay || !data.player;
+		}
 		
-		var iOS = !!navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
-		if (iOS || !autoplay) {
-			properties += !!data.poster ? ' poster="' + data.poster +'"' : '';
+		properties += data.player ? " controls" : "";
+		properties += data.loop || data.continuous ? " loop" : "";
+		properties += ' volume="' + data.volume +'"';
+		
+		if (data.id == sequence.syncMaster || getTimeFromString(data.databegin) < 1) {
+			properties += data.autoplay ? " autoplay" : "";
+		}
+		if (!data.autoplay) {
+			properties += data.poster ? ' poster="' + data.poster +'"' : '';
 		}
 		
 		return properties;

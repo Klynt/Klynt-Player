@@ -406,7 +406,12 @@ var PLAYER = (function () {
 	
 		var ignorePendingHashChange = false;
 		var currentSequenceIdOrHash;
-		var canAccessTopLocation = window.top != window && !!window.top.location.href;
+		var canAccessTopLocation = false;
+		try {
+			canAccessTopLocation = window.top != window && !!window.top.location.href;
+		} catch (e) {
+			canAccessTopLocation = false;
+		}
 	
 		var HashtagClass = function () {
 			if (window.addEventListener) {

@@ -41,7 +41,9 @@ function resetTransitionOut(elementId, opacity, left) {
 	$('#' + elementId).css({
 		opacity: opacity,
 		left: left + 'px',
-		clip: null
+		clip: null,
+		//jquery's fadeout sets display to 'none', so we revert it here.
+		display: 'block'
 	});
 }
 
@@ -58,11 +60,6 @@ function getClipString(elementId, leftFactor, rightFactor) {
 			var cRE = /rect\(([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)\)/;
 			fx.start = cRE.exec( fx.elem.style.clip.replace(/,/g, '') );
 			fx.end = cRE.exec( splitFxEnd() );
-			
-			function splitFxEnd(){
-				var end = (fx.end instanceof Array)? fx.end[0] : fx.end;
-				return end.replace(/,/g, '');
-			}
 		}
 		var sarr = new Array(), earr = new Array(), spos = fx.start.length, epos = fx.end.length,
 			emOffset = fx.start[ss+1] == 'em' ? ( parseInt($(fx.elem).css('fontSize')) * 1.333 * parseInt(fx.start[ss]) ) : 1;
@@ -73,5 +70,10 @@ function getClipString(elementId, leftFactor, rightFactor) {
 			parseInt( ( fx.pos * ( earr[1] - sarr[1] ) ) + sarr[1] ) + 'px ' +
 			parseInt( ( fx.pos * ( earr[2] - sarr[2] ) ) + sarr[2] ) + 'px ' + 
 			parseInt( ( fx.pos * ( earr[3] - sarr[3] ) ) + sarr[3] ) + 'px)';
+		
+		function splitFxEnd(){
+			var end = (fx.end instanceof Array)? fx.end[0] : fx.end;
+			return end.replace(/,/g, '');
+		}
 	}
 })(jQuery);

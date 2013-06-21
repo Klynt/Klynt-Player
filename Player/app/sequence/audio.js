@@ -12,7 +12,7 @@ function addAudio(data, sequence) {
 		name: 'audio',
 		className: 'audioClass',
 		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",
-		onBeginRight: "setMediaVolume('" + data.id + "', " + data.volume + ");" + "showMedia('" + data.id + "');",
+		onBeginRight: "showMedia('" + data.id + "');",
 		onEndLeft: !data.continuous ? "pauseMedia('" + data.id + "');" : "",
 		onEndRight: "hideMedia('" + data.id + "');"
 	});

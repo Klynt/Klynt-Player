@@ -52,7 +52,7 @@ var APIHandler = (function(){
 	
 	function onWindowMessage(event) {
 		var data = getEventData(event);		
-		if (!data) {
+		if (!data || !data.header) {
 			return;
 		}
 		

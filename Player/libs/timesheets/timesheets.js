@@ -640,7 +640,12 @@ function parseMediaElement(node) {
   if (window.MediaElement) {
 // Klynt start
     var nodeDiv = node.parentNode;
-    var constructor = (node.controls && window.MediaElementPlayer) || MediaElement;
+	
+	if (!nodeDiv.isSyncMaster) {
+		nodeDiv.style.visibility = 'visible'; // Quick fix to a problem where youtube videos don't start in IE.
+	}
+    
+	var constructor = (node.controls && window.MediaElementPlayer) || MediaElement;
     var m = new constructor(node, {
       autoRewind: false,
       enablePluginSmoothing: true,
@@ -651,7 +656,7 @@ function parseMediaElement(node) {
 	  playpauseText: '',
 	  stopText: '',
 	  muteText: '',
-	  fullscreenText: '',	  
+	  fullscreenText: '',  
 // Klynt end
       success: function(mediaAPI, element) {
         // note: element == node here
@@ -689,14 +694,25 @@ function parseMediaElement(node) {
           element.mediaAPI      = mediaAPI;
         }
 // Klynt start
+		if (!nodeDiv.isSyncMaster) {
+			nodeDiv.style.visibility = 'hidden'; // Quick fix to a problem where youtube videos don't start in IE.
+		}
+		
 	    nodeDiv.pluginElement = element.pluginElement;
-	    nodeDiv.mediaAPI = element.mediaAPI || element;
+	    nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
+		
 		// Quick fix to a problem where the sequence doesn't end when flash sync masters end.
 		if (nodeDiv.isSyncMaster) {
 		    nodeDiv.mediaAPI.addEventListener('ended', function () {
 				nodeDiv.sequence.executeEnd();
 			}, false);
 		}
+		
+		function volumeSetter() {
+			setMediaVolume(nodeDiv.id, element.getAttribute("volume") | 0);
+			nodeDiv.mediaAPI.removeEventListener("play", volumeSetter);
+		}
+		nodeDiv.mediaAPI.addEventListener("play", volumeSetter, false);
 // Klynt end
         EVENTS.trigger(document, "MediaElementLoaded");
       },
@@ -705,6 +721,7 @@ function parseMediaElement(node) {
         alert("MediaElement error");
       }
     });
+	
   }
   else { // native HTML5 media element
     //node.pause(); // disable autoplay

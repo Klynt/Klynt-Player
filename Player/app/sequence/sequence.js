@@ -175,7 +175,7 @@ function Sequence(data, autoClose) {
 		$.each({
 			images: addImage,
 			videos: addVideo,
-			//externalVideos: addExternalVideo,
+			externalVideos: addExternalVideo,
 			audios: addAudio,
 			shapes: addShape,
 			buttons: addButton,
@@ -183,6 +183,7 @@ function Sequence(data, autoClose) {
 			iframes: addFrame
 		}, function (arrayName, fn) {
 			data[arrayName].forEach(function (elementData) {
+				updateElementTiming(elementData);
 				fn(elementData, self);
 			});
 		});
@@ -192,9 +193,7 @@ function Sequence(data, autoClose) {
 	    });
 		$("#" + div.id + " > .nano-container").nanoScroller({
 			paneClass: 'nano-pane',
-			contentClass: 'nano-content',
-			scroll: 'top',
-			preventPageScrolling: true
+			contentClass: 'nano-content'
 		});
 	}
 	
@@ -206,15 +205,23 @@ function Sequence(data, autoClose) {
 		if (data.audios) {
 			medias = medias.concat(data.audios);
 		}
-		/*if (data.externalVideos) {
+		if (data.externalVideos) {
 			medias = medias.concat(data.externalVideos);
-		}*/
+		}
 		return medias;
 	}
 	
-	this.div = div = initSequenceDiv();
+	function updateElementTiming(data) {
+		var end = getTimeFromString(data.dataend);
+		if (end >= duration && end < duration + 1 && data.id != syncMaster) {
+			data.dataend = getStringFromTime(end + 1);
+			data.duration = getStringFromTime(getTimeFromString(data.duration) + 1);
+		}
+	}
+
 	this.duration = duration;
 	this.syncMaster = syncMaster;
+	this.div = div = initSequenceDiv();
 	PLAYER.div.appendChild(div);
 	addSequenceElements();
 	this.addMetaElement(data.duration, "endSequence('" + data.id + "');");
@@ -239,4 +246,10 @@ function getTimeFromString(timeString) {
 		time += parseFloat(timeParts.shift());
 	}
 	return time;
+}
+
+function getStringFromTime(timeInSeconds) {
+	var min = Math.floor(timeInSeconds / 60);
+	var sec = timeInSeconds - 60 * min;
+	return min + ":" + sec;
 }
