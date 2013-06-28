@@ -18,6 +18,12 @@ var APIHandler = (function(){
 
 	APIHandlerClass = function(){};
 	
+	APIHandlerClass.prototype.runCommand = function (name, params) {
+		if (typeof commands[name] === "function") {
+			commands[name](params);
+		}
+	}
+	
 	APIHandlerClass.prototype.defineCommand = function(name, func){
 		commands[name] = func;
 	};

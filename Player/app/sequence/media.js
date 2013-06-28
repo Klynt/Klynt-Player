@@ -4,7 +4,7 @@
  * http://www.klynt.net
  */
  
-function getMediaHTML(tag, data, sequence) {
+function getMediaHTML(tag, div, data, sequence) {
 	
 	var mediaHTML =
 		'<' + tag + getMediaProperties() + '>' +
@@ -64,51 +64,53 @@ function getMediaHTML(tag, data, sequence) {
 			var databegin = getTimeFromString(data.databegin);
 			 // Prevents preloading media that start at 0.
 			if (databegin > 0) {
-				sequence.addMetaElement(Math.max(0, databegin - 2), "loadMedia('" + data.id + "');");
+				sequence.addMetaElement(Math.max(0, databegin - 2), loadMediaListener);
 			}
 		}
 	}
-}
-
-function playMedia(mediaId) {
-	var media = document.getElementById(mediaId);
-	if (media.timing.isActive() || media.isSyncMaster) {
-		showMedia(mediaId);
-		getMediaAPI(mediaId).play();
+	
+	function loadMediaListener() {
+		loadMedia(div);
 	}
 }
 
-function pauseMedia(mediaId) {
-	getMediaAPI(mediaId).pause();
-}
-
-function seekMedia(mediaId, time) {
-	getMediaAPI(mediaId).setCurrentTime(time);
-}
-
-function setMediaVolume(mediaId, volume) {
-	getMediaAPI(mediaId).setVolume(volume);
-}
-
-function loadMedia(mediaId) {
-	getMediaAPI(mediaId).load();
-}
-
-function getMediaAPI(mediaId) {
-	var media = document.getElementById(mediaId + "Element");
+function getMediaAPI(media) {
 	return media.mediaAPI || media;
 }
 
-function stopMedia(mediaId) {
-	getMediaAPI(mediaId).stop();
+function playMedia(media) {
+	if (media.timing.isActive() || media.isSyncMaster) {
+		showMedia(media);
+		getMediaAPI(media).play();
+	}
 }
 
-function hideMedia(mediaId) {
-	$('#' + mediaId).hide();
+function pauseMedia(media) {
+	getMediaAPI(media).pause();
 }
 
-function showMedia(mediaId) {
-	$('#' + mediaId).show();
+function seekMedia(media, time) {
+	getMediaAPI(media).setCurrentTime(time);
+}
+
+function setMediaVolume(media, volume) {
+	getMediaAPI(media).setVolume(volume);
+}
+
+function loadMedia(media) {
+	getMediaAPI(media).load();
+}
+
+function stopMedia(media) {
+	getMediaAPI(media).stop();
+}
+
+function hideMedia(media) {
+	$(media).hide();
+}
+
+function showMedia(media) {
+	$(media).show();
 }
 
 function getMediaControlFeatures(media) {

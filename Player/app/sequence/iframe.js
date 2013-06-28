@@ -8,20 +8,18 @@ function addFrame(data, sequence) {
 	var frame = addElement(sequence, data, {
 		name: 'iframe',
 		className: 'iframe',
-		onBeginRight: "displayFrame('" + data.id + "', '" + data.code + "');",
-		onEndRight: "hideFrame('" + data.id + "');"
+		onBeginRight: displayFrame,
+		onEndRight: hideFrame
 	});
-}
+	
+	function displayFrame(frame) {
+		frame.innerHTML = data.code || frame.chachedInnerHTML;
+		frame.style.display = 'block';
+	}
 
-function displayFrame(frameId, frameUrl) {
-	var frame = document.getElementById(frameId);
-	frame.innerHTML = frameUrl || frame.chachedInnerHTML;
-	frame.style.display = 'block';
-}
-
-function hideFrame(frameId) {
-	var frame = document.getElementById(frameId);
-	frame.chachedInnerHTML = frame.innerHTML;
-	frame.innerHTML = "";
-	frame.style.display = 'none';
+	function hideFrame(frame) {
+		frame.chachedInnerHTML = frame.innerHTML;
+		frame.innerHTML = "";
+		frame.style.display = 'none';
+	}
 }

@@ -14579,6 +14579,7 @@ function removeDescribedBy( elem ) {
 $.widget( "ui.tooltip", {
 	version: "1.10.1",
 	options: {
+		parentDiv: null,
 		content: function() {
 			// support: IE<9, Opera in jQuery <1.7
 			// .text() can't accept undefined, so coerce to a string
@@ -14895,7 +14896,7 @@ $.widget( "ui.tooltip", {
 		$( "<div>" )
 			.addClass( "ui-tooltip-content" )
 			.appendTo( tooltip );
-		tooltip.appendTo( this.document[0].body );
+		tooltip.appendTo($(this.options.parentDiv));
 		this.tooltips[ id ] = element;
 		return tooltip;
 	},

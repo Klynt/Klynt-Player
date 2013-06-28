@@ -5,10 +5,31 @@
  */
  
 function addButton(data, sequence) {
-	addButton_old(sequence, data.id, data.label, data.label, data.databegin, data.dataend, data.duration, '', '', '', data.left, data.top, data.type, '', '', data.width, data.height, data.link, data.zIndex, data.transitionIn, data.transitionOut);
+	addButton_old(sequence, data.id, data.label, data.label, data.databegin, data.dataend, data.duration, '', '', '', data.left, data.top, data.type, '', '', data.width, data.height, data.link, data.action, data.zIndex, data.transitionIn, data.transitionOut);
 }
 
-function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, duration, onbegin, onend, onclick, left, top, type, onmouseover, onmouseout, width, height, lnk, btnZindex, animationIn, animationOut) {
+function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, duration, onbegin, onend, onclick, left, top, type, onmouseover, onmouseout, width, height, lnk, action, btnZindex, animationIn, animationOut) {
+	
+	createButtonByType(type);
+	
+	function createButtonByType(type) {
+		switch (type) {
+			case 'btn-arrow-left':
+				createArrow('left');
+				break;
+			case 'btn-arrow-right':
+				createArrow('right');
+				break;
+			case 'btn-arrow-top':
+				createArrow('top');
+				break;
+			case 'btn-arrow-bottom':
+				createArrow('bottom');
+				break;
+			default:
+				createButton();
+		}
+	}
 
 	function createButton() {
 		var btn = document.createElement('button');
@@ -17,37 +38,11 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 		btn.className = type;
 		btn.setAttribute('name', 'button');
 
-		/* Transistions */
-		if (animationIn && animationIn != 'null') {
-
-			switch (animationIn.type) {
-				case 'fade' :
-					onbegin = "elementFadeIn('" + btnID + "', 1 ," + animationIn.duration + ");" + onbegin;
-					break;
-				case 'barWipe' :
-					onbegin = onbegin + "elementBarWipeIn('" + btnID + "'," + left + "," + animationIn.duration + ");";
-					onend = onend + "setLeftPosition('" + btnID + "', 0);";
-					break;
-			}
-		}
-		if (animationOut && animationOut != 'null') {
-			switch (animationOut.type) {
-				case 'fade' :
-					var animate = 'elementFadeOut(\'' + btnID + '\',' + animationOut.duration + ');';
-					break;
-				case 'barWipe' :
-					var animate = 'elementBarWipeOut(\'' + btnID + '\',' + animationOut.duration + ')';
-					break;
-			}
-			sequence.addMetaElement(getTransitionBegin(dataend, animationOut.duration), animate);
-		}
-		onbegin = 'resetTransitionOut(\'' + btnID + '\',1,' + left + ');' + onbegin;
 		setCommonAttributes(btn);
 		$(sequence.div).append(btn);
 		$(sequence.div).append('<br />');
 		return btn;
 	}
-
 
 	function createArrow(arrow_type) {
 		var container = document.createElement('div');
@@ -68,9 +63,6 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 		tooltip.style.display = "none";
 		tooltip.innerHTML = label;
 
-		arrow.setAttribute('onmouseover', "mouseOut('" + tooltip.id + "')");
-		arrow.setAttribute('onmouseout', "mouseOver('" + tooltip.id + "')");
-
 		$(sequence.div).append(container);
 		$(container).append(arrow);
 		$(container).append(tooltip);
@@ -78,7 +70,15 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 		$(sequence.div).append('<br/>');
 
 		tooltip.style.width = getWidth(container) - getWidth(arrow) - getHorizontalPadding(tooltip) + 'px';
-
+		
+		$(arrow).on("mouseover", mouseOut).on("mouseout", mouseOver);
+		function mouseOut() {
+			$(tooltip).fadeIn(500, "swing");
+		}
+		function mouseOver(id) {
+			$(tooltip).fadeOut(500, "swing");
+		}
+		
 		return arrow;
 	}
 
@@ -96,10 +96,14 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 	}
 
 	function setCommonAttributes(root_element) {
-
 		setLayout(root_element);
+		setAnimations(root_element);
 		setTiming(root_element);
-		attachLink(root_element);
+		if (lnk) {
+			attachLink(root_element);
+		} else if (action) {
+			attachAction(root_element);
+		}
 	}
 
 	function setLayout(root_element) {
@@ -119,16 +123,10 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 	function setTiming(root_element) {
 		root_element.setAttribute('data-begin', databegin);
 		root_element.setAttribute('data-end', dataend);
-		root_element.setAttribute('data-dur', duration);
-		root_element.setAttribute('data-onbegin', onbegin);
-		root_element.setAttribute('data-onend', onend);
-
+		root_element.setAttribute('data-dur', duration);		
 	}
 
 	function attachLink(root_element) {
-		if (!lnk)
-			return;
-
 		root_element.linkData = lnk;
 
         if (lnk.tooltip)
@@ -137,48 +135,66 @@ function addButton_old(sequence, btnID, label, tooltip, databegin, dataend, dura
 		if (lnk.automaticTransition) {
 			root_element.style.display = 'none';
 			sequence.automaticLink = lnk;
-			root_element.setAttribute('data-onbegin', 'endSequence("' + sequence.div.id + '");');
+			root_element.addEventListener('begin', sequence.endSequence);
 		} else {
 			root_element.style.cursor = "pointer";
 			$(root_element).click(function () {
 				sequence.runLink(root_element.id);
 			});
 		}
-		return root_element;
 	}
 
-	function createButtonByType(type) {
-		switch (type) {
-			case 'btn-arrow-left':
-				createArrow('left');
-				break;
-			case 'btn-arrow-right':
-				createArrow('right');
-				break;
-			case 'btn-arrow-top':
-				createArrow('top');
-				break;
-			case 'btn-arrow-bottom':
-				createArrow('bottom');
-				break;
-			default:
-				createButton();
+	function attachAction(root_element) {
+		root_element.actionData = action;
+		$(root_element).click(function () {
+			sequence.runAction(root_element.id);
+		});
+		root_element.style.cursor = "pointer";
+        if (action.tooltip) {
+		    root_element.title = action.tooltip;
 		}
 	}
-
-	createButtonByType(type);
-}
-
-function mouseOut(id) {
-	if (document.getElementById(id)) {
-		var myTooltip = document.getElementById(id).id;
-		$('#' + myTooltip).fadeIn(500, "swing");
-	}
-}
-
-function mouseOver(id) {
-	if (document.getElementById(id)) {
-		var myTooltip = document.getElementById(id).id;
-		$('#' + myTooltip).fadeOut(500, "swing");
+	
+	function setAnimations(btn) {
+		btn.addEventListener("begin", onBegin, false);
+		btn.addEventListener("end", onEnd, false);
+		if (animationOut && animationOut != 'null') {
+			sequence.addMetaElement(getTransitionBegin(dataend, animationOut.duration), animateOut);
+		}
+		
+		function onBegin() {
+			resetTransitionOut(btn, left);
+			if (animationIn && animationIn != 'null') {
+				switch (animationIn.type) {
+					case 'fade':
+						elementFadeIn(btn, 1 , animationIn.duration);
+						break;
+					case 'barWipe':
+						elementBarWipeIn(btn, left, animationIn.duration);
+						break;
+				}
+			}
+		}
+		
+		function onEnd() {
+			if (animationIn && animationIn != 'null') {
+				switch (animationIn.type) {
+					case 'barWipe':
+						setLeftPosition(btn, 0);
+						break;
+				}
+			}
+		}
+			
+		function animateOut() {
+			switch (animationOut.type) {
+				case 'fade' :
+					elementFadeOut(btn, animationOut.duration);
+					break;
+				case 'barWipe' :
+					elementBarWipeOut(btn, animationOut.duration);
+					break;
+			}
+		}
 	}
 }

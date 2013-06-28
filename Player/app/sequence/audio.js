@@ -5,19 +5,19 @@
  */
  
 function addAudio(data, sequence) {
-	
-	var audioHTML = getMediaHTML('audio', data, sequence);
-	
+	var audioAutoPlay = data.autoplay ? playMedia : null;
+	var audioPauseMedia = !data.continuous ? pauseMedia : null;
 	var audioDiv = addElement(sequence, data, {
 		name: 'audio',
 		className: 'audioClass',
-		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",
-		onBeginRight: "showMedia('" + data.id + "');",
-		onEndLeft: !data.continuous ? "pauseMedia('" + data.id + "');" : "",
-		onEndRight: "hideMedia('" + data.id + "');"
+		onBeginLeft: audioAutoPlay,
+		onBeginRight: showMedia,
+		onEndLeft: audioPauseMedia,
+		onEndRight: hideMedia
 	});
 	
-	audioDiv.innerHTML = audioHTML;
+	audioDiv.innerHTML = getMediaHTML('audio', audioDiv, data, sequence);;
 	
 	audioDiv.firstChild.continuous = data.continuous;
+	audioDiv.volume = data.volume;
 }

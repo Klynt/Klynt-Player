@@ -5,18 +5,18 @@
  */
  
 function addVideo(data, sequence) {
-	var videoHTML = getMediaHTML('video', data, sequence);
-	
+	var videoAutoPlay = data.autoplay ? playMedia : null;
 	var videoDiv = addElement(sequence, data, {
 		name: 'video',
 		className: 'videoClass',
-		onBeginLeft: data.autoplay ? "playMedia('" + data.id + "');" : "",
-		onBeginRight: "showMedia('" + data.id + "');",
-		onEndLeft: "pauseMedia('" + data.id + "');",
-		onEndRight: "hideMedia('" + data.id + "');"
+		onBeginLeft: videoAutoPlay,
+		onBeginRight: showMedia,
+		onEndLeft: pauseMedia,
+		onEndRight: hideMedia
 	});
 	
-	videoDiv.innerHTML = videoHTML;
+	videoDiv.innerHTML = getMediaHTML('video', videoDiv, data, sequence);
+	videoDiv.volume = data.volume;
 	
 	return videoDiv;
 }

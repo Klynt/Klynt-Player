@@ -2106,7 +2106,9 @@ if (typeof jQuery != 'undefined') {
 					
 					t.$media.remove();
 					t.$node = t.$media = $newMedia;
+					var oldVolume = t.node.volume;
 					t.node = t.media = $newMedia[0]
+					t.node.volume = oldVolume;
 					
 				} else {
 					

@@ -55,9 +55,8 @@ function addElement(sequence, data, options) {
 			element.setAttribute('data-begin', data.databegin);
 			element.setAttribute('data-dur', data.duration);
 			element.setAttribute('data-end', data.dataend);
-			onBegin = "resetTransitionOut('" + element.id + "'," + getOpacity(data) + "," + data.left + ");" + onBegin;
-			element.setAttribute('data-onbegin', (options.onBeginLeft || "") + onBegin + (options.onBeginRight || ""));
-			element.setAttribute('data-onend', (options.onEndLeft || "") + onEnd + (options.onEndRight || ""));
+			element.addEventListener("begin", onBeginListener, false);
+			element.addEventListener("end", onEndListener, false);
 			
 			// Elements are initially hidden until they become active.
 			element.style.visibility = 'hidden';
@@ -70,57 +69,108 @@ function addElement(sequence, data, options) {
 			sequence.runLink(element.id);
 		});
 		element.style.cursor = "pointer";
-        if (data.link.tooltip)
+        if (data.link.tooltip) {
             element.title = data.link.tooltip;
+		}
 	}
 
-	function addElementTransitionIn() {
+	function addElementAction() {
+		element.actionData = data.action;
+		$(element).click(function () {
+			sequence.runAction(element.id);
+		});
+		element.style.cursor = "pointer";
+        if (data.action.tooltip) {
+            element.title = data.action.tooltip;
+		}
+	}
+
+	function startTransitionIn() {
 		switch (data.transitionIn.type) {
 			case 'fade' :
-				onBegin = "elementFadeIn('" + element.id + "'," + getOpacity(data) + "," + data.transitionIn.duration + ");" + onBegin;
+				elementFadeIn(element, getOpacity(data), data.transitionIn.duration);
 				break;
 			case 'barWipe' :
-				onBegin = onBegin + "elementBarWipeIn('" + element.id + "'," + data.left + "," + data.transitionIn.duration + ");";
-				onEnd = onEnd + "setLeftPosition('" + element.id + "', 0);";
+				elementBarWipeIn(element, data.left, data.transitionIn.duration);
 				break;
 		}
 	}
-
+	
+	function endTransitionIn() {
+		switch (data.transitionIn.type) {
+			case 'barWipe' :
+				setLeftPosition(element, 0);
+				break;
+		}
+	}
+	
 	function addElementTransitionOut() {
-		if (getTimeFromString(data.dataend) < sequence.duration && element.id != sequence.syncMaster) {
-			var transitionFunction = getTransitionFunction();
-			if (transitionFunction) {
-				transitionFunction += "('" + element.id + "'," + data.transitionOut.duration + ");";
-				sequence.addMetaElement(getTransitionBegin(data.dataend, data.transitionOut.duration), transitionFunction);
-			}
+		if (data.transitionOut.type && getTimeFromString(data.dataend) < sequence.duration && element.id != sequence.syncMaster) {
+			sequence.addMetaElement(getTransitionBegin(data.dataend, data.transitionOut.duration), transitionFunction);
 		}
 		
-		function getTransitionFunction() {
+		function transitionFunction() {
 			switch (data.transitionOut.type) {
 				case "fade":
-					return "elementFadeOut";
+					return elementFadeOut(element, data.transitionOut.duration);
 				case "barWipe":
-					return "elementBarWipeOut";
+					return elementBarWipeOut(element, data.transitionOut.duration);
 				default:
 					return null;
 			}
 		}
 	}
-
-	function addElementAnimation() {
+	
+	function startElementAnimation() {
 		if (data.animation.type = "panZoom") {
-			onBegin = "panZoom('" + element.id + "'," + data.animation.width + "," + data.animation.height + "," + data.animation.left + "," + data.animation.top + "," + data.animation.duration + ");" + onBegin;
-			onEnd = "resetPanZoom('" + element.id + "'," + data.width + "," + data.height + "," + data.left + "," + data.top + ");" + onEnd;
+			panZoom(element, data.animation.width, data.animation.height, data.animation.left, data.animation.top, data.animation.duration);
+		}
+	}
+	
+	function endElementAnimation() {
+		if (data.animation.type = "panZoom") {
+			resetPanZoom(element, data.width, data.height, data.left, data.top);
 		}
 	}
 
 	function dataHasValue(value) {
 		return hasValue(data, value);
 	}
+	
+	function onBeginListener () {
+		if (options.onBeginLeft) {
+			options.onBeginLeft(element);
+		}
+		if (dataHasValue("transitionIn")) {
+			startTransitionIn();
+		}
+		if (dataHasValue("animation")) {
+			startElementAnimation();
+		}
+		if (options.onBeginRight) {
+			options.onBeginRight(element);
+		}
+	}
+	
+	function onEndListener () {
+		if (options.onEndLeft) {
+			options.onEndLeft(element);
+		}
+		if (dataHasValue("transitionOut")) {
+			resetTransitionOut(element, getOpacity(data), data.left);
+		}
+		if (dataHasValue("transitionIn")) {
+			endTransitionIn();
+		}
+		if (dataHasValue("animation")) {
+			endElementAnimation();
+		}
+		if (options.onEndRight) {
+			options.onEndRight(element);
+		}
+	}
 
-	var element = null,
-		onBegin = "",
-		onEnd = "";
+	var element = null;
 		
 	options = options || {};
 	createElement();
@@ -128,17 +178,13 @@ function addElement(sequence, data, options) {
 	if (dataHasValue("style")) {
 		addElementStyle();
 	}
-	if (dataHasValue("animation")) {
-		addElementAnimation();
-	}
-	if (dataHasValue("transitionIn")) {
-		addElementTransitionIn();
-	}
 	if (dataHasValue("transitionOut")) {
 		addElementTransitionOut();
 	}
 	if (dataHasValue("link")) {
 		addElementLink();
+	} else if (dataHasValue("action")) {
+		addElementAction();
 	}
 	addElementTiming();
 
@@ -149,8 +195,8 @@ function addElement(sequence, data, options) {
 
 /* Pan and zoom */
 
-function panZoom(elementId, endWidth, endHeight, endLeft, endTop, duration) {
-	$('#' + elementId).animate({
+function panZoom(element, endWidth, endHeight, endLeft, endTop, duration) {
+	$(element).animate({
 		left:endLeft + "px",
 		top:endTop + "px",
 		width:endWidth + "px",
@@ -163,8 +209,8 @@ function panZoom(elementId, endWidth, endHeight, endLeft, endTop, duration) {
 	});
 }
 
-function resetPanZoom(elementId, width, height, left, top) {
-	$('#' + elementId).css({left:left + "px", top:top + "px", width:width + "px", height:height + "px"});
+function resetPanZoom(element, width, height, left, top) {
+	$(element).css({left:left + "px", top:top + "px", width:width + "px", height:height + "px"});
 }
 
 /* Utils */

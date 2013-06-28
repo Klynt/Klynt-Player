@@ -156,6 +156,12 @@ var PLAYER = (function () {
 				break;
 		}
 	};
+
+	PLAYER.runAction = function (action) {
+		if (action) {
+			APIHandler.runCommand(action.name, action.params);
+		}
+	};
 	
 	function updatePlayPauseStatus() {
 		if (elapsedTime > 320) {
@@ -208,7 +214,7 @@ var PLAYER = (function () {
 	};
 
 	PLAYER.seek = function (time) {
-		STATE.getActiveSequence().seek(parseFloat(time));
+		STATE.getActiveSequence().seek(time);
 	};
 
 	PLAYER.toggleMute = function () {
@@ -312,6 +318,7 @@ var PLAYER = (function () {
 		oldSequences.forEach(function (seq) {
 			seq.pause();
 		});
+		var oldMainSequence = STATE.getMainSequence();
 
 		var sequence = createSequence(sequenceId);
 
@@ -325,7 +332,7 @@ var PLAYER = (function () {
 		}
 		if (link) {
 			sequence.div.style.zIndex = 2;
-			TRANSITION.applyToSequence(sequence, link.transition, function () {
+			TRANSITION.applyToSequence(sequence, link.transition, oldMainSequence, function () {
 				oldSequences.forEach(removeSequence);
 				sequence.div.style.zIndex = 0;
 			});

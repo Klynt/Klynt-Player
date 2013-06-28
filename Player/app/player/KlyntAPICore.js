@@ -22,16 +22,16 @@ APIHandler.defineCommand('shareToFacebook', function(){
 	var url = 'http://www.facebook.com/sharer.php?' +
 		's=100' +
 		'&p[url]=' + data.social.facebookLink +
-		'&p[title]=' + data.social.facebookTitle +
+		'&p[title]=' + encodeURIComponent(data.social.facebookTitle) +
 		'&p[images][0]=' + baseURL + data.social.facebookLogo +
-		'&p[summary]=' + data.social.facebookMessage;
+		'&p[summary]=' + encodeURIComponent(data.social.facebookMessage);
 	window.open(url, '_blank');
 });
 
 APIHandler.defineCommand('shareToTwitter', function(){
 	var url = 'http://twitter.com/intent/tweet?' +
 		'original_referer=' + data.social.twitterLink +
-		'/&text=' + data.social.twitterMessage + ' - ' + data.social.twitterLink;
+		'/&text=' + encodeURIComponent(data.social.twitterMessage + ' - ' + data.social.twitterLink);
 	window.open(url, '_blank');
 });
 
@@ -65,6 +65,10 @@ APIHandler.defineCommand('exitFullScreen', function(){
 
 APIHandler.defineCommand('togglePlayPause', function(){
 	PLAYER.togglePause();
+});
+
+APIHandler.defineCommand('seek', function(time){
+	PLAYER.seek(time);
 });
 
 APIHandler.defineCommand('play', function(){

@@ -4,41 +4,41 @@
  * http://www.klynt.net
  */
 
-function elementFadeIn(elementId, opacity, duration) {
-	$('#' + elementId).css({
+function elementFadeIn(element, opacity, duration) {
+	$(element).css({
 		opacity:0
 	}).fadeTo(duration * 1000, opacity);
 }
 
-function elementFadeOut(elementId, duration) {
-	$('#' + elementId).fadeOut(duration * 1000);
+function elementFadeOut(element, duration) {
+	$(element).fadeOut(duration * 1000);
 }
 
-function setLeftPosition(elementId, left) {
-	$('#' + elementId).css({
+function setLeftPosition(element, left) {
+	$(element).css({
 		position: 'absolute',
 		left: left + 'px'
 	});
 }
 
-function elementBarWipeIn(elementId, left, duration) {
-	$('#' + elementId).css({
-		clip: getClipString(elementId, 0, 0)
+function elementBarWipeIn(element, left, duration) {
+	$(element).css({
+		clip: getClipString(element, 0, 0)
 	}).animate({
-		clip: getClipString(elementId, 0, 1)
+		clip: getClipString(element, 0, 1)
 	}, duration * 1000);
 }
 
-function elementBarWipeOut(elementId, duration) {
-	$('#' + elementId).css({
-		clip: getClipString(elementId, 0, 1)
+function elementBarWipeOut(element, duration) {
+	$(element).css({
+		clip: getClipString(element, 0, 1)
 	}).animate({
-		clip: getClipString(elementId, 1, 1)
+		clip: getClipString(element, 1, 1)
 	}, duration * 1000);
 }
 
-function resetTransitionOut(elementId, opacity, left) {
-	$('#' + elementId).css({
+function resetTransitionOut(element, opacity, left) {
+	$(element).css({
 		opacity: opacity,
 		left: left + 'px',
 		clip: null,
@@ -47,8 +47,7 @@ function resetTransitionOut(elementId, opacity, left) {
 	});
 }
 
-function getClipString(elementId, leftFactor, rightFactor) {
-	var element = $('#' + elementId);
+function getClipString(element, leftFactor, rightFactor) {
 	var width = element.width();
 	var height = element.height();
 	return 'rect(' + 0 + 'px ' + parseInt(width * rightFactor) + 'px ' + height + 'px ' + parseInt(width * leftFactor) + 'px)';

@@ -12,7 +12,8 @@ function Sequence(data, autoClose) {
 		width = PLAYER.width,
 		height = PLAYER.height,
 		syncMaster = data.syncMaster,
-		div = null;
+		div = null,
+		medias = [];
 	
 	this.automaticLink = null;
 
@@ -20,25 +21,29 @@ function Sequence(data, autoClose) {
 		var meta = document.createElement('div');
 		meta.setAttribute('data-begin', begin);
 		meta.setAttribute('data-dur', 1);
-		meta.setAttribute('data-onbegin', onBegin);
+		if (typeof onBegin === "function") {
+			meta.addEventListener("begin", onBegin);
+		} else {
+			meta.setAttribute('data-onbegin', onBegin);
+		}
 		div.appendChild(meta);
 	};
 	
 	this.executeEnd = function () {
 		if (!endExecuted) {
 			endExecuted = true;
-			if (this.automaticLink) {
-				PLAYER.runLink(this.automaticLink);
+			if (self.automaticLink) {
+				PLAYER.runLink(self.automaticLink);
 			} else if (autoClose) {
 				PLAYER.closeOverlay();
 			} else {
-				this.stop();
+				self.stop();
 			}
 		}
 	};
 	
 	this.stop = function () {
-		this.pause("sequenceEndVolume");
+		self.pause("sequenceEndVolume");
 		finished = true;
 	};
 	
@@ -50,19 +55,19 @@ function Sequence(data, autoClose) {
 		if (!finished) {
 			try {
 				div.timing.Pause();
-				getMedias().forEach(function (media) {
+				medias.forEach(function (media) {
 					if (continuousAudioVolumeProperty && media.continuous) {
-						setMediaVolume(media.id, media[continuousAudioVolumeProperty]);
+						setMediaVolume(media, media[continuousAudioVolumeProperty]);
 					} else {
-						pauseMedia(media.id);
+						pauseMedia(media);
 					}
 				});
 			} catch (e) {
 			}
 		} else if (continuousAudioVolumeProperty) {
-			getMedias().forEach(function (media) {
+			medias.forEach(function (media) {
 				if (media.continuous) {
-					setMediaVolume(media.id, media[continuousAudioVolumeProperty]);
+					setMediaVolume(media, media[continuousAudioVolumeProperty]);
 				}
 			});
 		}
@@ -72,19 +77,19 @@ function Sequence(data, autoClose) {
 		if (!finished) {
 			try {
 				div.timing.Play();
-				getMedias().forEach(function (media) {
+				medias.forEach(function (media) {
 					if (media.continuous && resetContinuousAudioVolume) {
-						setMediaVolume(media.id, media.volume);
+						setMediaVolume(media, media.volume);
 					}
-					playMedia(media.id);
+					playMedia(media);
 				});
 			} catch (e) {
 			}
 		} else {
-			getMedias().forEach(function (media) {
+			medias.forEach(function (media) {
 				if (media.continuous) {
-					setMediaVolume(media.id, media.volume);
-					playMedia(media.id);
+					setMediaVolume(media, media.volume);
+					playMedia(media);
 				}
 			});
 		}
@@ -92,17 +97,20 @@ function Sequence(data, autoClose) {
 	
 	this.seek = function (time) {
 		if (!finished) {
+			if (typeof time === "string") {
+				time = getTimeFromString(time);
+			}
 			time = Math.max(Math.min(time, duration), 0);
 			if (div && div.timing) {
 				div.timing.setCurrentTime(time);
 			}
 			/*
-			getMedias().forEach(function (media) {
+			medias.forEach(function (media) {
 				var start = getTimeFromString(media.databegin);
 				var end = getTimeFromString(media.dataend);
 				if (start < time && time < end) {
-					seekMedia(media.id, time - start);
-					playMedia(media.id);
+					seekMedia(media, time - start);
+					playMedia(media);
 				}
 			});
 			*/
@@ -110,14 +118,14 @@ function Sequence(data, autoClose) {
 	};
 	
 	this.mute = function () {
-		getMedias().forEach(function (media) {
-			setMediaVolume(media.id, 0);
+		medias.forEach(function (media) {
+			setMediaVolume(media, 0);
 		});
 	};
 
 	this.unmute = function () {
-		getMedias().forEach(function (media) {
-			setMediaVolume(media.id, media.volume);
+		medias.forEach(function (media) {
+			setMediaVolume(media, media.volume);
 		});
 	};
 
@@ -125,6 +133,13 @@ function Sequence(data, autoClose) {
 		var item = document.getElementById(itemId);
 		if (item && item.linkData) {
 			PLAYER.runLink(item.linkData);
+		}
+	};
+
+	this.runAction = function (itemId) {
+		var item = document.getElementById(itemId);
+		if (item && item.actionData) {
+			PLAYER.runAction(item.actionData);
 		}
 	};
 	
@@ -172,51 +187,47 @@ function Sequence(data, autoClose) {
 	}
 	
 	function addSequenceElements() {
-		$.each({
+		medias = addElements({
 			images: addImage,
 			videos: addVideo,
 			externalVideos: addExternalVideo,
-			audios: addAudio,
+			audios: addAudio
+		});
+		addElements({
 			shapes: addShape,
 			buttons: addButton,
 			texts: addText,
 			iframes: addFrame
-		}, function (arrayName, fn) {
-			data[arrayName].forEach(function (elementData) {
-				updateElementTiming(elementData);
-				fn(elementData, self);
-			});
 		});
-		
 		createTooltips();
 		createScrollBars();
-	}
+
+		function addElements(list) {
+			var elements = [];
+			$.each(list, function (arrayName, fn) {
+				data[arrayName].forEach(function (elementData) {
+					updateElementTiming(elementData);
+					var element = fn(elementData, self);
+					if (element) {
+						elements.push(element);
+					}
+				});
+			});
+			return elements;
+		}
 	
-	function createTooltips() {
-		if (!isiOS()) {
-			$(div).tooltip({track: true});
+		function createTooltips() {
+			if (!isiOS()) {
+				$(div).tooltip({track: true, parentDiv: div});
+			}
 		}
-	}
 	
-	function createScrollBars() {
-		$(div).find(".nano-container").nanoScroller({
-			paneClass: 'nano-pane',
-			contentClass: 'nano-content'
-		});
-	}
-	
-	function getMedias() {
-		var medias = [];
-		if (data.videos) {
-			medias = medias.concat(data.videos);
+		function createScrollBars() {
+			$(div).find(".nano-container").nanoScroller({
+				paneClass: 'nano-pane',
+				contentClass: 'nano-content'
+			});
 		}
-		if (data.audios) {
-			medias = medias.concat(data.audios);
-		}
-		if (data.externalVideos) {
-			medias = medias.concat(data.externalVideos);
-		}
-		return medias;
 	}
 	
 	function updateElementTiming(data) {
@@ -226,20 +237,17 @@ function Sequence(data, autoClose) {
 			data.duration = getStringFromTime(getTimeFromString(data.duration) + 1);
 		}
 	}
+	
+	function endSequence() {
+		self.executeEnd();
+	}
 
 	this.duration = duration;
 	this.syncMaster = syncMaster;
 	this.div = div = initSequenceDiv();
 	PLAYER.div.appendChild(div);
 	addSequenceElements();
-	this.addMetaElement(data.duration, "endSequence('" + data.id + "');");
-}
-
-function endSequence(sequenceId) {
-	var sequenceDiv = document.getElementById(sequenceId);
-	if (sequenceDiv && sequenceDiv.sequence) {
-		sequenceDiv.sequence.executeEnd();
-	}
+	this.addMetaElement(data.duration, endSequence);
 }
 
 /**

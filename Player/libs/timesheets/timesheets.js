@@ -707,7 +707,7 @@ function parseMediaElement(node) {
         
         // Set video volume
         function volumeSetter() {
-          setMediaVolume(nodeDiv.id, parseFloat(element.getAttribute("volume")));
+          setMediaVolume(nodeDiv, parseFloat(element.getAttribute("volume")));
           nodeDiv.mediaAPI.removeEventListener("play", volumeSetter);
         }
         nodeDiv.mediaAPI.addEventListener("play", volumeSetter, false);
