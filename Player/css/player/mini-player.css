@@ -1,0 +1,257 @@
+/*------- player/mini-player.css (level 1) -------*/
+
+/*----- SUMMARY -----*/
+
+/* I   VERTICAL   line 22 */
+/* II  HORIZONTAL line 140 */
+
+/*----- CONTENT -----*/
+
+html{
+	width: 100%;
+	height: 100%;
+}
+
+body{
+	margin: 0!important;
+	padding: 0!important;
+	width: 100%;
+	height: 100%;
+}
+
+/* I . VERTICAL */
+
+.vertical#miniPlayer{
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.vertical.miniplayer-poster{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 136px); 
+	height: -webkit-calc(100% - 136px); 
+	background: url(../editor/img/mini-player.jpg) no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;	
+}
+
+.vertical.miniplayer-info{
+	display: block;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	-webkit-transition : .2s;
+    -moz-transition : .2s;
+    -o-transition : .2s;
+    transition : .2s;
+}
+
+.vertical.miniplayer-info-content{
+	padding: 10px 15px;
+	font-size: 10px;
+	border-radius: 4px;
+}
+
+.vertical.miniplayer-button{
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+	height: 50px;
+	width: 50px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.vertical.miniplayer-text{
+	position: absolute;
+	left: 0px;
+	top: calc(100% - 136px); 
+	top: -webkit-calc(100% - 136px); 
+	height: 136px;
+	width: 100%;
+	text-align: left;
+	border-left: 1px solid;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+	box-sizing: border-box;
+}
+
+.vertical.miniplayer-text-title{
+	font-size: 24px;
+	width: 94%;
+	margin: 15px 3% 5px 3%;
+}
+
+.vertical.miniplayer-text-subtitle{
+	font-size: 12px;
+	width: 94%;
+	margin: 15px 3%;
+}
+
+.vertical.miniplayer-return{
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.vertical.miniplayer-return-info{
+	margin-top: 18%;
+	font-size: 20px;
+	width: 80%;
+	margin-left: 10%;
+}
+
+.vertical.miniplayer-return-question{
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.vertical.miniplayer-return-buttons > div {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px 30px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.vertical.miniplayer-return-buttons > div.yes {
+	margin-right: 20px;
+}
+
+.vertical.miniplayer-return-buttons > div.no {
+}
+
+/* II . HORIZONTAL */
+
+.horizontal#miniPlayer{
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: url(../editor/img/mini-player.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.horizontal.miniplayer-info{
+	display: block;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	-webkit-transition : .2s;
+    -moz-transition : .2s;
+    -o-transition : .2s;
+    transition : .2s;
+}
+
+.info-hide{
+	top: -27px!important;
+}
+
+.horizontal.miniplayer-info-content{
+	padding: 10px 15px;
+	font-size: 10px;
+	border-radius: 4px;
+
+}
+
+.horizontal.miniplayer-menu{
+	width: 100%;
+	height: 90px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+
+.horizontal.miniplayer-menu > div{
+	vertical-align: middle;
+	display: inline-block;	
+}
+
+.horizontal.miniplayer-button{
+	margin: 20px 30px;
+	height: 50px;
+	width: 50px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.horizontal.miniplayer-menu-text{
+	width: calc(100% - 125px);
+	width: -webkit-calc(100% - 125px);
+}
+
+.horizontal.miniplayer-menu-title{
+	font-size: 22px;
+	margin: 0px 0px 8px 0px;
+}
+
+.horizontal.miniplayer-menu-subtitle{
+	margin: 0px;
+	font-size: 12px;
+}
+
+.horizontal.miniplayer-return{
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.horizontal.miniplayer-return-info{
+	margin-top: 14%;
+	font-size: 20px;
+	width: 80%;
+	margin-left: 10%;
+}
+
+.horizontal.miniplayer-return-question{
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.horizontal.miniplayer-return-buttons > div {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px 30px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.horizontal.miniplayer-return-buttons > div.yes {
+	margin-right: 20px;
+}
+
+.horizontal.miniplayer-return-buttons > div.no {
+}

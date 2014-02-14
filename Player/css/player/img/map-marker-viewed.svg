@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="21px" height="32px" viewBox="0 0 21 32" enable-background="new 0 0 21 32" xml:space="preserve">
+<path id="marker" opacity="0.75" fill-rule="evenodd" clip-rule="evenodd" fill="#313131" d="M10.5,0C4.701,0,0,4.701,0,10.5
+	S10.317,32,10.5,32C10.853,32,21,16.299,21,10.5S16.299,0,10.5,0z"/>
+<path id="check" opacity="0.8" fill="#FFFFFF" d="M15.334,7.078l-0.165-0.18c-0.366-0.398-0.959-0.398-1.324,0l-4.303,4.683
+	L7.555,9.419c-0.366-0.398-0.958-0.398-1.324,0l-0.165,0.18c-0.366,0.398-0.366,1.043,0,1.441l2.814,3.062
+	c0.366,0.398,0.958,0.398,1.324,0l0.166-0.18v0l4.965-5.403C15.7,8.121,15.7,7.476,15.334,7.078z"/>
+</svg>

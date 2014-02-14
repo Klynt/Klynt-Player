@@ -1,0 +1,17 @@
+/*------- player/splashscreen.css (level 2) -------*/
+
+/* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved*/
+
+body{
+	background-color: rgba(255, 255, 255, 1); /* PRIMARY_COLOR */
+}
+
+#splashscreen {
+	width:970px; /* PLAYER_WIDTH */
+	height:571px; /* PLAYER_HEIGHT */
+	background: rgba(255, 255, 255, 1); /* PRIMARY_COLOR */
+}
+
+#logo{
+	background-image:url(img/splashscreen.svg); /* SPLASHSCREEN_LOGO */
+}

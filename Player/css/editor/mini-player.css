@@ -1,0 +1,73 @@
+/*------- player/mini-player.css (level 2) -------*/
+
+/* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved */
+
+body {font: 14px 'Open Sans', sans-serif;} /* MAIN_FONT */
+
+.miniplayer-button-color {
+	fill : rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-info-content{
+	background-color: rgba(255, 255, 255, 0.4); /* PRIMARY_COLOR */
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-button{
+	background: rgba(0, 153, 204, 1); /* TERTIARY_COLOR */
+	background-size: 25% 25%;
+}
+
+.vertical.miniplayer-text{
+	background-color : rgba(255, 255, 255, 0.4); /* PRIMARY_COLOR */
+	border-color : rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-text-title{
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-text-subtitle{
+	color: rgba(204, 0, 102, 0.8); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-return{
+	background-color: rgba(255, 255, 255, 0.8); /* PRIMARY_COLOR */
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-return-buttons > div.yes {
+	background-color: rgba(204, 0, 102, 0.6); /* SECONDARY_COLOR */
+}
+
+.vertical.miniplayer-return-buttons > div.no {
+	background-color: rgba(0, 153, 204, 1); /* TERTIARY_COLOR */
+}
+
+.horizontal.miniplayer-info-content{
+	background-color: rgba(255, 255, 255, 0.4); /* PRIMARY_COLOR */
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.horizontal.miniplayer-menu{
+	background-color: rgba(255, 255, 255, 0.4); /* PRIMARY_COLOR */
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.horizontal.miniplayer-button{
+	background: rgba(0, 153, 204, 1); /* TERTIARY_COLOR */
+	background-size: 25% 25%;
+}
+
+.horizontal.miniplayer-return{
+	background-color: rgba(255, 255, 255, 0.8); /* PRIMARY_COLOR */
+	color: rgba(204, 0, 102, 1); /* SECONDARY_COLOR */
+}
+
+.horizontal.miniplayer-return-buttons > div.yes {
+	background-color: rgba(204, 0, 102, 0.6); /* SECONDARY_COLOR */
+}
+
+.horizontal.miniplayer-return-buttons > div.no {
+	background-color: rgba(0, 153, 204, 1); /* TERTIARY_COLOR */
+}
