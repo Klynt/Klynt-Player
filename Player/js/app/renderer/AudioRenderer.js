@@ -34,7 +34,7 @@
             } else if (overlay) {
                 this.setVolume(this.element.overlayVolume);
             } else {
-                this.setVolume(this.element.volume);
+                klynt.MediaRenderer.prototype.pause.call(this);
             }
         } else {
             klynt.MediaRenderer.prototype.pause.call(this);

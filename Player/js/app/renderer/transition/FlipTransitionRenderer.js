@@ -14,9 +14,6 @@
 	klynt.FlipTransitionRenderer.prototype.execute = function (source, target) {
 		klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-		this._result = target;
-		this._discarded = source;
-
 		target.$element.stop().addClass('flip');
 		window.setTimeout(function () {
 			target.$element.removeClass('flip');

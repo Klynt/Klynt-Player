@@ -18,9 +18,9 @@
 
         this._template_partials = {};
         this._template_partials.infobox =
-            '<div class="map-sequence box-sequence{{^viewed}} klynt-tertiary-color-border{{/viewed}}{{#current}} current{{/current}}{{^current}}{{#viewed}} viewed{{/viewed}}{{/current}}{{#showDescriptions}}{{#description}} with-description{{/description}}{{/showDescriptions}}">' +
-            '   <a href="#{{alias}}" class="sequence-thumbnail sequence-link klynt-tertiary-color" style="background-image: url({{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}});"></a>' +
-            '   <a href="#{{alias}}" class="sequence-info sequence-link klynt-primary-color-bg-70">' +
+            '<div class="pointer map-sequence box-sequence{{^viewed}} klynt-tertiary-color-border{{/viewed}}{{#current}} current{{/current}}{{^current}}{{#viewed}} viewed{{/viewed}}{{/current}}{{#showDescriptions}}{{#description}} with-description{{/description}}{{/showDescriptions}}" onclick="klynt.player.openFromMenu(\'{{id}}\')">' +
+            '   <a class="sequence-thumbnail sequence-link klynt-tertiary-color" style="background-image: url({{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}});"></a>' +
+            '   <a class="sequence-info sequence-link klynt-primary-color-bg-70">' +
             '       <div class="sequence-title klynt-secondary-color">{{title}}<i class="icon icon-info">i</i><i class="icon icon-eye"></i></div>' +
             '       <div class="sequence-duration klynt-tertiary-color">{{formattedDuration}}</div>' +
             '       {{#showDescriptions}}{{#description}}<div class="sequence-description">{{description}}</div>{{/description}}{{/showDescriptions}}' +

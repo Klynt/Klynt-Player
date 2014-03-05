@@ -14,10 +14,8 @@
 	klynt.PopTransitionRenderer.prototype.execute = function (source, target) {
 		klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-		this._result = target;
-		this._discarded = source;
-
 		target.$element.stop().addClass('pop');
+
 		window.setTimeout(function () {
 			target.$element.removeClass('pop');
 			this._notifyComplete();

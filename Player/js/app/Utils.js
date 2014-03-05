@@ -4,7 +4,7 @@
  * http://www.klynt.net
  *
  * This file contains the implementation of the utils module.
-*/
+ */
 
 (function (klynt) {
     klynt.getModule('utils').expose(merge, mergePrototypes);
@@ -39,7 +39,9 @@
 (function transitionUtils(klynt) {
     klynt.getModule('utils').expose(getTransitionRenderer);
 
-    function getTransitionRenderer(transition) {
+    function getTransitionRenderer(link) {
+        var transition = link && link.transition;
+
         switch (transition && transition.type) {
         case klynt.SlideTransitionRenderer.DIRECTION.UP:
         case klynt.SlideTransitionRenderer.DIRECTION.DOWN:
@@ -52,6 +54,8 @@
             return new klynt.FlipTransitionRenderer(transition);
         case 'none':
             return new klynt.NoTransitionRenderer(transition);
+        case 'touch':
+            return new klynt.TouchTransitionRenderer(transition);
         default:
             return new klynt.FadeTransitionRenderer(transition);
         }

@@ -61,7 +61,7 @@ klynt.loadSplashscreen = function () {
 // Initialises the miniplayer after loading necessary files.
 klynt.loadMiniPlayer = function () {
     var css = ['Player/css/player/mini-player.css', 'Player/css/editor/mini-player.css', 'Player/css/editor/fonts.css', ];
-    var js = ['Player/js/app/MiniPlayer.js', 'Player/js/libs/mustache.js', 'miniPlayerData.js', 'Player/js/app/view/miniPlayer/MiniPlayer.js'];
+    var js = ['Player/js/app/MiniPlayer.js', 'Player/js/libs/mustache.js', 'miniPlayerData.js', 'Player/js/app/view/miniPlayer/MiniPlayer.js', 'Player/js/app/Analytics.js', 'Player/js/app/Utils.js'];
     LazyLoad.css(css, function () {
         LazyLoad.js(js, function () {
             klynt.miniPlayer.init();

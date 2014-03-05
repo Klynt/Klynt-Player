@@ -1,3 +1,7 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS classes in Ressources/css/player.css file */
+/*  For more informations, you can check our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
 /*------- player/player.css (level 1) -------*/
 
 /*----- SUMMARY -----*/
@@ -79,6 +83,8 @@ a:focus {outline: 0;}
 img::selection      {background: transparent;}
 img::-moz-selection {background: transparent;}
 body {-webkit-tap-highlight-color: rgb(210,235,255);}
+
+.pointer { cursor: pointer; }
 
 /* V . ICONS */
 
@@ -202,6 +208,7 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     width: 100%;
+    cursor: pointer;
 }
 .no-csstransforms .box-sequence .sequence-info {top: 95px;}
 .no-touch.no-csstransforms .box-sequence.with-description:hover .sequence-info {top: 0px;}
@@ -416,7 +423,7 @@ only screen and (min-resolution: 192dpi) {
     font-size: 1em;
     height: 60px;
     opacity: 0;
-    outline: none;
+    outline: 0;
     padding: 0px 15px;
     position: absolute;
     right: 0px;
@@ -502,7 +509,7 @@ only screen and (min-resolution: 192dpi) {
     padding: 0 230px;
 }
 .menu-index-grid {
-    padding: 0 65px;
+    padding: 0 55px 0 65px;
 }
 .menu-dashboard {
     padding: 0 65px;
@@ -897,6 +904,53 @@ only screen and (min-resolution: 192dpi) {
     font-family: 'OpenSans', sans-serif !important;
 }
 
+/* 6 - MINDMAP */
+
+.mindmap-watermark{
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    opacity: 0.4;
+}
+.mindmap-graph-renderer {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    cursor: move;
+}
+.mindmap-graph-renderer.mouse-over-node {
+    cursor: pointer;
+}
+.mindmap-sequence-info {
+    right: 0px;
+    width: 200px;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    display: none;
+    opacity: 0;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+.mindmap-sequence-info span{
+    display: block;
+    padding: 5px 0px;
+    padding-top: 2px;
+}
+.mindmap-sequence-info hr {
+    border: 0;
+    border-top: 1px solid #e3dfda;
+    height: 1px;
+    padding: 0;
+    margin: 3px 0px;
+}
+.mindmap-sequence-info p {
+    height: 48px;
+    overflow: hidden;
+    width: 100%;
+}
+
 /* XII . MODAL */
 
 .modal {
@@ -1093,6 +1147,23 @@ only screen and (min-resolution: 192dpi) {
     background-color: black;
     width: 100%;
 }
+.fullscreen-hide-left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    height: 100%;
+}
+.fullscreen-hide-right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: black;
+    height: 100%;
+}
+
+
+
 :-moz-full-screen {
     bottom: 0px;
     left: 0px;
@@ -1117,7 +1188,7 @@ only screen and (min-resolution: 192dpi) {
     cursor: pointer;
     display: none;
     z-index: 10;
-    opacity: 0.6;
+    opacity: 0.4;
     -webkit-transition    : .5s;
     -moz-transition       : .5s;
     -o-transition         : .5s;

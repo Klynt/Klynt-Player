@@ -68,6 +68,7 @@
     klynt.ButtonRenderer.prototype._onBegin = function (event) {
         klynt.ElementRenderer.prototype._onBegin.call(this);
         if (this._element.link && this._element.link.automaticTransition) {
+            this.hide();
             klynt.sequenceContainer.currentRenderer.runAutomaticLink(this._element.link);
         }
     };

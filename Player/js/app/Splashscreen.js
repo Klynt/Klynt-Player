@@ -33,15 +33,20 @@
 		'Resources/css/player.css'
 	];
 
-	var playerJSFiles = [
+	var playerLibFiles = [
 		'Player/js/libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js',
 		'Player/js/libs/jquery.cookie.js',
 		'Player/js/libs/jquery.hammer.min.js',
 		'Player/js/libs/modernizr.custom.93084.js',
 		'Player/js/libs/jquery.nanoscroller.min.js',
+		'Player/js/libs/jquery.hoverIntent.minified.js',
+		'Player/js/libs/TweenMax.min.js',
 		'Player/js/libs/mediaelement/mediaelement-and-player.js',
 		'Player/js/libs/timesheets.js',
-		'Player/js/app/Utils.js',
+		'Player/js/libs/sigmajs/sigma.min.js'
+	];
+
+	var playerJSFiles = [
 		'data.js',
 		'Player/js/app/model/Sequence.js',
 		'Player/js/app/model/Link.js',
@@ -65,10 +70,10 @@
 		'Player/js/app/Fullscreen.js',
 		'Player/js/app/Metadata.js',
 		'Player/js/app/Stats.js',
-		'Player/js/app/Analytics.js',
 		'Player/js/app/SequenceManager.js',
 		'Player/js/app/SequenceContainer.js',
 		'Player/js/app/renderer/StyleRenderer.js',
+		'Player/js/app/renderer/HoverStyleRenderer.js',
 		'Player/js/app/renderer/ElementRenderer.js',
 		'Player/js/app/renderer/ButtonRenderer.js',
 		'Player/js/app/renderer/TextRenderer.js',
@@ -87,6 +92,7 @@
 		'Player/js/app/renderer/transition/FadeTransitionRenderer.js',
 		'Player/js/app/renderer/transition/PopTransitionRenderer.js',
 		'Player/js/app/renderer/transition/FlipTransitionRenderer.js',
+		'Player/js/app/renderer/transition/TouchTransitionRenderer.js',
 		'Player/js/app/renderer/ElementTransitionRenderer.js',
 		'Player/js/app/renderer/AnimationRenderer.js',
 		'Player/js/app/renderer/ScoutRenderer.js',
@@ -99,10 +105,21 @@
 		'Player/js/app/view/menu/Map.js',
 		'Player/js/app/view/menu/Search.js',
 		'Player/js/app/view/menu/Credits.js',
+		'Player/js/app/view/menu/sigmaRenderers/sigma.canvas.edges.klynt.js',
+		'Player/js/app/view/menu/sigmaRenderers/sigma.canvas.nodes.klynt.js',
+		'Player/js/app/view/menu/sigmaRenderers/sigma.canvas.labels.klynt.js',
+		'Player/js/app/view/menu/sigmaRenderers/sigma.canvas.hovers.klynt.js',
+		'Player/js/app/view/menu/Mindmap.js',
 		'Player/js/app/Menu.js',
 		'Player/js/app/KlyntAPIHandler.js',
 		'Player/js/app/KlyntAPICore.js'
 	];
+	if (!klynt.analytics) {
+		playerJSFiles.unshift('Player/js/app/Analytics.js');
+	}
+	if (!klynt.utils) {
+		playerJSFiles.unshift('Player/js/app/Utils.js');
+	}
 
 	function init() {
 
@@ -153,18 +170,20 @@
 
 	function loadSequence() {
 		LazyLoad.css(playerCssFiles, function () {
-			LazyLoad.js(playerJSFiles, function () {
-				if ((klynt.data.general.level === 0) && (document.location.protocol !== 'file:')) {
-					errorMessage();
-				} else {
-					initPlayer();
+			LazyLoad.js(playerLibFiles, function () {
+				LazyLoad.js(playerJSFiles, function () {
+					if ((klynt.data.general.level === 0) && (document.location.protocol !== 'file:')) {
+						errorMessage();
+					} else {
+						initPlayer();
 
-					hideSplashscreen();
+						hideSplashscreen();
 
-					if (klynt.params.miniPlayer) {
-						klynt.miniPlayer.initBind();
+						if (klynt.params.miniPlayer) {
+							klynt.miniPlayer.initBind();
+						}
 					}
-				}
+				});
 			});
 		});
 
@@ -178,6 +197,7 @@
 			klynt.sequenceContainer.init();
 			klynt.menu.init();
 			klynt.footer.init();
+			klynt.player.$element.on('open.sequence open.overlay', klynt.analytics.handleSequenceEvent);
 		}
 
 		function errorMessage() {

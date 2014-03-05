@@ -9,6 +9,7 @@
         this._rawData = rawData;
         this._alias = klynt.sequences.getAliasBySequenceId(this.id);
         this._tags = (rawData.tags || '').split(',');
+        this._links = [];
 
         this._buttons = this._wrapCollection(rawData.buttons, klynt.Button);
         this._texts = this._wrapCollection(rawData.texts, klynt.Text);
@@ -29,6 +30,40 @@
             return this._rawData.id;
         },
 
+        get x() {
+            return this._rawData.x;
+        },
+
+        get y() {
+            return this._rawData.y;
+        },
+
+        get size() {
+
+            return this._rawData.size;
+        },
+
+        get hideInMindmap() {
+            return this._rawData.hideInMindmap;
+        },
+
+        get hideThumbnailInMindmap() {
+            return this._rawData.hideThumbnailInMindmap;
+        },
+
+        get hideTitleInMindmap() {
+            return this._rawData.hideTitleInMindmap;
+        },
+
+        get color() {
+            return this._rawData.color;
+        },
+
+        _links: null,
+        get links() {
+            return this._links;
+        },
+
         _alias: null,
         get alias() {
             return this._alias;
@@ -47,6 +82,10 @@
         },
 
         get title() {
+            return (this._rawData.title || '').replace('//', ' ');
+        },
+
+        get rawTitle() {
             return this._rawData.title || '';
         },
 
@@ -149,6 +188,9 @@
             if (syncMaster) {
                 element.syncMaster = true;
                 this._syncMaster = element;
+            }
+            if (element.link) {
+                this._links.push(element.link);
             }
             return element;
         }

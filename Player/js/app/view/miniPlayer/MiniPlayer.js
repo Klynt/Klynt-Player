@@ -11,7 +11,7 @@
         this._touch = this.checkTouch();
 
         var info = this.checkFullscreen() ? 'fullscreenInfoWording' : 'fullscreenAlertWording';
-        var touch = this._touch ? '' : ' info-hide"';
+        var touch = ' info-hide"';
 
         if (this._type === 'horizontal') {
 
@@ -36,11 +36,11 @@
                 '</div>' +
                 '</div>' +
                 '<div class="horizontal miniplayer-return klynt-primary-color-bg-80">' +
-                '<h1 class="horizontal miniplayer-return-info">{{fullscreenAlertWording}}</h1>' +
-                '<p class="horizontal miniplayer-return-question">{{quitConfirmationWording}}</p>' +
+                '<h1 class="horizontal miniplayer-return-info">{{thanksForWatchingWording}}</h1>' +
+                '<p class="horizontal miniplayer-return-question">{{resumePlaybackWording}}</p>' +
                 '<div class="horizontal miniplayer-return-buttons">' +
-                '<div class="yes">{{yesWording}}</div>' +
                 '<div class="no">{{noWording}}</div>' +
+                '<div class="yes">{{yesWording}}</div>' +
                 '</div>' +
                 '</div>';
         } else {
@@ -66,11 +66,11 @@
                 '<p class="vertical miniplayer-text-subtitle">{{subtitleWording}}</p>' +
                 '</div>' +
                 '<div class="vertical miniplayer-return klynt-primary-color-bg-80">' +
-                '<h1 class="vertical miniplayer-return-info">{{fullscreenAlertWording}}</h1>' +
-                '<p class="vertical miniplayer-return-question">{{quitConfirmationWording}}</p>' +
+                '<h1 class="vertical miniplayer-return-info">{{thanksForWatchingWording}}</h1>' +
+                '<p class="vertical miniplayer-return-question">{{resumePlaybackWording}}</p>' +
                 '<div class="vertical miniplayer-return-buttons">' +
-                '<div class="yes">{{yesWording}}</div>' +
                 '<div class="no">{{noWording}}</div>' +
+                '<div class="yes">{{yesWording}}</div>' +
                 '</div>' +
                 '</div>';
         }

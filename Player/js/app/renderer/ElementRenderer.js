@@ -57,6 +57,10 @@
             .css('zIndex', this.element.zIndex)
             .appendTo(this._$parent);
 
+        if (!this._element.syncMaster) {
+            this.hide();
+        }
+
         if (this._element.link || this._element.action) {
             this._$element.addClass('has-link');
         }

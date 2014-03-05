@@ -1,3 +1,4 @@
+klynt.analytics.trackPageView('miniplayer');
 /**
  * Copyright 2014, Honkytonk Films
  * Licensed under GNU GPL
@@ -6,6 +7,7 @@
 
 (function (klynt) {
     klynt.ShareModal = function (data) {
+
         data = klynt.data.share;
         this._data = data;
 
@@ -23,9 +25,9 @@
             '</svg>';
 
         this._embedCode = '<iframe height="' +
-            klynt.player.height +
+            klynt.player.unscaledHeight +
             '" width="' +
-            klynt.player.width +
+            klynt.player.unscaledWidth +
             '" src="' +
             url +
             '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
@@ -133,9 +135,9 @@
                 '<span class="miniplayer-height">300px</span>' +
                 '</div>' +
                 '<div id="embed" class="copy"><input name="inputEmbed" class="" type="text" value=\'<iframe height="' +
-                klynt.player.height +
+                klynt.player.unscaledHeight +
                 '" width="' +
-                klynt.player.width +
+                klynt.player.unscaledWidth +
                 '" src="' +
                 url +
                 '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>' +
@@ -150,9 +152,9 @@
             // '<label class="" for="original" style="margin:0">{{originalSizeWording}}</label>' +
             // '</div>' +
             '<div id="embed" class="copy"><input name="inputEmbed" class="" type="text" value=\'<iframe height="' +
-                klynt.player.height +
+                klynt.player.unscaledHeight +
                 '" width="' +
-                klynt.player.width +
+                klynt.player.unscaledWidth +
                 '" src="' +
                 url +
                 '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>' +
@@ -182,6 +184,9 @@
     };
 
     klynt.ShareModal.prototype.init = function (data) {
+
+        klynt.analytics.trackPageView('share_modale');
+
         var uncheckedButton = this._uncheckedButton;
         var checkedButton = this._checkedButton;
         var miniuncheckedButton = this._miniUncheckedButton;
@@ -398,6 +403,8 @@
             var summary = encodeURIComponent(this._data.message);
             var shortMessage = encodeURIComponent(this._data.shortMessage);
 
+            klynt.analytics.trackEvent('share', socialNetwork);
+
             switch (socialNetwork) {
             case 'facebook':
                 facebook();
@@ -468,7 +475,12 @@
                 var top = (screen.height - height) / 3;
                 var left = (screen.width - width) / 2;
 
-                window.open(url, 'newwindow', 'width=500, height=400, top=' + top + ', left=' + left);
+                if (klynt.fullscreen.active) {
+                    window.open(url);
+                } else {
+                    window.open(url, 'newwindow', 'width=500, height=400, top=' + top + ', left=' + left);
+                }
+
             }
         }
     };
@@ -479,19 +491,21 @@
     };
 
     klynt.ShareModal.prototype.toggle = function () {
-        if (this._$element.css('display') === 'block')
+        if (this._$element.css('display') === 'block') {
             klynt.modal.close();
-        else
+        } else {
             klynt.modal.open();
+            klynt.analytics.trackPageView('share_modale');
+        }
     };
 
     klynt.ShareModal.prototype.open = function () {
-        $('.modal-background').show().animate({
+
+        var shadowHeight = klynt.sequenceContainer.sequenceScale * klynt.sequenceContainer.unscaledHeight;
+        $('.modal-background').height(shadowHeight).show().animate({
             opacity: 1
         }, 500);
-
         klynt.player.pause();
-
         this._$element
             .show()
             .addClass('animated fadeInUp ');

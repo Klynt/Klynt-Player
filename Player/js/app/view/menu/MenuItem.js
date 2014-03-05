@@ -10,7 +10,7 @@
     klynt.MenuItem = function (data) {
         this._data = data;
         this.init();
-        this.render();
+        //this.render();
     };
 
     // MenuItem prototype with the list of publicly available accessors and private properties.

@@ -56,9 +56,13 @@
         this._initChildren();
         this._initScouts();
         this._initTimesheets();
+        this.$element.bind('dragstart', function () {
+            return false;
+        });
     };
 
     klynt.SequenceRenderer.prototype.destroy = function () {
+        this._end();
         this._$element.remove();
     };
 
@@ -91,6 +95,12 @@
             paneClass: 'nano-pane',
             contentClass: 'nano-content'
         });
+
+        function createRenderer(rendererClass, $parent) {
+            return function (model) {
+                return new rendererClass(model, $parent);
+            };
+        }
     };
 
     klynt.SequenceRenderer.prototype._initScouts = function () {
@@ -112,12 +122,6 @@
         document.dispatchEvent(event);
     };
 
-    function createRenderer(rendererClass, $parent) {
-        return function (model) {
-            return new rendererClass(model, $parent);
-        };
-    }
-
     klynt.SequenceRenderer.prototype.play = function () {
         if (!this._playing) {
             this._playing = true;
@@ -138,14 +142,12 @@
 
     };
 
-    klynt.SequenceRenderer.prototype.pause = function () {
+    klynt.SequenceRenderer.prototype.pause = function (overlay) {
         var ended = this._ended;
-        var overlay = klynt.sequenceContainer.currentOverlayRenderer;
-        overlay = overlay && overlay !== this;
 
         this._mediaRenderers.forEach(function playMedia(media) {
             media.saveStatus();
-            media.pause(ended, overlay || klynt.menu.isOpen);
+            media.pause(ended, overlay);
         });
 
         if (this._playing) {
@@ -184,19 +186,22 @@
 
     klynt.SequenceRenderer.prototype.runAutomaticLink = function (link) {
         if (!this._ended) {
-            this._end();
+            this._ended = true;
+            klynt.utils.callLater(function () {
+                this._end();
 
-            if (link && link instanceof klynt.Link && link.automaticTransition) {
-                link.execute();
-            } else {
-                for (var i = 0; i < this.sequence.buttons.length; i++) {
-                    var button = this.sequence.buttons[i];
-                    if (button.link && button.link.automaticTransition) {
-                        button.link.execute();
-                        break;
+                if (link && link instanceof klynt.Link && link.automaticTransition) {
+                    link.execute();
+                } else {
+                    for (var i = 0; i < this.sequence.buttons.length; i++) {
+                        var button = this.sequence.buttons[i];
+                        if (button.link && button.link.automaticTransition) {
+                            button.link.execute();
+                            break;
+                        }
                     }
                 }
-            }
+            }.bind(this));
         }
     };
 

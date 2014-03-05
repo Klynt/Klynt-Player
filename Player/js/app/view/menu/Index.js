@@ -8,7 +8,7 @@
     klynt.Index = function (data) {
 
         var sequences = klynt.sequences.findAll(data.params.sequences);
-        var currentSequenceID = klynt.sequenceManager.currentSequence.id;
+        var currentSequenceID = klynt.sequenceContainer.currentSequence.id;
         data.sequences = [];
 
         sequences.forEach(function (sequence) {
@@ -93,6 +93,16 @@
         klynt.MenuItem.prototype.render.call(this);
 
         var $indexGallerySequences = this._$element.find('.index-grid-sequence');
+        var $sequenceLinks = this._$element.find('.sequence-link');
+
+        $sequenceLinks.on('click', function (e) {
+            e.preventDefault();
+
+            var alias = $(this).attr('href').split('#')[1];
+            var id = klynt.sequences.getSequenceIdByAlias(alias);
+            klynt.player.openFromMenu(id);
+
+        });
 
         if (Modernizr.touch) {
             $indexGallerySequences
@@ -136,25 +146,6 @@
     };
 
     klynt.Index.prototype.update = function () {
-
-    };
-
-    klynt.Index.prototype.setupScroll = function () {
-
-        // var $wrapper = this._$element.find('.index-wrapper');
-        // var $scroll = $wrapper.find('.index-wrapper-scroll').css({
-        //     height: $wrapper.height(),
-        //     width: $wrapper.width()
-        // });
-
-        // if (!$scroll.hasClass('nano')) {
-        //     $scroll.addClass('nano').nanoScroller({
-        //         //                iOSNativeScrolling: true,
-        //         //                preventPageScrolling: true
-        //     });
-        // } else {
-        //     $scroll.nanoScroller();
-        // }
 
     };
 

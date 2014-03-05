@@ -1,3 +1,7 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS attributes directly in the EDITOR  */
+/*  For more informations, you can check our support center @ http://support.klynt.net or our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
 /*------- player/mini-player.css (level 2) -------*/
 
 /* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved */
@@ -18,17 +22,18 @@ body {font: 14px 'Open Sans', sans-serif;} /* MAIN_FONT */
 a.klynt-primary-color:link,
 a.klynt-primary-color:hover,
 a.klynt-primary-color:active,
-.klynt-primary-color:focus {color: rgba(255, 255, 255, 1);} /* PRIMARY_COLOR */
+.klynt-primary-color:focus {color: rgba(51, 51, 51, 1);} /* PRIMARY_COLOR */
 
-.klynt-primary-color-bg {background-color: rgba(255, 255, 255, 1);} /* PRIMARY_COLOR */
-.klynt-primary-color-bg-70 {background-color: rgba(255, 255, 255, 0.7);} /* PRIMARY_COLOR */
+.klynt-primary-color-bg {background-color: rgba(51, 51, 51, 1);} /* PRIMARY_COLOR */
+.klynt-primary-color-bg-70 {background-color: rgba(51, 51, 51, 0.7);} /* PRIMARY_COLOR */
+.klynt-primary-color-bg-90 {background-color: rgba(51, 51, 51, 0.9);} /* PRIMARY_COLOR */
 
-.klynt-primary-map-controls-bg-color a {background-color: rgba(255, 255, 255, 0.4);} /* PRIMARY_COLOR */
-.klynt-primary-map-controls-bg-color a:active {background-color: rgba(255, 255, 255, 0.55);} /* PRIMARY_COLOR */
-.klynt-primary-map-controls-bg-color a.inactive {background-color: rgba(255, 255, 255, 0.25);} /* PRIMARY_COLOR */
+.klynt-primary-map-controls-bg-color a {background-color: rgba(51, 51, 51, 0.4);} /* PRIMARY_COLOR */
+.klynt-primary-map-controls-bg-color a:active {background-color: rgba(51, 51, 51, 0.55);} /* PRIMARY_COLOR */
+.klynt-primary-map-controls-bg-color a.inactive {background-color: rgba(51, 51, 51, 0.25);} /* PRIMARY_COLOR */
 
-.sequence-container { background-color: rgba(255, 255, 255, 1); } /* PRIMARY_COLOR */
-.klynt-background-color{ background-color: rgba(255, 255, 255, 1); } /* PRIMARY_COLOR */
+.sequence-container { background-color: rgba(51, 51, 51, 1); } /* PRIMARY_COLOR */
+.klynt-background-color{ background-color: rgba(51, 51, 51, 1); } /* PRIMARY_COLOR */
 
 /* SECONDARY COLOR */
 
@@ -36,30 +41,30 @@ a.klynt-primary-color:active,
 a.klynt-secondary-color:link,
 a.klynt-secondary-color:hover,
 a.klynt-secondary-color:active,
-.klynt-secondary-color:focus {color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-6 span{color: rgba(204, 0, 102, 0.6);} /* SECONDARY_COLOR */
-.klynt-secondary-color-10 {color: rgba(204, 0, 102, 0.1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-20 {color: rgba(204, 0, 102, 0.2);} /* SECONDARY_COLOR */
-.klynt-secondary-color-50 {color: rgba(204, 0, 102, 0.5);} /* SECONDARY_COLOR */
-.klynt-secondary-color-50:hover {color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-80 {color: rgba(204, 0, 102, 0.8);} /* SECONDARY_COLOR */
-.klynt-secondary-color-6:hover span, .klynt-secondary-color-6:active span {color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-bg {background-color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-bg-5 {background-color: rgba(204, 0, 102, 0.05);} /* SECONDARY_COLOR */
-.klynt-secondary-color-bg-5:hover, .klynt-secondary-color-bg-5:active {background-color: rgba(204, 0, 102, 0.1);} /* SECONDARY_COLOR */
-.klynt-secondary-bg-color-7 {background-color: rgba(204, 0, 102, 0.07);} /* SECONDARY_COLOR */
-.klynt-secondary-bg-color-10 {background-color: rgba(204, 0, 102, 0.1);} /* SECONDARY_COLOR */
-a.klynt-secondary-color-hover:hover {color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-border {border-color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-color-fill {fill: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-menu-bar-item.current a {color: rgba(204, 0, 102, 1)} /* SECONDARY_COLOR */
-.klynt-secondary-map-controls-color a {color: rgba(204, 0, 102, 1);} /* SECONDARY_COLOR */
-.klynt-secondary-map-controls-color a.inactive {color: rgba(204, 0, 102, 0.5);} /* SECONDARY_COLOR */
+.klynt-secondary-color:focus {color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-6 span{color: rgba(255, 255, 255, 0.6);} /* SECONDARY_COLOR */
+.klynt-secondary-color-10 {color: rgba(255, 255, 255, 0.1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-20 {color: rgba(255, 255, 255, 0.2);} /* SECONDARY_COLOR */
+.klynt-secondary-color-50 {color: rgba(255, 255, 255, 0.5);} /* SECONDARY_COLOR */
+.klynt-secondary-color-50:hover {color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-80 {color: rgba(255, 255, 255, 0.8);} /* SECONDARY_COLOR */
+.klynt-secondary-color-6:hover span, .klynt-secondary-color-6:active span {color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-bg {background-color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-bg-5 {background-color: rgba(255, 255, 255, 0.05);} /* SECONDARY_COLOR */
+.klynt-secondary-color-bg-5:hover, .klynt-secondary-color-bg-5:active {background-color: rgba(255, 255, 255, 0.1);} /* SECONDARY_COLOR */
+.klynt-secondary-bg-color-7 {background-color: rgba(255, 255, 255, 0.07);} /* SECONDARY_COLOR */
+.klynt-secondary-bg-color-10 {background-color: rgba(255, 255, 255, 0.1);} /* SECONDARY_COLOR */
+a.klynt-secondary-color-hover:hover {color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-border {border-color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-color-fill {fill: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-menu-bar-item.current a {color: rgba(255, 255, 255, 1)} /* SECONDARY_COLOR */
+.klynt-secondary-map-controls-color a {color: rgba(255, 255, 255, 1);} /* SECONDARY_COLOR */
+.klynt-secondary-map-controls-color a.inactive {color: rgba(255, 255, 255, 0.5);} /* SECONDARY_COLOR */
 
-::-webkit-input-placeholder {color: rgba(204, 0, 102, 0.6);} /* SECONDARY_COLOR */
-:-moz-placeholder {color: rgba(204, 0, 102, 0.6);} /* SECONDARY_COLOR */
-::-moz-placeholder {color: rgba(204, 0, 102, 0.6);} /* SECONDARY_COLOR */
- :-ms-input-placeholder {color: rgba(204, 0, 102, 0.6);} /* SECONDARY_COLOR */
+::-webkit-input-placeholder {color: rgba(255, 255, 255, 0.6);} /* SECONDARY_COLOR */
+:-moz-placeholder {color: rgba(255, 255, 255, 0.6);} /* SECONDARY_COLOR */
+::-moz-placeholder {color: rgba(255, 255, 255, 0.6);} /* SECONDARY_COLOR */
+ :-ms-input-placeholder {color: rgba(255, 255, 255, 0.6);} /* SECONDARY_COLOR */
 
 /* TERTIARY COLOR */
 
@@ -67,24 +72,24 @@ a.klynt-secondary-color-hover:hover {color: rgba(204, 0, 102, 1);} /* SECONDARY_
 a.klynt-tertiary-color:link,
 a.klynt-tertiary-color:hover,
 a.klynt-tertiary-color:active,
-.klynt-tertiary-color:focus {color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-bg {background-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-bg-alpha35 {background-color: rgba(0, 153, 204, 0.35);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-bg-alpha70 {background-color: rgba(0, 153, 204, 0.7);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-bg-control {background-color: rgba(0, 153, 204, 0.4);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-bg-control:hover{background-color: rgba(0, 153, 204, 0.8);} /* TERTIARY_COLOR */
-a.klynt-tertiary-color-hover:hover {color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-border {border-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-border.current {border-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-border a {border-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-border.current a {border-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-fill {fill: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.mejs-time-current{background-color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-hover:hover {color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-fill-hover:hover {color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-hover:hover {color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-color-hover.active{color: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
-.klynt-tertiary-fill-hover:hover {fill: rgba(0, 153, 204, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color:focus {color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-bg {background-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-bg-alpha35 {background-color: rgba(231, 57, 61, 0.35);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-bg-alpha70 {background-color: rgba(231, 57, 61, 0.7);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-bg-control {background-color: rgba(231, 57, 61, 0.4);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-bg-control:hover{background-color: rgba(231, 57, 61, 0.8);} /* TERTIARY_COLOR */
+a.klynt-tertiary-color-hover:hover {color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-border {border-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-border.current {border-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-border a {border-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-border.current a {border-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-fill {fill: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.mejs-time-current{background-color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-hover:hover {color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-fill-hover:hover {color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-hover:hover {color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-color-hover.active{color: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
+.klynt-tertiary-fill-hover:hover {fill: rgba(231, 57, 61, 1);} /* TERTIARY_COLOR */
 
 /* TRANSITIONS */
 

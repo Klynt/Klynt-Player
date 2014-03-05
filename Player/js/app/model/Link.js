@@ -13,12 +13,32 @@
     klynt.Link.prototype = {
         _data: null,
 
+        get id() {
+            return this._data.id;
+        },
+
         get type() {
             return this._data.linkType;
         },
 
+        get color() {
+            return this._data.color;
+        },
+
+        get controlDX() {
+            return this._data.controlDX;
+        },
+
+        get controlDY() {
+            return this._data.controlDY;
+        },
+
         get tooltip() {
             return this._data.tooltip;
+        },
+
+        get hideInMindmap() {
+            return this._data.hideInMindmap;
         },
 
         // Link to sequence and overlay

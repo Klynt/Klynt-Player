@@ -1,3 +1,7 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS classes in Ressources/css/player.css file */
+/*  For more informations, you can check our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
 /*------- player/nanoscroller.css (level 1) -------*/
 
 .nano-container {
@@ -22,7 +26,7 @@
 }
 
 .nano-container .nano-content:focus {
-	outline: thin dotted;
+	outline: 0;
 }
 
 .nano-container .nano-content::-webkit-scrollbar {

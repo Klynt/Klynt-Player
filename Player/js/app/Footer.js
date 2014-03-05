@@ -14,6 +14,9 @@
     if (!data.items) {
         data.items = [];
     }
+    if (!data.buttons) {
+        data.buttons = [];
+    }
 
     if (!klynt.fullscreen.enabled) {
         removeButtonWithType('fullscreen');
@@ -131,6 +134,7 @@
             klynt.fullscreen.toggle();
             break;
         case 'klynt':
+            klynt.analytics.trackEvent('footer', 'made with klynt');
             window.open('http://klynt.net', '_blank');
             break;
         default:

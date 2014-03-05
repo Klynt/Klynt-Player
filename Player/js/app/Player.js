@@ -26,12 +26,20 @@
 
         get height() {
             return klynt.sequenceContainer.height + klynt.footer.height;
+        },
+
+        get unscaledWidth() {
+            return klynt.sequenceContainer.unscaledWidth;
+        },
+
+        get unscaledHeight() {
+            return klynt.sequenceContainer.unscaledHeight + klynt.footer.height;
         }
     };
 
     klynt.getModule('player', accessors)
         .expose(init, start)
-        .expose(togglePlayPause, open, play, pause, seekTo)
+        .expose(togglePlayPause, open, openFromMenu, play, pause, seekTo)
         .expose(toggleMute, mute, unmute)
         .expose(toggleModal)
         .expose(resetDimensions, setDimensions)
@@ -40,11 +48,17 @@
     $(window).bind('resize', onResize);
 
     function init() {
+
+        var shadowHeight = klynt.sequenceContainer.height;
+
         $('body, .player-container').addClass('klynt-background-color');
         $element = $('#player');
         this.resetDimensions();
-        $element.append('<div class="modal-background" style="height:' + klynt.sequenceContainer.height + 'px"></div>');
+
+        $element.append('<div class="modal-background" style="height:' + shadowHeight + 'px"></div>');
         $('.player-container').append('<div class="fullscreen-hide"></div>');
+        $('.player-container').append('<div class="fullscreen-hide-left"></div>');
+        $('.player-container').append('<div class="fullscreen-hide-right"></div>');
     }
 
     function start() {
@@ -70,6 +84,13 @@
 
     function open(sequence) {
         klynt.sequenceManager.open(sequence);
+        klynt.menu.close();
+    }
+
+    function openFromMenu(sequence) {
+        if (sequence != klynt.sequenceContainer.currentSequence.id) {
+            klynt.sequenceManager.open(sequence);
+        }
         klynt.menu.close();
     }
 
@@ -118,6 +139,7 @@
         });
 
         $('.fullscreen-hide').css('height', '0px');
+        $('.fullscreen-hide-left, .fullscreen-hide-right ').css('width', '0px');
     }
 
     function setDimensions(width, height) {
@@ -133,6 +155,11 @@
             if (top != 0) {
                 $element.css('top', top + 'px');
                 $('.fullscreen-hide').css('height', top + 'px');
+            }
+
+            var width = (screen.width - this.width) / 2;
+            if (width != 0) {
+                $('.fullscreen-hide-left, .fullscreen-hide-right ').css('width', width + 'px');
             }
         }
     }

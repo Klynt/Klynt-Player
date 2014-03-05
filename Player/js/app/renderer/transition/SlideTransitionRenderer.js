@@ -20,9 +20,6 @@
 
         var animation = this._getAnimationDescription();
 
-        this._result = target;
-        this._discarded = source;
-
         if (source) {
             source.$element
                 .stop()

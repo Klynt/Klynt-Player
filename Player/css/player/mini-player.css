@@ -1,3 +1,7 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS classes in Ressources/css/player.css file */
+/*  For more informations, you can check our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
 /*------- player/mini-player.css (level 1) -------*/
 
 /*----- SUMMARY -----*/
@@ -74,17 +78,18 @@ body{
 }
 
 .vertical.miniplayer-text{
+	box-sizing: border-box!important;
+	-moz-box-sizing: border-box!important;
 	position: absolute;
 	left: 0px;
-	top: calc(100% - 136px); 
-	top: -webkit-calc(100% - 136px); 
+	top: calc(100% - 136px);
+	top: -webkit-calc(100% - 136px);
 	height: 136px;
 	width: 100%;
 	text-align: left;
 	border-left: 1px solid;
 	border-bottom: 1px solid;
 	border-right: 1px solid;
-	box-sizing: border-box;
 }
 
 .vertical.miniplayer-text-title{
@@ -110,18 +115,25 @@ body{
 }
 
 .vertical.miniplayer-return-info{
-	margin-top: 18%;
 	font-size: 20px;
 	width: 80%;
 	margin-left: 10%;
+	position: absolute;
+	bottom: 150px;
 }
 
 .vertical.miniplayer-return-question{
 	font-size: 14px;
 	width: 80%;
 	margin-left: 10%;
-	margin-top: 25px;
-	margin-bottom: 25px;
+	position: absolute;
+	bottom: 86px;
+}
+
+.vertical.miniplayer-return-buttons {
+	position: absolute;
+	bottom: 29px;
+	margin-left: calc(50% - 96px);
 }
 
 .vertical.miniplayer-return-buttons > div {
@@ -133,10 +145,11 @@ body{
 }
 
 .vertical.miniplayer-return-buttons > div.yes {
-	margin-right: 20px;
+	
 }
 
 .vertical.miniplayer-return-buttons > div.no {
+	margin-right: 20px;
 }
 
 /* II . HORIZONTAL */
@@ -250,8 +263,9 @@ body{
 }
 
 .horizontal.miniplayer-return-buttons > div.yes {
-	margin-right: 20px;
+	
 }
 
 .horizontal.miniplayer-return-buttons > div.no {
+	margin-right: 20px;
 }

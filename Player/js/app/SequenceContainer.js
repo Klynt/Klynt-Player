@@ -10,6 +10,8 @@
 (function sequenceContainer(klynt) {
     var $element;
     var $fullscreenWrapper;
+    var currentSequence;
+    var $currentSequence;
     var sequenceScale = 1;
     var watermark = klynt.data.watermark;
 
@@ -68,9 +70,41 @@
 
         resetDimensions();
 
-        if (watermark) {
+        if (watermark && watermark.enabled) {
             $element.append('<img src="Player/css/editor/img/watermark.png" class="watermark watermark-' + watermark.position + '"></img>');
             $element.on(Modernizr.touch ? 'touchstart' : 'click', '.watermark', actionWatermark);
+        }
+
+        var touchEnabled = false;
+        var touchTransition;
+
+        if (touchEnabled) {
+            $element.hammer({
+                drag_lock_to_axis: true
+            }).on("drag", function (event) {
+                if (!touchTransition) {
+                    touchTransition = klynt.sequenceManager.openSequenceWithTouch(event.gesture.direction);
+                }
+
+                if (touchTransition) {
+                    touchTransition.dragendOffset(event.gesture.deltaX, event.gesture.deltaY);
+                }
+
+                event.preventDefault();
+                event.gesture.preventDefault();
+            });
+
+            $element.hammer({
+                drag_lock_to_axis: true
+            }).on("dragend", function (event) {
+                if (touchTransition) {
+                    touchTransition.dragend(event.gesture.deltaX, event.gesture.deltaY);
+                    touchTransition = null;
+                }
+
+                event.preventDefault();
+                event.gesture.preventDefault();
+            });
         }
     }
 
@@ -142,7 +176,30 @@
 
         get currentRenderer() {
             return currentOverlayRenderer || currentSequenceRenderer;
-        }
+        },
+
+        get currentRenderers() {
+            var result = [];
+
+            if (currentSequenceRenderer) {
+                result.push(currentSequenceRenderer);
+            }
+            if (currentOverlayRenderer) {
+                result.push(currentOverlayRenderer);
+            }
+
+            return result;
+        },
+
+        get currentSequence() {
+            return this.currentRenderer && this.currentRenderer.sequence;
+        },
+
+        get currentSequences() {
+            return this.currentRenderers.map(function (renderer) {
+                return renderer.sequence;
+            });
+        },
     };
 
     klynt.getModule('sequenceContainer').expose(accessors);
@@ -151,7 +208,7 @@
 (function sequenceContainerFactory(klynt) {
     klynt.getModule('sequenceContainer').expose(addSequence, addOverlay);
 
-    function addSequence(sequence) {
+    function addSequence(sequence, touch) {
         return new klynt.SequenceRenderer(sequence, klynt.sequenceContainer.$fullscreenWrapper);
     }
 

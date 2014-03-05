@@ -14,9 +14,6 @@
     klynt.FadeTransitionRenderer.prototype.execute = function (source, target) {
         klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-        this._result = target;
-        this._discarded = source;
-
         if (source) {
             source.$element
                 .stop()

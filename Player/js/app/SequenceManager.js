@@ -8,7 +8,8 @@
 
 (function (klynt) {
     var muted = false;
-    var currentSequence;
+    var transitionRenderer;
+    var testStorage = false;
 
     var accessors = {
         get playing() {
@@ -17,16 +18,12 @@
 
         get muted() {
             return muted;
-        },
-
-        get currentSequence() {
-            return currentSequence;
         }
     };
 
     klynt.getModule('sequenceManager')
         .expose(accessors)
-        .expose(open, closeOverlay)
+        .expose(open, openSequenceWithTouch, closeOverlay)
         .expose(togglePlayPause, play, pause, seekTo)
         .expose(toggleMute, mute, unmute)
         .expose(openLink);
@@ -56,62 +53,134 @@
         }
     }
 
-    function openSequence(sequence, link) {
-        currentSequence = sequence;
-
-        if (klynt.data.watermark) {
-            if ((sequence.id === klynt.data.mainSequence) && !klynt.data.watermark.displayOnStartSequence) {
-                klynt.sequenceContainer.$watermark.hide();
-            } else {
-                klynt.sequenceContainer.$watermark.show();
+    function openSequenceWithTouch(direction) {
+        var arrowButtons = klynt.sequenceContainer.currentSequence.buttons.filter(function (button) {
+            if (button.link && button.link.automaticTransition) {
+                return false;
             }
-        }
+            switch (direction) {
+            case klynt.TouchTransitionRenderer.DIRECTION.UP:
+                return button.type === 'btn-arrow-bottom';
+            case klynt.TouchTransitionRenderer.DIRECTION.DOWN:
+                return button.type === 'btn-arrow-top';
+            case klynt.TouchTransitionRenderer.DIRECTION.LEFT:
+                return button.type === 'btn-arrow-right';
+            case klynt.TouchTransitionRenderer.DIRECTION.RIGHT:
+                return button.type === 'btn-arrow-left';
+            default:
+                return false;
+            }
+        });
 
-        var transitionRenderer = klynt.utils.getTransitionRenderer(link && link.transition);
+        var selectedLink = arrowButtons.length === 1 ? arrowButtons[0].link : null;
 
+        return selectedLink && selectedLink.target && !selectedLink.overlay ? openSequence(selectedLink.target, {
+            transition: {
+                type: 'touch',
+                direction: direction
+            }
+        }) : null;
+    }
+
+    function openSequence(sequence, link) {
         if (klynt.sequenceContainer.currentOverlayRenderer) {
             klynt.sequenceContainer.currentOverlayRenderer.destroy();
+            klynt.sequenceContainer.currentOverlayRenderer = null;
         }
 
-        $(transitionRenderer).on('complete.animation', function (event, transitionRenderer) {
+        if (testStorage) {
+            storeLink(sequence.id);
+        } else {
+            testStorage = true;
+        }
+
+        var nextRenderer = klynt.sequenceContainer.addSequence(sequence);
+
+        if (transitionRenderer) {
+            transitionRenderer.kill();
+        }
+
+        transitionRenderer = klynt.utils.getTransitionRenderer(link);
+
+        $(transitionRenderer).on('validate.animation', function (event) {
+            if (klynt.data.watermark) {
+                if ((sequence.id === klynt.data.mainSequence) && !klynt.data.watermark.displayOnStartSequence) {
+                    klynt.sequenceContainer.$watermark.hide();
+                } else {
+                    klynt.sequenceContainer.$watermark.show();
+                }
+            }
+
+            if (!klynt.sequenceContainer.currentSequenceRenderer) {
+                klynt.sequenceContainer.currentSequenceRenderer = nextRenderer;
+            }
+
+            klynt.hashtag.setCurrentSequence(sequence.id);
+            klynt.player.$element.trigger('open.sequence', sequence);
+        });
+
+        $(transitionRenderer).on('complete.animation', function (event) {
             if (transitionRenderer.discarded) {
                 transitionRenderer.discarded.destroy();
             }
             klynt.sequenceContainer.currentSequenceRenderer = transitionRenderer.result;
+            transitionRenderer = null;
         });
 
-        var nextRenderer = klynt.sequenceContainer.addSequence(sequence);
-        transitionRenderer.execute(klynt.sequenceContainer.currentSequenceRenderer, nextRenderer);
-        if (!klynt.sequenceContainer.currentSequenceRenderer) {
-            klynt.sequenceContainer.currentSequenceRenderer = nextRenderer;
-        }
+        $(transitionRenderer).on('cancel.animation', function (event) {
+            if (transitionRenderer.target) {
+                transitionRenderer.target.destroy();
+            }
 
-        klynt.hashtag.setCurrentSequence(sequence.id);
-        klynt.player.$element.trigger('open.sequence', sequence);
+            transitionRenderer = null;
+        });
+
+        transitionRenderer.execute(klynt.sequenceContainer.currentSequenceRenderer, nextRenderer);
+
+        return transitionRenderer;
     }
 
     function openOverlay(sequence, link) {
-        var transitionRenderer = klynt.utils.getTransitionRenderer(link && link.transition);
+        var params = {
+            automaticClose: link ? link.automaticClose : false,
+            closeButton: link ? link.closeButton : true
+        };
+        var nextRenderer = klynt.sequenceContainer.addOverlay(sequence, params);
 
-        $(transitionRenderer).on('complete.animation', function (event, transitionRenderer) {
+        if (transitionRenderer) {
+            transitionRenderer.kill();
+        }
+
+        transitionRenderer = klynt.utils.getTransitionRenderer(link && link.transition);
+
+        $(transitionRenderer).on('validate.animation', function (event) {
+            klynt.player.$element.trigger('open.overlay', sequence);
+        });
+
+        $(transitionRenderer).on('complete.animation', function (event) {
             if (transitionRenderer.discarded) {
                 transitionRenderer.discarded.destroy();
             }
             klynt.sequenceContainer.currentOverlayRenderer = transitionRenderer.result;
 
             if (klynt.sequenceContainer.currentSequenceRenderer && (!link || link.pauseParent)) {
-                klynt.sequenceContainer.currentSequenceRenderer.pause();
+                klynt.sequenceContainer.currentSequenceRenderer.pause(true);
             }
+
+            transitionRenderer = null;
         });
 
-        var params = {
-            automaticClose: link ? link.automaticClose : false,
-            closeButton: link ? link.closeButton : true
-        };
-        var nextRenderer = klynt.sequenceContainer.addOverlay(sequence, params);
+        $(transitionRenderer).on('cancel.animation', function (event) {
+            if (transitionRenderer.target) {
+                transitionRenderer.target.destroy();
+            }
+
+            transitionRenderer = null;
+        });
+
         transitionRenderer.execute(klynt.sequenceContainer.currentOverlayRenderer, nextRenderer);
 
-        klynt.player.$element.trigger('open.overlay', sequence);
+        return transitionRenderer;
     }
 
     function closeOverlay() {
@@ -131,7 +200,6 @@
         } else {
             this.play();
         }
-
     }
 
     function play() {
@@ -139,7 +207,9 @@
     }
 
     function pause() {
-        klynt.sequenceContainer.currentRenderer.pause();
+        klynt.sequenceContainer.currentRenderers.forEach(function (renderer) {
+            renderer.pause();
+        });
     }
 
     function seekTo(time) {
@@ -156,13 +226,40 @@
 
     function mute() {
         muted = true;
-        klynt.sequenceContainer.currentRenderer.mute();
+
+        klynt.sequenceContainer.currentRenderers.forEach(function (renderer) {
+            renderer.mute();
+        });
+
         klynt.player.$element.trigger('off.sound');
+    }
+
+    function storeLink(id) {
+
+        if (id != klynt.sequenceContainer.currentSequence.id) {
+            var storage = localStorage.getItem(klynt.sequenceContainer.currentSequence.id);
+            storage = JSON.parse(storage);
+
+            if (storage == null) {
+                storage = [];
+            }
+
+            if (storage.indexOf(id) == -1) {
+                storage.push(id);
+            }
+
+            storage = JSON.stringify(storage);
+            localStorage.setItem(klynt.sequenceContainer.currentSequence.id, storage);
+        }
     }
 
     function unmute() {
         muted = false;
-        klynt.sequenceContainer.currentRenderer.unmute();
+
+        klynt.sequenceContainer.currentRenderers.forEach(function (renderer) {
+            renderer.unmute();
+        });
+
         klynt.player.$element.trigger('on.sound');
     }
 })(window.klynt);

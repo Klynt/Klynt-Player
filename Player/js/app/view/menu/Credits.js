@@ -6,9 +6,13 @@
 
 (function (klynt) {
     klynt.Credits = function (data) {
+
         this._data = data.params;
+        this._data.id = data.id;
         this._data.aboutColumnTextLines = splitLines(this._data.aboutColumnText);
         this._data.creditsColumnTextLines = splitLines(this._data.creditsColumnText);
+        this._data.type = data.type;
+        this._data.label = data.label;
 
         this._template =
             '<div class="credits-header">' +

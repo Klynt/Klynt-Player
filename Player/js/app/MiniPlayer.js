@@ -22,14 +22,17 @@
 			fullscreen();
 		});
 
-		miniPlayer.$element.find('.no').click(function () {
+		miniPlayer.$element.find('.yes').click(function () {
 			fullscreen();
 			klynt.player.start();
 		});
 
-		miniPlayer.$element.find('.yes').click(function () {
+		miniPlayer.$element.find('.no').click(function () {
 			changeMode(false);
 		});
+
+		klynt.analytics.init();
+		klynt.analytics.trackPageView('miniplayer');
 	}
 
 	function fullscreen() {

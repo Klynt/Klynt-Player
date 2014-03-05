@@ -143,21 +143,18 @@
 
     function setSequenceContainerOffset(px, animate) {
         var $sequenceContainer = klynt.sequenceContainer.$element;
-        var scaleHeight = klynt.player.height / (klynt.sequenceContainer.unscaledHeight + klynt.footer.height);
-        var scaleWidth = klynt.player.width / klynt.sequenceContainer.unscaledWidth;
-        var scale = Math.max(scaleHeight, scaleWidth);
+
         $sequenceContainer.removeClass("animate");
         if (animate) $sequenceContainer.addClass("animate");
+
         if (Modernizr.csstransforms3d) {
-            if (!scale) {
-                scale = 1;
-            }
-            $sequenceContainer.css("transform", "translate3d(0," + px + "px,0)");
+            $sequenceContainer.css("transform", px ? ("translate3d(0," + px + "px,0)") : "none");
         } else if (Modernizr.csstransforms) {
-            $sequenceContainer.css("transform", "translate(0," + px + "px)");
+            $sequenceContainer.css("transform", px ? ("translate(0," + px + "px)") : "none");
         } else {
             $sequenceContainer.css("top", px + "px");
         }
+
         $barPhantom.toggle(isOpen);
     }
 
@@ -173,10 +170,12 @@
     function initWidget(id, index) {
         var oldWidget = widgets[0];
         var widget = getWidgetWithId(id);
+
         if (searchTest) {
             changeWidget(widget, index)
             klynt.footer.enable();
             klynt.footer.activate(index);
+            klynt.analytics.trackPageView('widget_' + widget.type + '_' + widget._data.label);
         } else {
             if (!isOpen) {
                 addWidget(widget, index);
@@ -185,6 +184,7 @@
                 } else {
                     klynt.footer.activateId(id);
                 }
+                klynt.analytics.trackPageView('widget_' + widget.type + '_' + widget._data.label);
             } else  if (oldWidget.id == id) {
                 klynt.menu.close();
             } else {
@@ -195,6 +195,7 @@
                 } else {
                     klynt.footer.activateId(id);
                 }
+                klynt.analytics.trackPageView('widget_' + widget.type + '_' + widget._data.label);
             }
         }
     }
@@ -202,6 +203,7 @@
     function getWidgetWithId(id) {
         var widgets = data.widgets;
         var widget;
+
         for (var key in widgets) {
             if (widgets[key].id == id) {
                 widget = widgets[key];
@@ -211,6 +213,7 @@
         if (!widget) {
             return null
         };
+
         switch (widget.type) {
         case 'search':
             return new klynt.Search(widget);
@@ -220,6 +223,8 @@
             return new klynt.Index(widget);
         case 'map':
             return new klynt.Map(widget);
+        case 'mindmap':
+            return new klynt.Mindmap(widget);
         default:
             return null;
         }
@@ -235,6 +240,7 @@
             left: '0px'
         });
         $itemsContainer.append(widget.$element);
+        widget.render();
         $element.find('.menu-bar-item').text(label);
         setTimeout(function () {
             $('.nano-container').nanoScroller({
@@ -277,6 +283,7 @@
             left: direction[0] + 'px'
         });
         $itemsContainer.append(widget.$element);
+        widget.render();
         setTimeout(function () {
             $('.nano-container').nanoScroller({
                 paneClass: 'nano-pane',
@@ -326,6 +333,7 @@
             indexFooter = -1;
             widgets = [widget];
             searchButton(true);
+            klynt.analytics.trackPageView('widget_search');
         }
     }
 
