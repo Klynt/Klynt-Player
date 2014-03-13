@@ -40,6 +40,7 @@
         this._originalImageHeight = this._$image.height();
 
         this._resizeImage();
+        this._executePanAndZoom();
     };
 
     klynt.ImageRenderer.prototype._resizeImage = function () {
@@ -52,7 +53,6 @@
 
     klynt.ImageRenderer.prototype._onBegin = function (event) {
         klynt.ElementRenderer.prototype._onBegin.call(this);
-        this._executePanAndZoom();
     };
 
     klynt.ImageRenderer.prototype._executePanAndZoom = function () {

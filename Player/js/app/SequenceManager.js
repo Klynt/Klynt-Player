@@ -151,7 +151,7 @@
             transitionRenderer.kill();
         }
 
-        transitionRenderer = klynt.utils.getTransitionRenderer(link && link.transition);
+        transitionRenderer = klynt.utils.getTransitionRenderer(link);
 
         $(transitionRenderer).on('validate.animation', function (event) {
             klynt.player.$element.trigger('open.overlay', sequence);

@@ -68,7 +68,6 @@ APIHandler.defineCommand('openOverlay', function (params) {
 			type: 'linkToSequence'
 		});
 	}
-
 });
 
 APIHandler.defineCommand('openWidget', function (id) {

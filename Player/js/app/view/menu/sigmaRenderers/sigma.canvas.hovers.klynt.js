@@ -35,8 +35,8 @@
         }
 
         var labelWidth = context.measureText(node.label).width;
-        var labelX = node[prefix + 'x'] - (labelWidth / 2);
-        var labelY = node[prefix + 'y'] - size * 1.2;
+        var labelX = node[prefix + 'x'] + node.dx - (labelWidth / 2);
+        var labelY = node[prefix + 'y'] + node.dy - size * 1.2;
 
         // Node border:
         if (settings('borderSize') > 0) {
@@ -45,8 +45,8 @@
                 (node.color || settings('defaultNodeColor')) :
                 settings('defaultNodeBorderColor');
             context.arc(
-                node[prefix + 'x'],
-                node[prefix + 'y'],
+                node[prefix + 'x'] + node.dx,
+                node[prefix + 'y'] + node.dy,
                 size + settings('borderSize'),
                 0,
                 Math.PI * 2,
@@ -66,8 +66,8 @@
                 (node.color || settings('defaultNodeColor')) :
                 settings('defaultLabelHoverColor');
 
-            var x = node[prefix + 'x'];
-            var y = node[prefix + 'y'];
+            var x = node[prefix + 'x'] + node.dx;
+            var y = node[prefix + 'y'] + node.dy;
 
             var tabLabel = node.label.split('//');
             var tabLength = tabLabel.length;

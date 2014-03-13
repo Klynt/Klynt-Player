@@ -26,13 +26,50 @@
                 context.globalAlpha = settings('nodesOpacity');
             }
 
+            if (settings('organicEffect')) {
+
+                if (node.dxDirection === undefined) {
+                    node.dxDirection = Math.random() < 0.5 ? 1 : -1;
+                    node.dyDirection = Math.random() < 0.5 ? 1 : -1;
+                }
+
+                if (Math.random() > 0.96) {
+                    node.dxDirection *= -1;
+                }
+
+                if (Math.random() > 0.96) {
+                    node.dyDirection *= -1;
+                }
+
+                //var randomX = (Math.random() * 2) - 1;
+                //var randomY = (Math.random() * 2) - 1;
+
+                var randomX = node.dxDirection * (Math.random() * Math.random() * 1);
+                var randomY = node.dyDirection * (Math.random() * Math.random() * 1);
+
+                randomX *= size / 50;
+                randomY *= size / 50;
+
+                console.log(size);
+
+                var distance = Math.sqrt(Math.pow(node.dx + randomX, 2) + Math.pow(node.dy + randomY, 2));
+
+                if (distance > size * 1) {
+                    node.dx -= randomX;
+                    node.dy -= randomY;
+                } else {
+                    node.dx += randomX;
+                    node.dy += randomY;
+                }
+            }
+
             // Draw the image
             if (img && size >= settings('imageThreshold')) {
                 // Draw the clipping disc:
                 context.beginPath();
                 context.arc(
-                    node[prefix + 'x'],
-                    node[prefix + 'y'],
+                    node[prefix + 'x'] + node.dx,
+                    node[prefix + 'y'] + node.dy,
                     size,
                     0,
                     Math.PI * 2,
@@ -51,8 +88,8 @@
 
                 context.drawImage(
                     img,
-                    node[prefix + 'x'] - imageScale * img.width,
-                    node[prefix + 'y'] - imageScale * img.height,
+                    node[prefix + 'x'] + node.dx - imageScale * img.width,
+                    node[prefix + 'y'] + node.dy - imageScale * img.height,
                     2 * imageScale * img.width,
                     2 * imageScale * img.height
                 );
@@ -63,8 +100,8 @@
             // Draw the border:
             context.beginPath();
             context.arc(
-                node[prefix + 'x'],
-                node[prefix + 'y'],
+                node[prefix + 'x'] + node.dx,
+                node[prefix + 'y'] + node.dy,
                 size,
                 0,
                 Math.PI * 2,
@@ -88,8 +125,8 @@
                 context.fillStyle = 'rgba(0,0,0, 0.5)';
 
                 context.arc(
-                    node[prefix + 'x'],
-                    node[prefix + 'y'],
+                    node[prefix + 'x'] + node.dx,
+                    node[prefix + 'y'] + node.dy,
                     size,
                     size,
                     Math.PI * 2,
@@ -112,8 +149,8 @@
 
                 context.fillText(
                     'p',
-                    node[prefix + 'x'] - (textWidth.width / 2),
-                    node[prefix + 'y'] + (fontSize / 2)
+                    node[prefix + 'x'] + node.dx - (textWidth.width / 2),
+                    node[prefix + 'y'] + node.dy + (fontSize / 2)
                 );
 
             }

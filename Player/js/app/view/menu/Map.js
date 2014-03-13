@@ -22,7 +22,7 @@
             '   <a class="sequence-thumbnail sequence-link klynt-tertiary-color" style="background-image: url({{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}});"></a>' +
             '   <a class="sequence-info sequence-link klynt-primary-color-bg-70">' +
             '       <div class="sequence-title klynt-secondary-color">{{title}}<i class="icon icon-info">i</i><i class="icon icon-eye"></i></div>' +
-            '       <div class="sequence-duration klynt-tertiary-color">{{formattedDuration}}</div>' +
+            '       <div class="sequence-duration klynt-tertiary-color">{{#showDuration}}{{formattedDuration}}{{/showDuration}}{{^showDuration}}&nbsp;{{/showDuration}}</div>' +
             '       {{#showDescriptions}}{{#description}}<div class="sequence-description">{{description}}</div>{{/description}}{{/showDescriptions}}' +
             '   </a>' +
             '</div>';
@@ -45,7 +45,6 @@
         if (typeof google == 'undefined') {
             this._loadGoogleMaps();
         }
-
     };
 
     klynt.Map.prototype.render = function () {
@@ -139,6 +138,12 @@
     klynt.Map.prototype._onClickMarkerHandler = function (marker, sequence) {
         return function () {
             if (this._infoBox) this._infoBox.close();
+
+            sequence.current = klynt.sequenceContainer.currentSequence == sequence;
+            sequence.showDescriptions = this._data.params.displayDescriptions;
+            sequence.showDuration = this._data.params.displayDuration;
+            //sequence.showMetadata = this._data.params.displayDescriptions || this._data.params.displayDuration;
+
             var content = Mustache.render(this._template_partials.infobox, sequence);
             this._infoBox = new InfoBox({
                 content: content,

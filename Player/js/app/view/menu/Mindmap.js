@@ -28,7 +28,8 @@
         _shadowX: 3, // Direction de l'ombre sur les abcisses
         _shadowY: 3, // Direction de l'ombre sur les ordonnées
         _shadowBlur: 6, // Niveau de dispersion de l'ombre
-        _shadowColor: 'rgba(0,0,0,0.2)' // Couleur de l'ombre
+        _shadowColor: 'rgba(0,0,0,0.2)', // Couleur de l'ombre
+        _organicEffect: false // Effet organique
     };
 
     klynt.Mindmap.prototype.init = function () {
@@ -80,6 +81,8 @@
                     label: !sequence.hideTitleInMindmap ? sequence.rawTitle : null,
                     x: sequence.x,
                     y: sequence.y,
+                    dx: 0,
+                    dy: 0,
                     size: sequenceSize,
                     color: sequence.color,
                     type: 'klynt',
@@ -89,7 +92,7 @@
                 });
 
                 sequence.links.forEach(function (link) {
-                    if (link.type === 'linkToSequence' && !link.hideInMindmap && !link.target.hideInMindmap) {
+                    if (link.type === 'linkToSequence' && link.target && !link.hideInMindmap && !link.target.hideInMindmap) {
 
                         storage = localStorage.getItem(sequence.id);
                         storage = JSON.parse(storage);
@@ -137,6 +140,8 @@
                 sideMargin: 20,
                 labelHoverShadowColor: 'node',
 
+                // animationsTime: 2000,
+
                 nodesOpacity: this._nodesOpacity,
                 linesOpacity: this._linesOpacity,
                 linesThickness: this._linesThickness,
@@ -150,13 +155,18 @@
                 shadowX: this._shadowX,
                 shadowY: this._shadowY,
                 shadowBlur: this._shadowBlur,
-                shadowColor: this._shadowColor
+                shadowColor: this._shadowColor,
+                organicEffect: this._organicEffect
             }
         });
 
-        klynt.utils.callLater(function () {
+        // klynt.utils.callLater(function () {
+        //     s.refresh();
+        // }, 400)
+
+        setInterval(function () {
             s.refresh();
-        }, 400)
+        }, 50);
 
         var c = s.cameras[0];
 

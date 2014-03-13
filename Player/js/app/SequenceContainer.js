@@ -110,28 +110,31 @@
 
     function resetDimensions() {
         sequenceScale = 1;
+
         if ($element) {
-            $element
-                .css('width', this.width)
-                .css('height', this.height);
+            $element.css({
+                width: this.width,
+                height: this.height
+            });
         }
+
         if ($fullscreenWrapper) {
-            $fullscreenWrapper
-                .css('transform', 'scale(1)')
-                .css('transform-origin', null);
+            $fullscreenWrapper.css('transform', 'none');
         }
     }
 
     function setDimensions(newWidth, newHeight) {
         sequenceScale = Math.min(newWidth / this.unscaledWidth, newHeight / this.unscaledHeight);
 
-        this.$element
-            .css('width', this.width)
-            .css('height', this.height);
+        $element.css({
+            width: this.width,
+            height: this.height
+        });
 
-        this.$fullscreenWrapper
-            .css('transform', 'scale(' + sequenceScale + ')')
-            .css('transform-origin', '0 0 0');
+        this.$fullscreenWrapper.css({
+            'transform': 'scale(' + sequenceScale + ')',
+            'transform-origin': '0 0 0'
+        });
     }
 
     function actionWatermark() {

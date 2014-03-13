@@ -11,9 +11,17 @@
 
 	klynt.iFrame.prototype = {
 		get code() {
-			return this._data.code;
+			return prependProtocol(this._data.code);
 		}
 	};
 
 	klynt.iFrame.prototype = klynt.utils.mergePrototypes(klynt.Element, klynt.iFrame);
+
+	function prependProtocol(code) {
+		if (code && klynt.utils.browser.local) {
+			return code.replace(/(src=["'])\/\//, "$1http://");
+		} else {
+			return code;
+		}
+	}
 })(window.klynt);

@@ -73,7 +73,6 @@
 		'Player/js/app/SequenceManager.js',
 		'Player/js/app/SequenceContainer.js',
 		'Player/js/app/renderer/StyleRenderer.js',
-		'Player/js/app/renderer/HoverStyleRenderer.js',
 		'Player/js/app/renderer/ElementRenderer.js',
 		'Player/js/app/renderer/ButtonRenderer.js',
 		'Player/js/app/renderer/TextRenderer.js',

@@ -55,7 +55,11 @@
     }
 
     function find(sequence) {
-        return typeof sequence === 'string' ? sequencesMap[sequence] : sequence;
+        if (typeof sequence === 'string') {
+            return sequencesMap[sequence] || sequencesMap[getSequenceIdByAlias(sequence)];
+        } else {
+            return sequence;
+        }
     }
 
     function getSequenceIdByAlias(alias) {

@@ -17,7 +17,7 @@
         },
 
         get duration() {
-            return this._data.duration * 1000;
+            return this._data.duration;
         },
 
         get left() {

@@ -21,8 +21,8 @@
             (node.color || settings('defaultNodeColor')) :
             settings('defaultLabelColor');
 
-        var x = node[prefix + 'x'];
-        var y = node[prefix + 'y'];
+        var x = node[prefix + 'x'] + node.dx;
+        var y = node[prefix + 'y'] + node.dy;
 
         var tabLabel = node.label.split('//');
         var tabLength = tabLabel.length;

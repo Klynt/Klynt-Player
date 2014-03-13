@@ -34,9 +34,11 @@
     };
 
     klynt.OverlayRenderer.prototype._end = function () {
+        var autoClose = this._automaticClose && !this._ended;
+
         klynt.SequenceRenderer.prototype._end.call(this);
 
-        if (this._automaticClose) {
+        if (autoClose) {
             klynt.sequenceManager.closeOverlay();
         }
     };

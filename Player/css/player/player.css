@@ -162,6 +162,8 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     margin: 0 auto;
     overflow: hidden;
     padding: 0;
+    /* Prevents flickering on hover in chrome when the player is embedded in an iframe. */
+    -webkit-backface-visibility: hidden;
 }
 
 /* VII. SEQUENCES */
@@ -170,6 +172,10 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     position: absolute;
     display: block;
     z-index: 0;
+    width: 100%;
+    height: 100%;
+    /* Prevents elements from slightly moving in fullscreen when mouse moves*/
+    -webkit-backface-visibility: hidden;
 }
 .sequence-container {
     position: absolute;
@@ -189,14 +195,6 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
 }
 .sequence-container.hidden {
     pointer-events: none;
-}
-.sequence {
-    width: 100%;
-    height: 100%;
-}
-.sequence video {
-    width: 100%;
-    height: 100%;
 }
 .box-sequence .sequence-info {
     height: 100%;

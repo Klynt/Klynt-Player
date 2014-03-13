@@ -6,31 +6,14 @@
 
 (function (klynt) {
     klynt.Index = function (data) {
-
         var sequences = klynt.sequences.findAll(data.params.sequences);
-        var currentSequenceID = klynt.sequenceContainer.currentSequence.id;
+
         data.sequences = [];
-
         sequences.forEach(function (sequence) {
-
-            if (currentSequenceID == sequence.id) {
-                sequence['current'] = true;
-            } else {
-                sequence['current'] = false;
-            }
-
-            sequence['showDescriptions'] = data.params.displayDescriptions;
-            sequence['showDuration'] = data.params.displayDuration;
-
-            if ((!data.params.displayDescriptions) && (!data.params.displayDuration)) {
-
-                sequence['showMetadata'] = false;
-
-            } else {
-
-                sequence['showMetadata'] = true;
-            }
-
+            sequence.current = sequence == klynt.sequenceContainer.currentSequence;
+            sequence.showDescriptions = data.params.displayDescriptions;
+            sequence.showDuration = data.params.displayDuration;
+            // sequence.showMetadata = data.params.displayDescriptions || data.params.displayDuration;
             data.sequences.push(sequence);
         });
 

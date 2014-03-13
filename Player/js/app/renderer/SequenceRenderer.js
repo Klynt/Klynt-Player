@@ -89,7 +89,8 @@
 
         this._$element.tooltip({
             track: true,
-            parentDiv: this._$element[0]
+            parentDiv: this._$element[0],
+            items: ".element"
         });
         this._$element.find(".nano-container").nanoScroller({
             paneClass: 'nano-pane',

@@ -16,17 +16,18 @@
     };
 
     klynt.AnimationRenderer.prototype.execute = function () {
-        this._image.$element.animate({
+        var croppingDemensions = this._image.getCroppingDimensions(this._animation.width, this._animation.height);
+
+        TweenLite.to(this._image.$element[0], this._animation.duration, {
             left: this._animation.left + 'px',
             top: this._animation.top + 'px',
             width: this._animation.width + 'px',
             height: this._animation.height + 'px'
-        }, this._animation.duration);
+        });
 
-        var croppingDemensions = this._image.getCroppingDimensions(this._animation.width, this._animation.height);
-        this._image.$image.animate({
+        TweenLite.to(this._image.$image[0], this._animation.duration, {
             width: croppingDemensions.width + 'px',
             height: croppingDemensions.height + 'px'
-        }, this._animation.duration);
+        });
     };
 })(window.klynt);

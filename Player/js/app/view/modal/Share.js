@@ -502,9 +502,11 @@ klynt.analytics.trackPageView('miniplayer');
     klynt.ShareModal.prototype.open = function () {
 
         var shadowHeight = klynt.sequenceContainer.sequenceScale * klynt.sequenceContainer.unscaledHeight;
-        $('.modal-background').height(shadowHeight).show().animate({
+        $('.modal-background').height(shadowHeight).show();
+        TweenLite.to($('.modal-background')[0], 0.5, {
             opacity: 1
-        }, 500);
+        });
+
         klynt.player.pause();
         this._$element
             .show()
@@ -520,10 +522,11 @@ klynt.analytics.trackPageView('miniplayer');
     klynt.ShareModal.prototype.hide = function () {
         // klynt.player.play();
 
-        $('.modal-background').animate({
-            opacity: 0
-        }, 500, function () {
-            $(this).hide();
+        TweenLite.to($('.modal-background')[0], 0.5, {
+            opacity: 0,
+            onComplete: function () {
+                $('.modal-background').hide();
+            }
         });
 
         this._$element
