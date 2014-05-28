@@ -9,5 +9,19 @@
 		klynt.Media.call(this, data);
 	};
 
+	klynt.Video.prototype = {
+		get scaleMode() {
+			return this._data.scaleMode;
+		},
+
+		get horizontalAlign() {
+			return this._data.horizontalAlign;
+		},
+
+		get verticalAlign() {
+			return this._data.verticalAlign;
+		}
+	};
+
 	klynt.Video.prototype = klynt.utils.mergePrototypes(klynt.Media, klynt.Video);
 })(window.klynt);

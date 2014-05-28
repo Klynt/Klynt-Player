@@ -56,7 +56,10 @@
             source.$element.addClass('transition-running');
         }
         if (target) {
-            target.$element.addClass('transition-running');
+            target.$element.addClass('transition-running')
+                .css('visibility', 'visible');
+            //target.$element.find('.video').css('display', 'block');
+            //target.$element.find('.audio').css('display', 'block');
         }
 
         if (this.automatic) {

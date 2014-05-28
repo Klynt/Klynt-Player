@@ -5,8 +5,8 @@
  * */
 
 (function (klynt) {
-    klynt.AudioRenderer = function (audio, $parent) {
-        klynt.MediaRenderer.call(this, audio, $parent);
+    klynt.AudioRenderer = function (audio, sequence) {
+        klynt.MediaRenderer.call(this, audio, sequence);
     };
 
     klynt.AudioRenderer.prototype = {};
@@ -16,8 +16,66 @@
         this._$element.addClass('audio');
     };
 
+    klynt.AudioRenderer.prototype._createContinuousAudio = function () {
+        if (!klynt.utils.browser.iOS && !this.element.controls && this.element.continuous) {
+            if (this.element.begin < 1) {
+                this._$mediaElement = klynt.continuousAudio.retrieve(this.element.mediaId, this.sequence.isOverlay);
+            }
+
+            if (this._$mediaElement) {
+                this.mediaAPI = this._$mediaElement[0].mediaAPI;
+            } else {
+                this._$mediaElement = $('<audio>');
+                klynt.MediaRenderer.prototype._createMediaElement.call(this);
+                klynt.continuousAudio.add(this._$mediaElement, this.element.mediaId, this.sequence.isOverlay);
+
+                var nodeDiv = this._$mediaElement[0];
+                var renderer = this;
+                // Mediaelement initialization
+                new MediaElement(this._$mediaElement[0], {
+                    autoRewind: false,
+                    enablePluginSmoothing: true,
+                    clickToPlayPause: true,
+                    alwaysShowControls: true,
+                    pauseOtherPlayers: false,
+                    features: ["playpause", "progress"],
+                    playpauseText: '',
+                    stopText: '',
+                    muteText: '',
+                    fullscreenText: '',
+                    success: function (mediaAPI, element) {
+                        if ((/^(flash|silverlight)$/i).test(mediaAPI.pluginType)) {
+                            var pluginElement = element.previousSibling;
+                            if (element.firstChild &&
+                                (/^(object|embed)$/i).test(element.firstChild.nodeName)) {
+                                pluginElement = element.firstChild;
+                            } else if (pluginElement && (
+                                (/^me_flash/).test(pluginElement.id) || // IE<9 + Flash
+                                (/^me_silverlight/).test(pluginElement.id) || // IE<9 + Silverlight
+                                (pluginElement.className == "me-plugin")
+                            )) {
+                                pluginElement.setAttribute("timeAction", "none");
+                            }
+                            nodeDiv.pluginElement = pluginElement;
+                            nodeDiv.mediaAPI = renderer.mediaAPI = mediaAPI;
+                        }
+                        nodeDiv.mediaAPI = renderer.mediaAPI = element.mediaAPI || mediaAPI || element;
+                    },
+                    error: function () {
+                        alert("MediaElement error");
+                    }
+                });
+            }
+        }
+    }
+
     klynt.AudioRenderer.prototype._createMediaElement = function () {
-        this._$mediaElement = $('<audio>');
+        this._createContinuousAudio();
+
+        if (!this._$mediaElement) {
+            this._$mediaElement = $('<audio>');
+            klynt.MediaRenderer.prototype._createMediaElement.call(this);
+        }
     };
 
     klynt.AudioRenderer.prototype.play = function () {

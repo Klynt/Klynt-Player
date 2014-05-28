@@ -5,22 +5,36 @@
  * */
 
 (function (klynt) {
-    klynt.MediaRenderer = function (media, $parent) {
-        klynt.ElementRenderer.call(this, media, $parent);
+    klynt.MediaRenderer = function (media, sequence) {
+        klynt.ElementRenderer.call(this, media, sequence);
     };
 
     klynt.MediaRenderer.prototype = {
         _$mediaElement: null,
+
+        get $mediaElement() {
+            return this._$mediaElement;
+        },
 
         _mediaAPI: null,
         get mediaAPI() {
             return this._mediaAPI;
         },
         set mediaAPI(value) {
-            this._mediaAPI = value;
-            if (value) {
-                this._initWithMediaAPI();
+            if (this._mediaAPI != value) {
+                this._mediaAPI = value;
+                if (value) {
+                    this._initWithMediaAPI();
+                }
             }
+        },
+
+        _pluginElement: null,
+        get pluginElement() {
+            return this._pluginElement;
+        },
+        set pluginElement(value) {
+            this._pluginElement = value;
         },
 
         _wasPlaying: false
@@ -29,18 +43,15 @@
     klynt.MediaRenderer.prototype._initDOM = function () {
         klynt.ElementRenderer.prototype._initDOM.call(this);
         this._createMediaElement();
+    };
 
+    klynt.MediaRenderer.prototype._createMediaElement = function () {
         if (this._$mediaElement) {
             this._addSources();
             this._addProperties();
-
-            this._$mediaElement.appendTo(this._$element);
             this._$element[0].renderer = this;
+            this._$mediaElement.appendTo(this._$element);
         }
-    };
-
-    klynt.MediaRenderer._createMediaElement = function () {
-        //Override in child classes.
     };
 
     klynt.MediaRenderer.prototype._addSources = function () {
@@ -126,9 +137,11 @@
 
     klynt.MediaRenderer.prototype._initWithMediaAPI = function () {
         this._mediaAPI.addEventListener('play', this._onPlay.bind(this), false);
+        this._mediaAPI.addEventListener('pause', this._onPause.bind(this), false);
 
         if (this._element.syncMaster) {
             this._mediaAPI.addEventListener('ended', this._onSyncMasterEnd.bind(this), false);
+            this.$element.find('.mejs-overlay-play').hide();
         } else {
             this.hide();
         }
@@ -136,20 +149,43 @@
         if (klynt.utils.browser.iOS && this._element.autoplay) {
             this._load();
         }
+
+        if (this.element.fitToWindow && !this.element.syncMaster) {
+            $('.control_' + this.element.id).hide();
+        }
     };
 
     klynt.MediaRenderer.prototype._onSyncMasterEnd = function () {
-        klynt.sequenceContainer.currentRenderer.onSyncMasterEnd();
+        if (this.sequence) {
+            this.sequence.onSyncMasterEnd();
+        }
     };
 
     klynt.MediaRenderer.prototype._onPlay = function (event) {
         klynt.sequenceManager.muted ? this.mute() : this.unmute();
     };
 
+    klynt.MediaRenderer.prototype._onPause = function (event) {
+        if (this.mediaAPI.ended || this.sequence.ended) {
+            this.$element.find('.mejs-overlay-play').hide();
+        }
+    };
+
     klynt.MediaRenderer.prototype._onBegin = function (event) {
         klynt.ElementRenderer.prototype._onBegin.call(this);
         if (this.element.autoplay) {
             this.play();
+        }
+        if (this.element.fitToWindow && !this.element.syncMaster) {
+            $('.control_' + this.element.id).show();
+        }
+    };
+
+    klynt.MediaRenderer.prototype._onEnd = function (event) {
+        klynt.ElementRenderer.prototype._onEnd.call(this);
+        this.pause();
+        if (this.element.fitToWindow && !this.element.syncMaster) {
+            $('.control_' + this.element.id).hide();
         }
     };
 

@@ -29,7 +29,7 @@
         if (this.name !== 'shareToFacebook') {
             return false;
         } else {
-            alert('shareToFacebook - to implement');
+            klynt.utils.link('facebook');
             return true;
         }
     };
@@ -38,7 +38,7 @@
         if (this.name !== 'shareToTwitter') {
             return false;
         } else {
-            alert('shareToTwitter - to implement');
+            klynt.utils.link('twitter');
             return true;
         }
     };

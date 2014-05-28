@@ -11,6 +11,12 @@
   overflow : hidden;
 }
 
+/* HACK */
+.nano-container.text {
+	width: auto;
+	height: auto;
+}
+
 .nano-container.element {
   position : absolute;
 }

@@ -34,15 +34,15 @@
 	];
 
 	var playerLibFiles = [
-		'Player/js/libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js',
+		'Player/js/libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js',
 		'Player/js/libs/jquery.cookie.js',
 		'Player/js/libs/jquery.hammer.min.js',
 		'Player/js/libs/modernizr.custom.93084.js',
 		'Player/js/libs/jquery.nanoscroller.min.js',
-		'Player/js/libs/jquery.hoverIntent.minified.js',
 		'Player/js/libs/TweenMax.min.js',
 		'Player/js/libs/mediaelement/mediaelement-and-player.js',
 		'Player/js/libs/timesheets.js',
+		'Player/js/libs/jquery.autoellipsis.js',
 		'Player/js/libs/sigmajs/sigma.min.js'
 	];
 
@@ -70,8 +70,10 @@
 		'Player/js/app/Fullscreen.js',
 		'Player/js/app/Metadata.js',
 		'Player/js/app/Stats.js',
+		'Player/js/app/Events.js',
 		'Player/js/app/SequenceManager.js',
 		'Player/js/app/SequenceContainer.js',
+		'Player/js/app/ContinuousAudio.js',
 		'Player/js/app/renderer/StyleRenderer.js',
 		'Player/js/app/renderer/ElementRenderer.js',
 		'Player/js/app/renderer/ButtonRenderer.js',
@@ -194,8 +196,10 @@
 			klynt.stats.init();
 			klynt.analytics.init();
 			klynt.sequenceContainer.init();
+			klynt.continuousAudio.init();
 			klynt.menu.init();
 			klynt.footer.init();
+			klynt.events.init();
 			klynt.player.$element.on('open.sequence open.overlay', klynt.analytics.handleSequenceEvent);
 		}
 

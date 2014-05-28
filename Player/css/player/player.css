@@ -22,6 +22,73 @@
 /* XIV  WATERMARK               */
 /* XV   TRANSITIONS             */
 
+.sequence > .mejs-controls{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    bottom: 0px;
+    left: 0;
+    height: 22px;
+    width: 100%;
+    list-style: none;
+    z-index: 100;
+}
+
+.sequence > .mejs-controls > .mejs-button {
+    position: absolute;
+    bottom: 46px;
+}
+
+.sequence > .mejs-controls .mejs-time-float-current{
+    margin: 0 0 0 3px!important;
+    font-size: 12px;
+}
+
+.ellipsis {
+    height: 85px!important;
+}
+
+.mindmap-arrow{
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+
+.mobile-menu{
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    -webkit-transition: left 0.2s ease;
+    -moz-transition: left 0.2s ease;
+    -ms-transition: left 0.2s ease;
+    -o-transition: left 0.2s ease;
+    transition: left 0.2s ease;
+}
+
+.mobile-menu-items {
+    height: 100%;
+    border-bottom: 1px solid;
+}
+
+.mobile-menu-items li {
+    padding: 7px 0;
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+.footer-mobile-button{
+    float: left;
+    line-height: 26px;
+    font-size: 17px;
+    margin-left: 15px;
+    cursor: pointer;
+    -webkit-transition: color 0.2s ease;
+    -moz-transition: color 0.2s ease;
+    -ms-transition: color 0.2s ease;
+    -o-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+
 /*----- CONTENT -----*/
 
 /* I . RESET */
@@ -41,9 +108,14 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    font-size: 1em;
     font: inherit;
     vertical-align: baseline;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/* For google map*/
+.gm-style {
+    font-size: 1em;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -52,6 +124,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
+    -webkit-font-smoothing: antialiased;
 }
 ol, ul {list-style: none;}
 blockquote, q {quotes: none;}
@@ -65,11 +138,6 @@ table {border-collapse: collapse; border-spacing: 0;}
 
 em {font-style: italic;}
 strong {font-weight: bold;}
-.text p, .text span {
-    margin-bottom: 0;
-    margin-top: 0;
-    display: block;
-}
 
 /* III. LINKS & BUTTONS */
 
@@ -110,6 +178,7 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     line-height: 1;
     -webkit-font-smoothing: antialiased;
 }
+
 .icon-thumbs, .icon-eye, .icon-clock, .icon-search, .icon-reduce, .icon-fullscreen,
 .icon-sound, .icon-no-sound, .icon-share, .icon-close-top, .icon-close, .icon-open,
 .icon-top, .icon-bottom, .icon-right, .icon-left, .icon-check, .icon-pause, .icon-marker,
@@ -155,11 +224,18 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
 .icon-dezoom:before {content: "\71";}
 .icon-klynt:before {content: "\e600";}
 
+/* To make icon size proportionnal in footer */
+.icon-footer {
+    font-size: 1.1em;
+}
+
 /* VI . PLAYER */
 
+
 .player {
-    position: relative;
-    margin: 0 auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
     overflow: hidden;
     padding: 0;
     /* Prevents flickering on hover in chrome when the player is embedded in an iframe. */
@@ -251,16 +327,16 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
 .touch .box-sequence.with-description .sequence-info .icon-info {display: block;}
 
 .box-sequence .sequence-title {
-    font-size: 13px;
+    font-size: 0.9em;
     font-weight: bold;
     line-height: 13px;
 }
 .box-sequence .sequence-duration {
-    font-size: 11px;
+    font-size: 0.7em;
 }
 .box-sequence .sequence-description {
     border-top: 1px solid;
-    font-size: 12px;
+    font-size: 0.85em;
     margin-top: 14px;
     padding-top: 5px;
 }
@@ -268,6 +344,7 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     background: center center no-repeat;
     background-size: cover;
     height: 100%;
+    height: -webkit-calc(100% - 1px);
     position: absolute;
     width: 100%;
 }
@@ -275,6 +352,8 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
 .element {
     position: absolute;
     overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .element.has-link {
     cursor: pointer;
@@ -290,9 +369,7 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     overflow: hidden;
     cursor: pointer;
     width: 46px;
-    height: 46px;
-    top: 16px;
-    right: 16px;
+    height: 32px;
     z-index: 1000;
     background-image: url("img/close.png");
     background-repeat:no-repeat;
@@ -316,7 +393,7 @@ body {-webkit-tap-highlight-color: rgb(210,235,255);}
     -o-transition-delay: 1s;
     transition-delay: 1s;
     width: 100%;
-    font-size: 10px;
+    font-size: 0.7em;
 }
 /* The opacity of the footer changes on hover */
 .footer:hover  {
@@ -448,11 +525,12 @@ only screen and (min-resolution: 192dpi) {
 .menu-bar .icon {pointer-events: none;}
 .menu-bar-items {text-align: center;}
 .menu-bar-item {
-    font-size: 13px;
+    font-size: 0.9em;
     font-weight: bold;
     text-align: center;
     border-bottom: 3px solid;
-    padding-bottom: 19px;
+    padding-bottom: calc(29px - 0.9em);
+    padding-bottom: -webkit-calc(29px - 0.9em);
 }
 .menu-bar-border-none {
     border: none;
@@ -525,13 +603,13 @@ only screen and (min-resolution: 192dpi) {
     margin-bottom: 20px;
 }
 .credits-header h1{
-    font-size: 13px;
+    font-size: 0.9em;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 10px;
 }
 .credits-header h2{
-    font-size: 12px;
+    font-size: 0.85em;
 }
 .credits-content {
     height: calc(100% - 80px);
@@ -555,12 +633,12 @@ only screen and (min-resolution: 192dpi) {
     height: 100%;
 }
 .credits-content-about h3, .credits-content-crew h3 {
-    font-size: 14px;
+    font-size: 1em;
     margin-bottom: 15px;
     font-weight: bold;
 }
 .credits-content-about p, .credits-content-crew p {
-    font-size: 12px;
+    font-size: 0.85em;
     overflow: scroll;
     height: 100%;
     text-align:justify;
@@ -818,17 +896,17 @@ only screen and (min-resolution: 192dpi) {
 .index-list-sequence .sequence-thumbnail img {display: block; width: 100%;}
 .index-list-sequence .sequence-title {
     display: block;
-    font-size: 18px;
+    font-size: 1.3em;
     font-weight: bold;
     padding-bottom: 8px;
 }
 .index-list-sequence .sequence-description {
-    font-size: 13px;
+    font-size: 0.9em;
     margin: 10px 0 0;
     padding-bottom: 12px;
 }
 .index-list-sequence .sequence-metadata {
-    font-size: 11px;
+    font-size: 0.8em;
     overflow: hidden;
     padding: 5px 0;
 }
@@ -899,7 +977,7 @@ only screen and (min-resolution: 192dpi) {
     width: 100%;
 }
 .map-canvas div {
-    font-family: 'OpenSans', sans-serif !important;
+    font-family: inherit;
 }
 
 /* 6 - MINDMAP */
@@ -919,7 +997,7 @@ only screen and (min-resolution: 192dpi) {
     cursor: move;
 }
 .mindmap-graph-renderer.mouse-over-node {
-    cursor: pointer;
+    cursor: pointer!important;
 }
 .mindmap-sequence-info {
     right: 0px;
@@ -929,12 +1007,14 @@ only screen and (min-resolution: 192dpi) {
     display: none;
     opacity: 0;
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: 0.85em;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.35);
 }
 .mindmap-sequence-info span{
     display: block;
     padding: 5px 0px;
     padding-top: 2px;
+    font-size: 0.75em;
 }
 .mindmap-sequence-info hr {
     border: 0;
@@ -947,6 +1027,7 @@ only screen and (min-resolution: 192dpi) {
     height: 48px;
     overflow: hidden;
     width: 100%;
+    font-size: 0.9em;
 }
 
 /* XII . MODAL */
@@ -965,6 +1046,9 @@ only screen and (min-resolution: 192dpi) {
     -moz-box-shadow: 0 0 100px 0px rgba(0, 0, 0, 0.6);
     -webkit-box-shadow: 0 0 100px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 100px 0px rgba(0, 0, 0, 0.6);
+}
+.modal div{
+    font-size: 14px;
 }
 .modal-background{
     display: none;
@@ -1013,20 +1097,22 @@ only screen and (min-resolution: 192dpi) {
 .modal-title {
     display: block;
     margin-bottom: 5px;
-    font-size: 1.1em;
+    font-size: 14px;
     font-weight: bold;
 }
 .modal-content label {
-    font-size: 1.1em;
+    font-size: 15px;
 }
 .copy input[type=Text] {
+    color: rgba(0,0,0, 0.6);
     display: block;
     border: 1px solid #cdcdcd;
     padding: 8px;
     margin-top: 6px;
     width: 100%;
     background-color: #f3f3f3;
-    font-size: 0.9em;
+    font-size: 13px;
+    cursor: default;
 }
 .link{
     padding: 8px 8px 8px 35px !important;

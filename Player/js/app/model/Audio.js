@@ -14,6 +14,10 @@
             return this._data.continuous;
         },
 
+        get mediaId() {
+            return this._data.mediaId;
+        },
+
         // Overrides Media's loop property.
         get loop() {
             return !!this._data.loop || this.continuous;

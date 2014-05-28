@@ -50,8 +50,6 @@
                 randomX *= size / 50;
                 randomY *= size / 50;
 
-                console.log(size);
-
                 var distance = Math.sqrt(Math.pow(node.dx + randomX, 2) + Math.pow(node.dy + randomY, 2));
 
                 if (distance > size * 1) {
@@ -81,11 +79,6 @@
                 var imageScale = size / Math.min(img.width, img.height);
 
                 // Draw the image
-
-                context.imageSmoothingEnabled = false;
-                context.mozImageSmoothingEnabled = false;
-                context.webkitImageSmoothingEnabled = false;
-
                 context.drawImage(
                     img,
                     node[prefix + 'x'] + node.dx - imageScale * img.width,
@@ -121,41 +114,91 @@
                 context.fill();
             }
 
+            var backupFont = context.font;
+
             if (node.viewed) {
-                context.fillStyle = 'rgba(0,0,0, 0.5)';
+                // context.fillStyle = 'rgba(0,0,0, 0.5)';
+                // context.shadowOffsetX = 0;
+                // context.shadowOffsetY = 0;
+                // context.shadowBlur = 0;
+                // context.shadowColor = 0;
+
+                // context.arc(
+                //     node[prefix + 'x'] + node.dx,
+                //     node[prefix + 'y'] + node.dy,
+                //     size,
+                //     size,
+                //     Math.PI * 2,
+                //     true
+                // );
+
+                // context.fill();
+
+                // draw disk for sequence state -> viewed or current
+                // context.fillStyle = settings('primaryColor');
+                context.fillStyle = '#FFFFFF';
+                context.beginPath();
 
                 context.arc(
-                    node[prefix + 'x'] + node.dx,
-                    node[prefix + 'y'] + node.dy,
-                    size,
-                    size,
+                    node[prefix + 'x'] + size * Math.cos(Math.PI / 4),
+                    node[prefix + 'y'] - size * Math.sin(Math.PI / 4),
+                    size / 4,
+                    0,
                     Math.PI * 2,
                     true
                 );
 
                 context.fill();
-            }
+                context.closePath();
 
-            var contextFont = context.font;
+                //draw arc
+                context.lineWidth = size * 0.025;
+                // context.strokeStyle = settings('tertiaryColor');
+                context.strokeStyle = node.color || settings('defaultNodeColor');
+                context.beginPath();
 
-            if (node.id == klynt.sequenceContainer.currentSequence.id) {
-
-                var fontSize = size * 0.8;
-
-                context.font = fontSize + 'px klynt-icons'
-                context.fillStyle = '#ffffff';
-
-                var textWidth = context.measureText('p');
-
-                context.fillText(
-                    'p',
-                    node[prefix + 'x'] + node.dx - (textWidth.width / 2),
-                    node[prefix + 'y'] + node.dy + (fontSize / 2)
+                context.arc(
+                    node[prefix + 'x'] + size * Math.cos(Math.PI / 4),
+                    node[prefix + 'y'] - size * Math.sin(Math.PI / 4),
+                    size / 4,
+                    0,
+                    Math.PI * 2,
+                    true
                 );
 
-            }
+                context.stroke();
+                context.closePath();
 
-            context.font = contextFont;
+                context.beginPath();
+
+                // context.fillStyle = settings('tertiaryColor');
+                context.fillStyle = node.color || settings('defaultNodeColor');
+
+                // avoid shadow on text
+                context.shadowOffsetX = 0;
+                context.shadowOffsetY = 0;
+                context.shadowBlur = 0;
+                context.shadowColor = 0;
+
+                // draw character for sequence state -> || or ✓
+                var fontSize = size * 0.3,
+                    textWidth,
+                    text = node.id == klynt.sequenceContainer.currentSequence.id ? 'p' : '✓';
+
+                context.font = fontSize + 'px klynt-icons'
+
+                textWidth = context.measureText(text);
+
+                context.fillText(
+                    text,
+                    node[prefix + 'x'] + size * Math.cos(Math.PI / 4) - (textWidth.width / 2),
+                    node[prefix + 'y'] - size * Math.sin(Math.PI / 4) + (fontSize / 2)
+                );
+
+                context.fillStyle = 'rgba(0,0,0, 0.5)';
+                context.font = backupFont;
+
+            }
         };
 
         // Let's add a public method to cache images, to make it possible to

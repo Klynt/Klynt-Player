@@ -5,8 +5,8 @@
  * */
 
 (function (klynt) {
-	klynt.ShapeRenderer = function (element, $parent) {
-		klynt.ElementRenderer.call(this, element, $parent);
+	klynt.ShapeRenderer = function (element, sequence) {
+		klynt.ElementRenderer.call(this, element, sequence);
 	};
 
 	klynt.ShapeRenderer.prototype._initDOM = function () {

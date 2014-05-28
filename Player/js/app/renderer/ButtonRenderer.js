@@ -5,8 +5,8 @@
  * */
 
 (function (klynt) {
-    klynt.ButtonRenderer = function (element, $parent) {
-        klynt.ElementRenderer.call(this, element, $parent);
+    klynt.ButtonRenderer = function (element, sequence) {
+        klynt.ElementRenderer.call(this, element, sequence);
     };
 
     klynt.ButtonRenderer.prototype._initDOM = function () {

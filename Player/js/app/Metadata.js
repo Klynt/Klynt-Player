@@ -48,8 +48,13 @@
         },
 
         get socialLink() {
-            return klynt.data.share.link || "";
+            return klynt.data.share.link || klynt.utils.localURL();
+        },
+
+        get socialImage() {
+            return klynt.data.share.thumbnail;
         }
+
     };
 
     klynt.getModule('metadata', accessors).expose(init, findSequencesByTags, findSequencesByTag, findSequencesByText, findSequencesByTitle, findSequencesByContent);
@@ -62,7 +67,8 @@
         replaceMetaDataByProperty('og:title', klynt.metadata.socialTitle);
         replaceMetaDataByProperty('og:url', klynt.metadata.socialLink);
         replaceMetaDataByProperty('og:description', klynt.metadata.socialDescription);
-        //searchEngine = initEngine();
+        replaceMetaDataByProperty('og:image', klynt.metadata.socialImage);
+        // searchEngine = initEngine();
     }
 
     function replaceMetaDataByName(name, value) {

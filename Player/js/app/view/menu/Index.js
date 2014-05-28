@@ -38,6 +38,8 @@
 
         this._template = this._template_list[this._mode];
 
+        //V1 Title | description | Time
+
         this._template_partials = {
             'list-sequence': '<div class="index-sequence index-list-sequence klynt-secondary-color {{#current}} current klynt-tertiary-color-border-bis{{/current}} {{^current}} {{#viewed}} viewed{{/viewed}} {{/current}}">' +
                 '<a href="#{{alias}}" class="sequence-thumbnail sequence-link klynt-tertiary-color"><img src="{{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}}" alt="" /></a>' +
@@ -56,6 +58,46 @@
                 '</a>' +
                 '</div>'
         };
+
+        //V2 Title | Time | description 
+
+        // this._template_partials = {
+        //     'list-sequence': '<div class="index-sequence index-list-sequence klynt-secondary-color {{#current}} current klynt-tertiary-color-border-bis{{/current}} {{^current}} {{#viewed}} viewed{{/viewed}} {{/current}}">' +
+        //         '<a href="#{{alias}}" class="sequence-thumbnail sequence-link klynt-tertiary-color"><img src="{{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}}" alt="" /></a>' +
+        //         '<a href="#{{alias}}" class="sequence-title sequence-link klynt-secondary-color">{{title}}</a>' +
+        //         '{{#showDuration}}<div class="sequence-metadata klynt-tertiary-color">' +
+        //         '<i class="icon icon-clock"></i>{{formattedDuration}}' +
+        //         '</div>{{/showDuration}}' +
+        //         '{{#showDescriptions}}{{#description}}<div class="sequence-description">{{description}}</div>{{/description}}{{/showDescriptions}}' +
+        //         '</div>',
+        //     'gallery-sequence': '<div class="index-sequence index-grid-sequence box-sequence {{#current}} current klynt-tertiary-color-border {{/current}} {{^current}} {{#viewed}} viewed{{/viewed}} {{/current}}{{#showDescriptions}}{{#description}} with-description{{/description}}{{/showDescriptions}}">' +
+        //         '<a href="#{{alias}}" class="sequence-thumbnail sequence-link {{#current}}klynt-tertiary-color{{/current}} {{#viewed}}klynt-tertiary-color{{/viewed}}" style="background-image: url({{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}});"></a>' +
+        //         '<a href="#{{alias}}" class="sequence-info sequence-link klynt-primary-color-bg-70{{#current}} current{{/current}}">' +
+        //         '<div class="sequence-title klynt-secondary-color">{{title}}<i class="icon icon-info">i</i><i class="icon icon-eye"></i></div>' +
+        //         '{{#showDuration}}<div class="sequence-duration klynt-tertiary-color">{{formattedDuration}}</div>{{/showDuration}}' +
+        //         '{{#showDescriptions}}{{#description}}<div class="sequence-description klynt-secondary-color-border klynt-secondary-color ellipsis">{{description}}</div>{{/description}}{{/showDescriptions}}' +
+        //         '</a>' +
+        //         '</div>'
+        // };
+
+        //V3 Title + Time | description
+
+        // this._template_partials = {
+        //     'list-sequence': '<div class="index-sequence index-list-sequence klynt-secondary-color {{#current}} current klynt-tertiary-color-border-bis{{/current}} {{^current}} {{#viewed}} viewed{{/viewed}} {{/current}}">' +
+        //         '<a href="#{{alias}}" class="sequence-thumbnail sequence-link klynt-tertiary-color"><img src="{{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}}" alt="" /></a>' +
+        //         '<a href="#{{alias}}" class="sequence-title sequence-link klynt-secondary-color">{{title}}' +
+        //         '<span class="klynt-tertiary-color"><i class="icon icon-clock"></i>{{formattedDuration}}</span></a>' +
+        //         '{{#showDescriptions}}{{#description}}<div class="sequence-description">{{description}}</div>{{/description}}{{/showDescriptions}}' +
+        //         '</div>',
+        //     'gallery-sequence': '<div class="index-sequence index-grid-sequence box-sequence {{#current}} current klynt-tertiary-color-border {{/current}} {{^current}} {{#viewed}} viewed{{/viewed}} {{/current}}{{#showDescriptions}}{{#description}} with-description{{/description}}{{/showDescriptions}}">' +
+        //         '<a href="#{{alias}}" class="sequence-thumbnail sequence-link {{#current}}klynt-tertiary-color{{/current}} {{#viewed}}klynt-tertiary-color{{/viewed}}" style="background-image: url({{^thumbnail}}Player/css/player/img/thumbnail.jpg{{/thumbnail}}{{#thumbnail}}{{thumbnail}}{{/thumbnail}});"></a>' +
+        //         '<a href="#{{alias}}" class="sequence-info sequence-link klynt-primary-color-bg-70{{#current}} current{{/current}}">' +
+        //         '<div class="sequence-title klynt-secondary-color">{{title}}<i class="icon icon-info">i</i><i class="icon icon-eye"></i></div>' +
+        //         '{{#showDuration}}<div class="sequence-duration klynt-tertiary-color">{{formattedDuration}}</div>{{/showDuration}}' +
+        //         '{{#showDescriptions}}{{#description}}<div class="sequence-description klynt-secondary-color-border klynt-secondary-color">{{description}}</div>{{/description}}{{/showDescriptions}}' +
+        //         '</a>' +
+        //         '</div>'
+        // };
 
         klynt.MenuItem.call(this, data);
     };

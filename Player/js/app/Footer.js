@@ -27,17 +27,28 @@
     }
 
     var currentIndex;
+    var isMenuOpened = false;
+    var mobileMenuWidth = 150;
 
     var $element, $buttons, $items;
     var template =
         '<ul class="footer-buttons" style="line-height: ' + data.height + 'px;">' +
         '{{#buttons}}' +
-        '<li class="footer-button klynt-secondary-color klynt-tertiary-color-hover" data-type="{{type}}"">{{#label}}<span>{{label}}</span>{{/label}}<span class="icon-{{icon}}"></span></li>' +
+        '<li class="footer-button klynt-secondary-color klynt-tertiary-color-hover" data-type="{{type}}"">{{#label}}<span>{{label}}</span>{{/label}}<span class="icon-{{icon}} icon-footer"></span></li>' +
         '{{/buttons}}' +
         '</ul>' +
         '<ul class="footer-items footer-btn-lag" style="line-height: ' + data.height + 'px;">' +
         '{{#items}}' +
         '<li class="footer-item klynt-secondary-color klynt-tertiary-color-hover">{{label}}</li>' +
+        '{{/items}}' +
+        '</ul>';
+
+    template += '<span class="footer-mobile-button klynt-secondary-color klynt-tertiary-color-hover">&#9776;</span>';
+
+    var mobileMenuTemplate =
+        '<ul class="mobile-menu-items klynt-secondary-border-color nano-content">' +
+        '{{#items}}' +
+        '<li class="mobile-menu-item klynt-secondary-border-color">{{label}}</li>' +
         '{{/items}}' +
         '</ul>';
 
@@ -52,6 +63,17 @@
     function init() {
         data.useMenu = typeof klynt.data.menu !== 'undefined';
 
+        // var newButtons = [];
+
+        // for (var i in data.buttons) {
+        //     var button = data.buttons[i];
+        //     if (button.type != 'fullscreen') {
+        //         newButtons.push(button);
+        //     }
+        // }
+
+        // data.buttons = newButtons;
+
         $element = $('<div>')
             .attr('id', 'footer')
             .addClass('footer')
@@ -62,8 +84,33 @@
             .on(Modernizr.touch ? 'touchstart' : 'click', '.footer-item', onClickFooter)
             .on(Modernizr.touch ? 'touchstart' : 'click', '.footer-button', onClickButton);
 
+        $mobileMenu = $('<div>')
+            .attr('id', 'mobile-menu')
+            .addClass('mobile-menu')
+            .addClass('klynt-primary-color-bg')
+            .addClass('klynt-secondary-color')
+            .addClass('nano-container')
+            .css('top', 0)
+            .css('bottom', klynt.footer.height + 'px')
+            .css('left', -mobileMenuWidth + 'px')
+            .css('width', mobileMenuWidth + 'px')
+            .appendTo(klynt.player.$element)
+            .html(Mustache.render(mobileMenuTemplate, data))
+            .on(Modernizr.touch ? 'touchstart' : 'click', '.mobile-menu-item', onClickFooter)
+            .on(Modernizr.touch ? 'touchstart' : 'click', '.mobile-menu-item', closeMobileMenu);
+
+        setTimeout(function () {
+            $('.nano-container').nanoScroller({
+                paneClass: 'nano-pane',
+                contentClass: 'nano-content'
+            });
+        }, 0);
+
         $items = $element.find('.footer-item');
         $buttons = $element.find('.footer-button');
+        $mobileButton = $element.find('.footer-mobile-button');
+
+        $mobileButton.on(Modernizr.touch ? 'touchstart' : 'click', toggleMobileMenu);
 
         if (data.useMenu) {
             $element.hammer({
@@ -81,6 +128,85 @@
             .on('open.menu close.menu', onMenuChange)
             .on('open.fullscreen close.fullscreen', onFullscreenChange)
             .on('on.sound off.sound', onMuteChange);
+
+        // BREAK POINTS //
+
+        var itemsWidth, buttonsWidth, breakPoint1, breakPoint2;
+
+        // FIRST BREAK POINT //
+
+        itemsWidth = 0;
+        $items.each(function () {
+            itemsWidth += $(this).width() + $(this).outerWidth();
+        });
+        buttonsWidth = $('.footer-buttons').width();
+        breakPoint1 = itemsWidth + buttonsWidth + 15 + 30;
+        $buttons.find('span:first-child').hide();
+
+        // SECOND BREAK POINT //
+
+        itemsWidth = 0;
+        $items.each(function () {
+            itemsWidth += $(this).width() + $(this).outerWidth();
+        });
+        buttonsWidth = $('.footer-buttons').width();
+        breakPoint2 = itemsWidth + buttonsWidth + 15 + 30;
+        $buttons.find('span:first-child').show();
+
+        changeFooter(breakPoint1, breakPoint2);
+
+        $(window).on('resize', function () {
+            changeFooter(breakPoint1, breakPoint2);
+        })
+    }
+
+    function changeFooter(breakPoint1, breakPoint2) {
+
+        var footerWidth = $element.width();
+        var mobileButton = $('.footer-mobile-button');
+
+        if (breakPoint2 > footerWidth) {
+            $buttons.find('span:first-child').hide();
+            $('.footer-items').hide();
+            mobileButton.show();
+        } else {
+            if (footerWidth > breakPoint1) {
+                $buttons.find('span:first-child').show();
+                $('.footer-items').show();
+                closeMobileMenu();
+                mobileButton.hide();
+            } else if (footerWidth > breakPoint2) {
+                $buttons.find('span:first-child').hide();
+                $('.footer-items').show();
+                closeMobileMenu();
+                mobileButton.hide();
+            } else {
+                $buttons.find('span:first-child').hide();
+                $('.footer-items').hide();
+                mobileButton.show();
+            }
+        }
+    }
+
+    function toggleMobileMenu() {
+
+        console.log(isMenuOpened);
+
+        if (!isMenuOpened) {
+            openMobileMenu();
+        } else {
+            closeMobileMenu();
+        }
+    }
+
+    function openMobileMenu() {
+        $mobileMenu.css('left', '0px');
+        isMenuOpened = true;
+    }
+
+    function closeMobileMenu() {
+        $mobileMenu.css('left', -mobileMenuWidth + 'px');
+        isMenuOpened = false;
     }
 
     function onClickFooter() {

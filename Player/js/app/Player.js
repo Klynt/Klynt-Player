@@ -9,7 +9,6 @@
 (function (klynt) {
     var $element;
     var currentRenderer;
-    var resizeTimeout;
 
     var accessors = {
         get currentSequence() {
@@ -34,6 +33,22 @@
 
         get unscaledHeight() {
             return klynt.sequenceContainer.unscaledHeight + klynt.footer.height;
+        },
+
+        get playerScale() {
+            return 1;
+        },
+
+        get scaleToFullWindow() {
+            return klynt.data.advanced && klynt.data.advanced.enableFullWindowMode;
+        },
+
+        get scaleToFullWindowMode() {
+            if (klynt.utils.browser.iOS || !klynt.data.advanced) {
+                return 'medium';
+            } else {
+                return klynt.data.advanced.fullWindowModeType;
+            }
         }
     };
 
@@ -43,9 +58,8 @@
         .expose(toggleMute, mute, unmute)
         .expose(toggleModal)
         .expose(resetDimensions, setDimensions)
-        .expose(show, hide);
-
-    $(window).bind('resize', onResize);
+        .expose(show, hide)
+        .expose(getRatioToWindow);
 
     function init() {
 
@@ -55,10 +69,21 @@
         $element = $('#player');
         this.resetDimensions();
 
-        $element.append('<div class="modal-background" style="height:' + shadowHeight + 'px"></div>');
-        $('.player-container').append('<div class="fullscreen-hide"></div>');
-        $('.player-container').append('<div class="fullscreen-hide-left"></div>');
-        $('.player-container').append('<div class="fullscreen-hide-right"></div>');
+        $element.append('<div class="modal-background" style="height:calc(100% - ' + klynt.footer.height + 'px)"></div>');
+
+        if (this.scaleToFullWindow) {
+            $element.css('margin', 0);
+
+            if (klynt.utils.browser.iOS) {
+                $('.player-container').css('overflowX', 'hidden');
+            }
+        } else {
+            $('.player-container').append('<div class="fullscreen-hide"></div>');
+            $('.player-container').append('<div class="fullscreen-hide-left"></div>');
+            $('.player-container').append('<div class="fullscreen-hide-right"></div>');
+        }
+
+        $(window).bind('resize', onResize);
     }
 
     function start() {
@@ -133,8 +158,8 @@
         klynt.sequenceContainer.resetDimensions();
 
         $element.css({
-            'width': this.width + 'px',
-            'height': this.height + 'px',
+            'width': this.scaleToFullWindow ? '100%' : this.width + 'px',
+            'height': this.scaleToFullWindow ? '100%' : this.height + 'px',
             'top': 0
         });
 
@@ -165,10 +190,10 @@
     }
 
     function onResize() {
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        resizeTimeout = setTimeout(klynt.menu.resetDimensions, 100);
+        klynt.menu.resetDimensions();
+        klynt.sequenceContainer.currentRenderers.forEach(function (sequenceRenderer) {
+            sequenceRenderer.updateSize(getRatioToWindow());
+        });
     }
 
     function hide() {
@@ -177,5 +202,9 @@
 
     function show() {
         $element.show();
+    }
+
+    function getRatioToWindow() {
+        return Math.min(window.innerWidth / klynt.player.width, (window.innerHeight - klynt.footer.height) / klynt.player.height);
     }
 })(window.klynt);

@@ -6,16 +6,14 @@
 
 /* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved*/
 
-body{
+body {
 	background-color: rgba(51, 51, 51, 1); /* PRIMARY_COLOR */
 }
 
 #splashscreen {
-	width:970px; /* PLAYER_WIDTH */
-	height:571px; /* PLAYER_HEIGHT */
 	background: rgba(51, 51, 51, 1); /* PRIMARY_COLOR */
 }
 
-#logo{
+#logo {
 	background-image:url(img/splashscreen.svg); /* SPLASHSCREEN_LOGO */
 }

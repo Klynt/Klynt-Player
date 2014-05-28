@@ -19,7 +19,26 @@
 		$('body').append(miniPlayer.$element);
 
 		miniPlayer.$element.find('.miniplayer-button').click(function () {
-			fullscreen();
+			var ua = navigator.userAgent;
+			var safariVersion;
+			var safari = false;
+			var chrome = false;
+
+			if (ua.lastIndexOf('Safari/') > 0) {
+				safari = true;
+				safariVersion = parseInt(ua.substr(ua.lastIndexOf('Version/') + 8, 1));
+			}
+
+			if (ua.lastIndexOf('Chrome/') > 0) {
+				chrome = true;
+			}
+
+			if (safari && !chrome && safariVersion < 7) {
+
+				window.open('index.html', '_blank');
+			} else {
+				fullscreen();
+			}
 		});
 
 		miniPlayer.$element.find('.yes').click(function () {

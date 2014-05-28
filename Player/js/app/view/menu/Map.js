@@ -23,7 +23,7 @@
             '   <a class="sequence-info sequence-link klynt-primary-color-bg-70">' +
             '       <div class="sequence-title klynt-secondary-color">{{title}}<i class="icon icon-info">i</i><i class="icon icon-eye"></i></div>' +
             '       <div class="sequence-duration klynt-tertiary-color">{{#showDuration}}{{formattedDuration}}{{/showDuration}}{{^showDuration}}&nbsp;{{/showDuration}}</div>' +
-            '       {{#showDescriptions}}{{#description}}<div class="sequence-description">{{description}}</div>{{/description}}{{/showDescriptions}}' +
+            '       {{#showDescriptions}}{{#description}}<div class="sequence-description klynt-secondary-color ellipsis">{{description}}</div>{{/description}}{{/showDescriptions}}' +
             '   </a>' +
             '</div>';
 

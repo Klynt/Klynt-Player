@@ -72,6 +72,22 @@
             return !!this._data.closeButton;
         },
 
+        get closeButtonLeft() {
+            return this._data.closeButtonLeft;
+        },
+
+        get closeButtonRight() {
+            return this._data.closeButtonRight;
+        },
+
+        get closeButtonTop() {
+            return this._data.closeButtonTop;
+        },
+
+        get closeButtonBottom() {
+            return this._data.closeButtonBottom;
+        },
+
         // Link to url
         get targetURL() {
             return this._data.targetURL;

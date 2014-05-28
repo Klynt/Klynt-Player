@@ -60,26 +60,27 @@
         } else if (document.webkitCancelFullScreen) {
             document.webkitCancelFullScreen();
         }
-
     }
 
     function onFullscreenChange(event) {
 
-        if (klynt.fullscreen.active) {
-            klynt.player.setDimensions(screen.width, screen.height);
-            klynt.player.$element.trigger('open.fullscreen');
-            klynt.analytics.trackEvent('fullscreen', 'request');
-        } else {
-            klynt.player.resetDimensions();
-            klynt.player.$element.trigger('close.fullscreen');
-            klynt.analytics.trackEvent('fullscreen', 'cancel');
+        if (!klynt.player.scaleToFullWindow) {
 
-            if (klynt.params.miniPlayer) {
-                klynt.miniPlayer.changeMode(true);
+            if (klynt.fullscreen.active) {
+                klynt.player.setDimensions(screen.width, screen.height);
+                klynt.player.$element.trigger('open.fullscreen');
+                klynt.analytics.trackEvent('fullscreen', 'request');
+            } else {
+                klynt.player.resetDimensions();
+                klynt.player.$element.trigger('close.fullscreen');
+                klynt.analytics.trackEvent('fullscreen', 'cancel');
+
+                if (klynt.params.miniPlayer) {
+                    klynt.miniPlayer.changeMode(true);
+                }
             }
 
+            $('.modal-background').height(klynt.sequenceContainer.sequenceScale * klynt.sequenceContainer.unscaledHeight);
         }
-
-        $('.modal-background').height(klynt.sequenceContainer.sequenceScale * klynt.sequenceContainer.unscaledHeight);
     }
 })(window.klynt);

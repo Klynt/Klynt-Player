@@ -93,13 +93,13 @@ body{
 }
 
 .vertical.miniplayer-text-title{
-	font-size: 24px;
+	font-size: 1.85em;
 	width: 94%;
 	margin: 15px 3% 5px 3%;
 }
 
 .vertical.miniplayer-text-subtitle{
-	font-size: 12px;
+	font-size: 0.85em;
 	width: 94%;
 	margin: 15px 3%;
 }
@@ -220,13 +220,13 @@ body{
 }
 
 .horizontal.miniplayer-menu-title{
-	font-size: 22px;
+	font-size: 1.5em;
 	margin: 0px 0px 8px 0px;
 }
 
 .horizontal.miniplayer-menu-subtitle{
 	margin: 0px;
-	font-size: 12px;
+	font-size: 0.85em;
 }
 
 .horizontal.miniplayer-return{
@@ -241,7 +241,7 @@ body{
 
 .horizontal.miniplayer-return-info{
 	margin-top: 14%;
-	font-size: 20px;
+	font-size: 0.85em;
 	width: 80%;
 	margin-left: 10%;
 }

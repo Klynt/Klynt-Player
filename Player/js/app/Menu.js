@@ -71,11 +71,11 @@
 
     function resetDimensions() {
         if (klynt.fullscreen.active) {
-            dimensions.height = klynt.sequenceContainer.height;
-            dimensions.width = klynt.sequenceContainer.width;
+            dimensions.height = klynt.player.scaleToFullWindow ? $(window).height() - klynt.footer.height : klynt.sequenceContainer.height;
+            dimensions.width = klynt.player.scaleToFullWindow ? $(window).width() : klynt.sequenceContainer.width;
         } else {
-            dimensions.height = klynt.sequenceContainer.unscaledHeight;
-            dimensions.width = klynt.sequenceContainer.unscaledWidth;
+            dimensions.height = klynt.player.scaleToFullWindow ? $(window).height() - klynt.footer.height : klynt.sequenceContainer.unscaledHeight;
+            dimensions.width = klynt.player.scaleToFullWindow ? $(window).width() : klynt.sequenceContainer.unscaledWidth;
         }
         dimensions.itemsContainer = {
             height: dimensions.height - $bar.height() - data.offset_sequence,
@@ -102,12 +102,7 @@
             width: dimensions.width + 'px'
         });
         if (isOpen) {
-            if (klynt.fullscreen.active) {
-                var px = data.offset_sequence - klynt.sequenceContainer.height;
-            } else {
-                var px = data.offset_sequence - klynt.sequenceContainer.unscaledHeight;
-            }
-            setSequenceContainerOffset(px, true);
+            setSequenceContainerOffset(data.offset_sequence - dimensions.height, true);
         }
     }
 
@@ -119,8 +114,7 @@
         if (!isOpen) {
             isOpen = true;
             klynt.player.pause();
-            var px = data.offset_sequence - klynt.sequenceContainer.height;
-            setSequenceContainerOffset(px, true);
+            resetDimensions();
             klynt.player.$element.trigger('open.menu');
         }
     }

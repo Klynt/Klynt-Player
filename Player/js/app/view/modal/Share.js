@@ -13,7 +13,8 @@ klynt.analytics.trackPageView('miniplayer');
 
         var size = 24;
         var minisize = 15;
-        var url = (document.URL).split('#')[0];
+        var url = klynt.data.share.link || klynt.utils.localURL();
+        var urlEmbed = klynt.utils.localURL();
 
         var tip = '<svg version="1.1" baseProfile="basic" class="help-tip"' +
             'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"' +
@@ -29,11 +30,11 @@ klynt.analytics.trackPageView('miniplayer');
             '" width="' +
             klynt.player.unscaledWidth +
             '" src="' +
-            url +
+            urlEmbed +
             '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
 
         this._miniPlayer = '<iframe src="' +
-            url +
+            urlEmbed +
             '?miniPlayer=horizontal" style="width:534px;height:300px;top:0px;left:0px;margin:0;padding:0" frameBorder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
 
         this._checkedButton = '<svg version="1.0"' +
@@ -95,7 +96,7 @@ klynt.analytics.trackPageView('miniplayer');
         // '<div class="modal-content-line modal-content-line-right">' +
         // '<div id="share-sequence" data-check="false">' + this._uncheckedButton + '</div></img><label class="" for="sequence">{{currentSequenceWording}}</label>' +
         // '</div>' +
-        '<div class="copy"><input name="inputLink" class="klynt-secondary-colo-80r link" type="text" class="link" value="' + url /*à remplacer par l'URL en dur de l'éditeur */ + '" disabled></input></div>' +
+        '<div class="copy"><input name="inputLink" class="klynt-secondary-colo-80r link" type="text" class="link" value="' + url /*à remplacer par l'URL en dur de l'éditeur */ + '" readonly></input></div>' +
             '</div>' +
             '<div class="modal-content modal-share">' +
             '<span class="modal-title">{{socialNetworksWording}}</span>' +
@@ -118,8 +119,7 @@ klynt.analytics.trackPageView('miniplayer');
                 '</div>' +
                 '<div class="modal-content-line modal-content-line-right">' +
                 '<div id="embed-miniplayer" data-check="false">' + this._uncheckedButton + '</div><label class="" for="mini">{{miniPlayerWording}}</label>' +
-            // '<div id="help">' + this._helpButton + '</div>' +
-            '</div>' +
+                '</div>' +
                 '<div class="modal-miniplayer">' +
                 '<div class="modal-miniplayer-horizontal" data-check="true">' +
                 this._miniCheckedButton +
@@ -139,9 +139,9 @@ klynt.analytics.trackPageView('miniplayer');
                 '" width="' +
                 klynt.player.unscaledWidth +
                 '" src="' +
-                url +
+                urlEmbed +
                 '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>' +
-                '\' disabled></input></div>' +
+                '\' readonly></input></div>' +
                 '</div>';
 
         } else {
@@ -156,9 +156,9 @@ klynt.analytics.trackPageView('miniplayer');
                 '" width="' +
                 klynt.player.unscaledWidth +
                 '" src="' +
-                url +
+                urlEmbed +
                 '" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>' +
-                '\' disabled></input></div>' +
+                '\' readonly></input></div>' +
                 '</div>';
 
         }
@@ -193,8 +193,7 @@ klynt.analytics.trackPageView('miniplayer');
         var minicheckedButton = this._miniCheckedButton;
         var embedCode = this._embedCode;
         var miniPlayer = this._miniPlayer;
-        var link_to_share_program = (document.URL).split('#')[0];
-        var link_to_share_sequence = document.URL;
+        var link_to_share_program = klynt.utils.localURL();
         var miniPlayerType = 'horizontal';
 
         this._$element = $('<div>')
@@ -302,15 +301,6 @@ klynt.analytics.trackPageView('miniplayer');
             }
         });
 
-        //HELP HOVER
-        this._$element.on('mouseover', '#help', function (e) {
-            $('.modal-help').show();
-        });
-
-        this._$element.on('mouseout', '#help', function (e) {
-            $('.modal-help').hide();
-        });
-
         //COPY TEXT INPUT
         this._$element.on('click', '.copy', function (e) {
             $(this).find('input').select();
@@ -358,7 +348,7 @@ klynt.analytics.trackPageView('miniplayer');
 
         function miniplayerCode(type, width, height) {
             var code;
-            var url = (document.URL).split('#')[0];
+            var url = klynt.utils.localURL();
 
             if ((typeof width === 'undefined') || (typeof width === 'undefined')) {
                 if (type === 'horizontal') {
@@ -394,94 +384,7 @@ klynt.analytics.trackPageView('miniplayer');
         }
 
         function link(socialNetwork) {
-            var baseURL = document.location.origin + document.location.pathname;
-            baseURL = baseURL.substring(0, baseURL.lastIndexOf("/") + 1);
-
-            var url = encodeURIComponent(this._data.link);
-            var thumbnail = encodeURIComponent(baseURL + this._data.thumbnail);
-            var title = encodeURIComponent(this._data.title);
-            var summary = encodeURIComponent(this._data.message);
-            var shortMessage = encodeURIComponent(this._data.shortMessage);
-
-            klynt.analytics.trackEvent('share', socialNetwork);
-
-            switch (socialNetwork) {
-            case 'facebook':
-                facebook();
-                break;
-            case 'twitter':
-                twitter();
-                break;
-            case 'tumblr':
-                tumblr();
-                break;
-            case 'googlePlus':
-                googlePlus();
-                break;
-            case 'linkedIn':
-                linkedIn();
-                break;
-            default:
-                break;
-            }
-
-            function facebook() {
-                var openLink = 'http://www.facebook.com/sharer/sharer.php?s=100' +
-                    '&p[url]=' + url +
-                    '&p[images][0]=' + thumbnail +
-                    '&p[title]=' + title +
-                    '&p[summary]=' + summary;
-
-                openWindow(openLink);
-            }
-
-            function twitter() {
-                var openLink = 'http://twitter.com/intent/tweet?' + /*'&hashtags=' + 'hi,hello' +*/
-                    'original_referer=' + url +
-                    '&url=' + url +
-                    '&via=' + 'klynt_app' +
-                    '&text=' + shortMessage;
-
-                openWindow(openLink);
-            }
-
-            function tumblr() {
-                var openLink = 'http://tumblr.com/share?s=&v=3' +
-                    '&t=' + title +
-                    '&u=' + url;
-
-                openWindow(openLink);
-            }
-
-            function googlePlus() {
-                var openLink = 'https://plus.google.com/share?url=' + url;
-
-                openWindow(openLink);
-            }
-
-            function linkedIn() {
-                var openLink = 'http://www.linkedin.com/shareArticle?mini=true' +
-                    '&url=' + url +
-                    '&title=' + title +
-                    '&summary=' + summary +
-                    '&source=';
-
-                openWindow(openLink);
-            }
-
-            function openWindow(url) {
-                var width = 600;
-                var height = 400;
-                var top = (screen.height - height) / 3;
-                var left = (screen.width - width) / 2;
-
-                if (klynt.fullscreen.active) {
-                    window.open(url);
-                } else {
-                    window.open(url, 'newwindow', 'width=500, height=400, top=' + top + ', left=' + left);
-                }
-
-            }
+            klynt.utils.link(socialNetwork);
         }
     };
 
@@ -500,9 +403,8 @@ klynt.analytics.trackPageView('miniplayer');
     };
 
     klynt.ShareModal.prototype.open = function () {
-
         var shadowHeight = klynt.sequenceContainer.sequenceScale * klynt.sequenceContainer.unscaledHeight;
-        $('.modal-background').height(shadowHeight).show();
+        $('.modal-background').show();
         TweenLite.to($('.modal-background')[0], 0.5, {
             opacity: 1
         });
@@ -520,7 +422,7 @@ klynt.analytics.trackPageView('miniplayer');
     };
 
     klynt.ShareModal.prototype.hide = function () {
-        // klynt.player.play();
+        klynt.player.play();
 
         TweenLite.to($('.modal-background')[0], 0.5, {
             opacity: 0,

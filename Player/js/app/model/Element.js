@@ -25,24 +25,56 @@
             return this._data.id;
         },
 
-        get left() {
-            return this._data.left;
+        get fitToWindow() {
+            return this._data.fitToWindow;
         },
 
-        get top() {
-            return this._data.top;
+        get scales() {
+            return this._data.scales;
+        },
+
+        get left() {
+            return this._data.left !== undefined ? parseInt(this._data.left, 10) : undefined;
+        },
+
+        get right() {
+            return this._data.right !== undefined ? parseInt(this._data.right, 10) : undefined;
+        },
+
+        get centerX() {
+            return this._data.centerX !== undefined ? parseInt(this._data.centerX, 10) : undefined;
         },
 
         get width() {
-            return this._data.width;
+            return this._data.width !== undefined ? parseInt(this._data.width, 10) : undefined;
+        },
+
+        get top() {
+            return this._data.top !== undefined ? parseInt(this._data.top, 10) : undefined;
+        },
+
+        get bottom() {
+            return this._data.bottom !== undefined ? parseInt(this._data.bottom, 10) : undefined;
+        },
+
+        get centerY() {
+            return this._data.centerY !== undefined ? parseInt(this._data.centerY, 10) : undefined;
         },
 
         get height() {
-            return this._data.height;
+            return this._data.height !== undefined ? parseInt(this._data.height, 10) : undefined;
         },
 
         get zIndex() {
             return this._data.zIndex;
+        },
+
+        get mediaWidth() {
+            return this._data.mediaWidth || undefined;
+        },
+
+        get mediaHeight() {
+            return this._data.mediaHeight || undefined;
         },
 
         _begin: 0,

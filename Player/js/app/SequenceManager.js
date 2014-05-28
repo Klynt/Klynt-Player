@@ -86,12 +86,7 @@
         if (klynt.sequenceContainer.currentOverlayRenderer) {
             klynt.sequenceContainer.currentOverlayRenderer.destroy();
             klynt.sequenceContainer.currentOverlayRenderer = null;
-        }
-
-        if (testStorage) {
-            storeLink(sequence.id);
-        } else {
-            testStorage = true;
+            klynt.continuousAudio.clean(true);
         }
 
         var nextRenderer = klynt.sequenceContainer.addSequence(sequence);
@@ -121,15 +116,18 @@
 
         $(transitionRenderer).on('complete.animation', function (event) {
             if (transitionRenderer.discarded) {
-                transitionRenderer.discarded.destroy();
+                transitionRenderer.discarded.destroy(true);
             }
             klynt.sequenceContainer.currentSequenceRenderer = transitionRenderer.result;
+
+            klynt.continuousAudio.clean(false);
             transitionRenderer = null;
         });
 
         $(transitionRenderer).on('cancel.animation', function (event) {
             if (transitionRenderer.target) {
-                transitionRenderer.target.destroy();
+                transitionRenderer.target.destroy(true);
+                klynt.continuousAudio.clean(false);
             }
 
             transitionRenderer = null;
@@ -141,11 +139,7 @@
     }
 
     function openOverlay(sequence, link) {
-        var params = {
-            automaticClose: link ? link.automaticClose : false,
-            closeButton: link ? link.closeButton : true
-        };
-        var nextRenderer = klynt.sequenceContainer.addOverlay(sequence, params);
+        var nextRenderer = klynt.sequenceContainer.addOverlay(sequence, link);
 
         if (transitionRenderer) {
             transitionRenderer.kill();
@@ -159,21 +153,22 @@
 
         $(transitionRenderer).on('complete.animation', function (event) {
             if (transitionRenderer.discarded) {
-                transitionRenderer.discarded.destroy();
+                transitionRenderer.discarded.destroy(true);
             }
             klynt.sequenceContainer.currentOverlayRenderer = transitionRenderer.result;
+            klynt.continuousAudio.clean(true);
 
             if (klynt.sequenceContainer.currentSequenceRenderer && (!link || link.pauseParent)) {
                 klynt.sequenceContainer.currentSequenceRenderer.pause(true);
             }
-
             transitionRenderer = null;
         });
 
         $(transitionRenderer).on('cancel.animation', function (event) {
             if (transitionRenderer.target) {
-                transitionRenderer.target.destroy();
+                transitionRenderer.target.destroy(true);
             }
+            klynt.continuousAudio.clean(true);
 
             transitionRenderer = null;
         });
@@ -187,6 +182,7 @@
         if (klynt.sequenceContainer.currentOverlayRenderer) {
             klynt.sequenceContainer.currentOverlayRenderer.destroy();
             klynt.sequenceContainer.currentOverlayRenderer = null;
+            klynt.continuousAudio.clean(true);
         }
 
         if (klynt.sequenceContainer.currentSequenceRenderer) {
@@ -234,24 +230,24 @@
         klynt.player.$element.trigger('off.sound');
     }
 
-    function storeLink(id) {
+    // function storeLink(id) {
 
-        if (id != klynt.sequenceContainer.currentSequence.id) {
-            var storage = localStorage.getItem(klynt.sequenceContainer.currentSequence.id);
-            storage = JSON.parse(storage);
+    //     if (id != klynt.sequenceContainer.currentSequence.id) {
+    //         var storage = localStorage.getItem(klynt.sequenceContainer.currentSequence.id);
+    //         storage = JSON.parse(storage);
 
-            if (storage == null) {
-                storage = [];
-            }
+    //         if (storage == null) {
+    //             storage = [];
+    //         }
 
-            if (storage.indexOf(id) == -1) {
-                storage.push(id);
-            }
+    //         if (storage.indexOf(id) == -1) {
+    //             storage.push(id);
+    //         }
 
-            storage = JSON.stringify(storage);
-            localStorage.setItem(klynt.sequenceContainer.currentSequence.id, storage);
-        }
-    }
+    //         storage = JSON.stringify(storage);
+    //         localStorage.setItem(klynt.sequenceContainer.currentSequence.id, storage);
+    //     }
+    // }
 
     function unmute() {
         muted = false;

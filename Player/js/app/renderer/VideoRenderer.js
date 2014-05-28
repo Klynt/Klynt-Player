@@ -5,8 +5,8 @@
  * */
 
 (function (klynt) {
-    klynt.VideoRenderer = function (video, $parent) {
-        klynt.MediaRenderer.call(this, video, $parent);
+    klynt.VideoRenderer = function (video, sequence) {
+        klynt.MediaRenderer.call(this, video, sequence);
     };
 
     klynt.VideoRenderer.prototype = {};
@@ -18,6 +18,65 @@
 
     klynt.VideoRenderer.prototype._createMediaElement = function () {
         this._$mediaElement = $('<video>');
+        klynt.MediaRenderer.prototype._createMediaElement.call(this);
+    };
+
+    klynt.VideoRenderer.prototype._initWithMediaAPI = function () {
+        klynt.MediaRenderer.prototype._initWithMediaAPI.call(this);
+
+        this._mediaAPI.addEventListener('loadedmetadata', this._onMetadataLoaded.bind(this), false);
+        setTimeout(this._updateVideoDimensions.bind(this), 50);
+    };
+
+    klynt.VideoRenderer.prototype.updateSize = function (ratio) {
+        klynt.ElementRenderer.prototype.updateSize.call(this, ratio);
+
+        this._updateVideoDimensions();
+    };
+
+    klynt.VideoRenderer.prototype._onMetadataLoaded = function () {
+        if (klynt.player.scaleToFullWindow) {
+            this._updateVideoDimensions();
+        }
+    };
+
+    klynt.VideoRenderer.prototype._updateVideoDimensions = function () {
+        var video = typeof this.pluginElement !== 'undefined' ? $(this.pluginElement) : $(this._mediaAPI);
+        if (typeof this.pluginElement !== 'undefined') {
+            video.children().first().css({
+                width: 'inherit',
+                height: 'inherit'
+            });
+        }
+
+        var horizontalAlign = this.element.horizontalAlign;
+        var verticalAlign = this.element.verticalAlign;
+        var parentWidth = this.$element.innerWidth();
+        var parentHeight = this.$element.innerHeight();
+        var mediaWidth = this.element.mediaWidth;
+        var mediaHeight = this.element.mediaHeight;
+        var ratio, leftMultiplier, topMultiplier;
+
+        if (this.element.scaleMode == 'zoom') {
+            ratio = Math.max(parentWidth / mediaWidth, parentHeight / mediaHeight);
+            leftMultiplier = horizontalAlign == 'left' ? 0 : horizontalAlign == 'right' ? 1 : 0.5;
+            topMultiplier = verticalAlign == 'top' ? 0 : verticalAlign == 'bottom' ? 1 : 0.5;
+        } else {
+            ratio = Math.min(parentWidth / mediaWidth, parentHeight / mediaHeight);
+            leftMultiplier = topMultiplier = 0.5;
+        }
+
+        mediaWidth *= ratio;
+        mediaHeight *= ratio;
+        var css = {
+            width: parseInt(mediaWidth, 10) + 'px',
+            height: parseInt(mediaHeight, 10) + 'px',
+            marginLeft: parseInt((parentWidth - mediaWidth) * leftMultiplier, 10) + 'px',
+            marginTop: parseInt((parentHeight - mediaHeight) * topMultiplier, 10) + 'px'
+        };
+
+        video.css(css);
+        this.$element.find('.mejs-poster,.me-plugin').css(css);
     };
 
     klynt.VideoRenderer.prototype = klynt.utils.mergePrototypes(klynt.MediaRenderer, klynt.VideoRenderer);

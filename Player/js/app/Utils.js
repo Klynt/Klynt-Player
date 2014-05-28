@@ -7,7 +7,7 @@
  */
 
 (function (klynt) {
-    klynt.getModule('utils').expose(merge, mergePrototypes);
+    klynt.getModule('utils').expose(merge, mergePrototypes, link, localURL, localDomain);
 
     function mergePrototypes(args) {
         return merge.apply(this, Array.prototype.map.call(arguments, getPrototype));
@@ -33,6 +33,96 @@
 
     function copyProperty(source, property, destination) {
         Object.defineProperty(destination, property, Object.getOwnPropertyDescriptor(source, property));
+    }
+
+    function link(socialNetwork) {
+
+        var url = encodeURIComponent(klynt.data.share.link || localURL());
+        var twitterMessage = encodeURIComponent(klynt.data.share.shortMessage);
+
+        klynt.analytics.trackEvent('share', socialNetwork);
+
+        switch (socialNetwork) {
+        case 'facebook':
+            facebook();
+            break;
+        case 'twitter':
+            twitter();
+            break;
+        case 'tumblr':
+            tumblr();
+            break;
+        case 'googlePlus':
+            googlePlus();
+            break;
+        case 'linkedIn':
+            linkedIn();
+            break;
+        default:
+            break;
+        }
+
+        function facebook() {
+            var openLink = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+
+            openWindow(openLink);
+        }
+
+        function twitter() {
+            var openLink = 'http://twitter.com/intent/tweet?' +
+                'original_referer=' + url +
+                '&url=' + url +
+                '&via=' + 'klynt_app' +
+                '&text=' + twitterMessage;
+
+            openWindow(openLink);
+        }
+
+        function tumblr() {
+            var openLink = 'http://www.tumblr.com/share/link?url=' + url;
+
+            openWindow(openLink);
+        }
+
+        function googlePlus() {
+            var openLink = 'https://plus.google.com/share?url=' + url;
+
+            openWindow(openLink);
+        }
+
+        function linkedIn() {
+            var openLink = 'http://www.linkedin.com/shareArticle?url=' + url;
+
+            openWindow(openLink);
+        }
+
+        function openWindow(url) {
+            var width = 600;
+            var height = 400;
+            var top = (screen.height - height) / 3;
+            var left = (screen.width - width) / 2;
+
+            if (klynt.fullscreen.active) {
+                window.open(url);
+            } else {
+                window.open(url, 'newwindow', 'width=500, height=400, top=' + top + ', left=' + left);
+            }
+
+        }
+    }
+
+    function localURL() {
+        var url = document.location.origin + document.location.pathname;
+        url = url.substring(0, url.lastIndexOf("/") + 1) + 'index.html';
+
+        return url;
+    }
+
+    function localDomain() {
+        var domain = document.location.origin + document.location.pathname;
+        domain = domain.substring(0, domain.lastIndexOf("/") + 1);
+
+        return domain;
     }
 })(window.klynt);
 
@@ -70,6 +160,7 @@
             local: document.location.protocol === 'file:',
             iOS: /ip(hone|od|ad)/.test(userAgent),
             chrome: /chrome/.test(userAgent),
+            safari: /safari/.test(userAgent) && !/chrome/.test(userAgent),
             android: /android/.test(userAgent)
         }
     });

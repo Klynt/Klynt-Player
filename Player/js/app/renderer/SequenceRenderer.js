@@ -16,13 +16,12 @@
         _sequence: null,
         _$parent: null,
         _$element: null,
+        _playing: true,
+        _ended: false,
 
         get $element() {
             return this._$element;
         },
-
-        _playing: true,
-        _ended: false,
 
         get sequence() {
             return this._sequence;
@@ -40,6 +39,23 @@
             }
         },
 
+        get ended() {
+            return this._ended;
+        },
+
+        get currentTime() {
+            return this._$element ? this._$element[0].timing.getCurrentTime() : 0;
+        },
+
+        get audioRenderers() {
+            return this._audioRenderers;
+        },
+
+        get isOverlay() {
+            return this instanceof klynt.OverlayRenderer;
+        },
+
+        _renderers: [],
         _buttonRenderers: null,
         _textRenderers: null,
         _iframeRenderers: null,
@@ -61,9 +77,17 @@
         });
     };
 
-    klynt.SequenceRenderer.prototype.destroy = function () {
+    klynt.SequenceRenderer.prototype.destroy = function (skipCleaningContinuousAudio) {
         this._end();
         this._$element.remove();
+
+        if (!skipCleaningContinuousAudio) {
+            klynt.continuousAudio.clean(this.isOverlay);
+        }
+
+        this._renderers.forEach(function (element) {
+            element.sequence = null;
+        });
     };
 
     klynt.SequenceRenderer.prototype._initDOM = function () {
@@ -71,36 +95,49 @@
             .attr('id', 'sequence_' + this._sequence.id)
             .addClass('sequence_' + this._sequence.id)
             .addClass('sequence')
+            .css('visibility', 'hidden')
             .addClass(this._sequence.classNames)
             .css('backgroundColor', this._sequence.backgroundColor)
             .appendTo(this._$parent);
     };
 
     klynt.SequenceRenderer.prototype._initChildren = function () {
-        this._videoRenderers = this.sequence.videos.map(createRenderer(klynt.VideoRenderer, this._$element));
-        this._externalVideoRenderers = this.sequence.externalVideos.map(createRenderer(klynt.ExternalVideoRenderer, this._$element));
-        this._audioRenderers = this.sequence.audios.map(createRenderer(klynt.AudioRenderer, this._$element));
+        this._videoRenderers = this.createRendrers(this.sequence.videos, klynt.VideoRenderer);
+        this._externalVideoRenderers = this.createRendrers(this.sequence.externalVideos, klynt.ExternalVideoRenderer);
+        this._audioRenderers = this.createRendrers(this.sequence.audios, klynt.AudioRenderer);
 
-        this._imageRenderers = this.sequence.images.map(createRenderer(klynt.ImageRenderer, this._$element));
-        this._shapeRenderers = this.sequence.shapes.map(createRenderer(klynt.ShapeRenderer, this._$element));
-        this._buttonRenderers = this.sequence.buttons.map(createRenderer(klynt.ButtonRenderer, this._$element));
-        this._textRenderers = this.sequence.texts.map(createRenderer(klynt.TextRenderer, this._$element));
-        this._iframeRenderers = this.sequence.iframes.map(createRenderer(klynt.iFrameRenderer, this._$element));
+        this._imageRenderers = this.createRendrers(this.sequence.images, klynt.ImageRenderer, this);
+        this._shapeRenderers = this.createRendrers(this.sequence.shapes, klynt.ShapeRenderer, this);
+        this._buttonRenderers = this.createRendrers(this.sequence.buttons, klynt.ButtonRenderer, this);
+        this._textRenderers = this.createRendrers(this.sequence.texts, klynt.TextRenderer, this);
+        this._iframeRenderers = this.createRendrers(this.sequence.iframes, klynt.iFrameRenderer, this);
 
         this._$element.tooltip({
             track: true,
-            parentDiv: this._$element[0],
+            tooltipContainer: $('.player-container'),
             items: ".element"
         });
         this._$element.find(".nano-container").nanoScroller({
             paneClass: 'nano-pane',
             contentClass: 'nano-content'
         });
+    };
 
-        function createRenderer(rendererClass, $parent) {
-            return function (model) {
-                return new rendererClass(model, $parent);
-            };
+    klynt.SequenceRenderer.prototype.createRendrers = function (elements, rendererClass) {
+        function createRenderer(element) {
+            var renderer = new rendererClass(element, this);
+            this._renderers.push(renderer);
+            return renderer;
+        }
+
+        return elements.map(createRenderer.bind(this));
+    };
+
+    klynt.SequenceRenderer.prototype.updateSize = function (ratio) {
+        if (klynt.player.scaleToFullWindow) {
+            this._renderers.forEach(function (renderer) {
+                renderer.updateSize(ratio);
+            });
         }
     };
 

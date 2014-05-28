@@ -17,19 +17,35 @@
         },
 
         get duration() {
-            return this._data.duration;
+            return klynt.utils.getTimeFromString(this._data.duration);
         },
 
         get left() {
             return this._data.left;
         },
 
-        get top() {
-            return this._data.top;
+        get right() {
+            return this._data.right;
+        },
+
+        get centerX() {
+            return this._data.centerX;
         },
 
         get width() {
             return this._data.width;
+        },
+
+        get top() {
+            return this._data.top;
+        },
+
+        get bottom() {
+            return this._data.bottom;
+        },
+
+        get centerY() {
+            return this._data.centerY;
         },
 
         get height() {

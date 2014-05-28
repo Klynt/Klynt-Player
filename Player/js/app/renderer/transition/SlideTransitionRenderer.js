@@ -36,6 +36,7 @@
     klynt.SlideTransitionRenderer.prototype._getAnimationDescription = function () {
         var width = klynt.sequenceContainer.width;
         var height = klynt.sequenceContainer.height;
+        var scale = klynt.player.getRatioToWindow();
         var source = {
             from: {
                 left: 0,
@@ -59,21 +60,22 @@
 
         switch (this.direction) {
         case DIRECTION.UP:
-            source.to.top = -height;
-            target.from.top = height;
+            source.to.top = -height * scale;
+            target.from.top = height * scale;
             break;
         case DIRECTION.DOWN:
-            source.to.top = height;
-            target.from.top = -height;
+            source.to.top = height * scale;
+            target.from.top = -height * scale;
             break;
         case DIRECTION.LEFT:
-            source.to.left = -width;
-            target.from.left = width;
+            source.to.left = -width * scale;
+            target.from.left = width * scale;
             break;
         case DIRECTION.RIGHT:
-            source.to.left = width;
-            target.from.left = -width;
+            source.to.left = width * scale;
+            target.from.left = -width * scale;
         }
+
         return {
             source: source,
             target: target

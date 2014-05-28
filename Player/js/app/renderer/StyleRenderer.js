@@ -5,9 +5,10 @@
  * */
 
 (function (klynt) {
-    klynt.StyleRenderer = function (model, $element) {
+    klynt.StyleRenderer = function (model, $element, element) {
         this._model = model;
         this._$element = $element;
+        this._element = element;
 
         this.init();
     };
@@ -27,10 +28,12 @@
             transform: 'rotate(' + this._model.rotation + 'deg)'
         });
 
-        this._$element.hoverIntent({
+        /*this._$element.hoverIntent({
             over: this.applyRollOverStyle.bind(this),
             out: this.applyNormalStyle.bind(this)
-        });
+        });*/
+
+        this._$element.hover(this.applyRollOverStyle.bind(this), this.applyNormalStyle.bind(this));
     };
 
     klynt.StyleRenderer.prototype.applyRollOverStyle = function () {
@@ -54,6 +57,10 @@
         }
         if (this._model.rollOverRotation !== undefined) {
             params.rotation = this._model.rollOverRotation;
+        }
+
+        if (this._element.scales && klynt.player.scaleToFullWindow) {
+            params.scale = klynt.player.getRatioToWindow();
         }
 
         TweenLite.to(this._$element[0], this._model.rollOverAnimationDuration, params);
@@ -81,6 +88,10 @@
             }
             if (this._model.rotation !== undefined) {
                 params.rotation = this._model.rotation;
+            }
+
+            if (this._element.scales && klynt.player.scaleToFullWindow) {
+                params.scale = klynt.player.getRatioToWindow();
             }
 
             TweenLite.to(this._$element[0], this._model.rollOverAnimationDuration, params);

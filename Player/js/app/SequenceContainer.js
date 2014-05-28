@@ -55,17 +55,21 @@
         .expose(resetDimensions, setDimensions);
 
     function init() {
+
         $element = $('<div>')
             .attr('id', 'sequence-container')
             .addClass('sequence-container')
-            .css('height', this.height)
-            .appendTo(klynt.player.$element);
+            .css({
+                top: '0px',
+                bottom: klynt.footer.height + 'px'
+            }).appendTo(klynt.player.$element);
+        //.css('height', klynt.player.scaleToFullWindow ? 'calc(100% - ' + klynt.footer.height + 'px)' : this.height)
 
         $fullscreenWrapper = $('<div>')
             .attr('id', 'fullscreen-wrapper')
             .addClass('fullscreen-wrapper')
-            .css('width', this.width)
-            .css('height', this.height)
+            .css('width', klynt.player.scaleToFullWindow ? '100%' : this.width)
+            .css('height', klynt.player.scaleToFullWindow ? '100%' : this.height)
             .appendTo($element);
 
         resetDimensions();

@@ -21,6 +21,18 @@
             return this._data.name;
         },
 
+        get scaleMode() {
+            return this._data.scaleMode;
+        },
+
+        get horizontalAlign() {
+            return this._data.horizontalAlign;
+        },
+
+        get verticalAlign() {
+            return this._data.verticalAlign;
+        },
+
         _animation: null,
         get animation() {
             return this._animation;

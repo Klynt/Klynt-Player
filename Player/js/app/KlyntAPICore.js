@@ -45,7 +45,7 @@ APIHandler.defineCommand('togglePlayPause', function () {
 });
 
 APIHandler.defineCommand('seek', function (time) {
-	klynt.player.seek(time);
+	klynt.player.seekTo(time);
 });
 
 APIHandler.defineCommand('play', function () {

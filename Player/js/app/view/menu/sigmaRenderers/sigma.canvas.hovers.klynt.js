@@ -1,88 +1,121 @@
 (function () {
     sigma.utils.pkg('sigma.canvas.hovers');
     sigma.canvas.hovers.klynt = function (node, context, settings) {
-        var x,
-            y,
-            w,
-            h,
-            e,
-            fontStyle = settings('hoverFontStyle') || settings('fontStyle'),
+        var fontStyle = settings('hoverFontStyle') || settings('fontStyle'),
+            fontSize = (settings('labelSize') === 'fixed') ? settings('defaultLabelSize') : settings('labelSizeRatio') * size,
             prefix = settings('prefix') || '',
             size = node[prefix + 'size'],
-            fontSize = (settings('labelSize') === 'fixed') ?
-                settings('defaultLabelSize') :
-                settings('labelSizeRatio') * size;
+            x = node[prefix + 'x'],
+            y = node[prefix + 'y'],
+            label;
 
         if (size < 10) {
             return;
         }
 
-        // Label background:
-        context.font = (fontStyle ? fontStyle + ' ' : '') +
-            fontSize + 'px ' + (settings('hoverFont') || settings('font'));
-
-        context.beginPath();
-        context.fillStyle = settings('labelHoverBGColor') === 'node' ?
-            (node.color || settings('defaultNodeColor')) :
-            settings('defaultHoverLabelBGColor');
-
-        if (settings('labelHoverShadow')) {
-            context.shadowOffsetX = node.shadowX;
-            context.shadowOffsetY = node.shadowY;
-            context.shadowBlur = node.shadowBlur;
-            // context.shadowColor = settings('labelHoverShadowColor');
-            context.shadowColor = node.shadowColor;
+        if (settings('proportionalLabel')) {
+            fontSize = (fontSize * size) / settings('labelSizeRatio');
         }
 
-        var labelWidth = context.measureText(node.label).width;
-        var labelX = node[prefix + 'x'] + node.dx - (labelWidth / 2);
-        var labelY = node[prefix + 'y'] + node.dy - size * 1.2;
+        // Label background:
+        context.font = (fontStyle ? fontStyle + ' ' : '') + fontSize + 'px ' + (settings('hoverFont') || settings('font'));
+        context.beginPath();
+        context.fillStyle = settings('labelColor') === 'node' ? (node.color || settings('defaultNodeColor')) : settings('defaultHoverLabelBGColor');
 
-        // Node border:
-        if (settings('borderSize') > 0) {
-            context.beginPath();
-            context.fillStyle = settings('nodeBorderColor') === 'node' ?
-                (node.color || settings('defaultNodeColor')) :
-                settings('defaultNodeBorderColor');
-            context.arc(
-                node[prefix + 'x'] + node.dx,
-                node[prefix + 'y'] + node.dy,
-                size + settings('borderSize'),
-                0,
-                Math.PI * 2,
-                true
-            );
-            context.closePath();
-            context.fill();
+        if (settings('labelHoverShadow')) {
+            context.shadowOffsetX = settings('shadowX');
+            context.shadowOffsetY = settings('shadowY');
+            context.shadowBlur = settings('shadowBlur');
+            context.shadowColor = settings('shadowColor');
         }
 
         // Node:
         var nodeRenderer = sigma.canvas.nodes[node.type] || sigma.canvas.nodes.def;
         nodeRenderer(node, context, settings, 'true');
 
+        // change of fillstyle to white ? //
+        context.fillStyle = settings('labelColor') === 'node' ? (node.color || settings('defaultNodeColor')) : settings('defaultHoverLabelBGColor');
+
         // Display the label:
         if (typeof node.label === 'string') {
-            context.fillStyle = (settings('labelHoverColor') === 'node') ?
-                (node.color || settings('defaultNodeColor')) :
-                settings('defaultLabelHoverColor');
 
-            var x = node[prefix + 'x'] + node.dx;
-            var y = node[prefix + 'y'] + node.dy;
+            label = labelCoordinates(context, size, fontSize, node.label, x, y);
+            drawBackground(context, size, fontSize, x, y, label['width'], label['nbLines']);
 
-            var tabLabel = node.label.split('//');
-            var tabLength = tabLabel.length;
-            var widthLabel;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+            context.shadowBlur = 0;
+            context.shadowColor = 0;
 
-            for (var i = 0; i < tabLength; i++) {
-
-                widthLabel = context.measureText(tabLabel[i]);
-
-                context.fillText(
-                    tabLabel[i],
-                    Math.round(x) - (widthLabel.width / 2),
-                    Math.round(y) - size * 1.2 - (tabLength - i - 1) * fontSize
-                );
-            }
+            drawLabel(context, label);
         }
     };
+
+    var spacing = 3;
+
+    function labelCoordinates(context, size, fontSize, label, x, y) {
+
+        var tabLabel = label.split('//'),
+            maxWidth = 0,
+            label = [],
+            left = y,
+            widthLabel,
+            labelLeft,
+            labelTop;
+
+        for (var i = 0; i < tabLabel.length; i++) {
+            widthLabel = context.measureText(tabLabel[i]);
+
+            labelLeft = Math.round(x) - (widthLabel.width / 2);
+            labelTop = Math.round(y) + size + (i + 1) * fontSize - (fontSize / 2) + i * spacing;
+
+            if (labelLeft < left) {
+                left = labelLeft;
+            }
+            if (widthLabel.width > maxWidth) {
+                maxWidth = widthLabel.width;
+            }
+
+            label[i] = [];
+            label[i][0] = tabLabel[i];
+            label[i][1] = labelLeft;
+            label[i][2] = labelTop;
+        }
+
+        label['width'] = maxWidth;
+        label['nbLines'] = tabLabel.length;
+
+        return label;
+    }
+
+    function drawBackground(context, size, fontSize, x, y, width, nbLines) {
+
+        var horizontalMargin = fontSize / 4,
+            verticalMargin = fontSize / 8,
+            rightMargin = 0,
+            bottomMargin = spacing;
+
+        context.beginPath();
+
+        context.fillRect(
+            x - (width / 2) - horizontalMargin,
+            y + size - verticalMargin - (fontSize / 2),
+            width + (2 * horizontalMargin) + rightMargin,
+            nbLines * fontSize * 1.2 + (2 * verticalMargin) + bottomMargin
+        );
+
+    }
+
+    function drawLabel(context, label) {
+
+        context.fillStyle = '#ffffff';
+
+        for (var i = 0; i < label.length; i++) {
+            context.fillText(
+                label[i][0],
+                label[i][1],
+                label[i][2]
+            );
+        }
+    }
 })();

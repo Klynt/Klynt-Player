@@ -642,10 +642,17 @@ function parseMediaElement(node) {
       alwaysShowControls: true,
       pauseOtherPlayers: false,
       features: ["playpause","progress"],
+      plugins: klynt.utils.browser.local && klynt.utils.browser.chrome ? ['youtube', 'flash', 'silverlight'] : ['flash', 'youtube', 'silverlight'],
       playpauseText: '',
       stopText: '',
       muteText: '',
       fullscreenText: '',
+      syncMaster: renderer.element.syncMaster,
+      fitToWindow: renderer.element.fitToWindow,
+      scales: renderer.element.scales ? true : false,
+      scaleMode: renderer.element.scaleMode,
+      id: renderer.element.id,
+      sequence: renderer.sequence,
 // Klynt end
       success: function(mediaAPI, element) {
         // note: element == node here
@@ -682,8 +689,12 @@ function parseMediaElement(node) {
           nodeDiv.pluginElement = pluginElement;
           nodeDiv.mediaAPI = renderer.mediaAPI = mediaAPI;
         }
-// Klynt start
-        nodeDiv.mediaAPI = renderer.mediaAPI = element.mediaAPI || mediaAPI || element;
+// Klynt start   
+          nodeDiv.pluginElement = pluginElement;
+          nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
+
+          renderer.pluginElement = nodeDiv.pluginElement;
+          renderer.mediaAPI = nodeDiv.mediaAPI;
 // Klynt end
         EVENTS.trigger(document, "MediaElementLoaded");
       },
@@ -1037,6 +1048,14 @@ function smilExternalTimer(mediaPlayerNode) {
     mediaPlayerAPI = mediaPlayerNode.mediaAPI;
     consoleLog("MediaElement interface found.");
   }
+
+  // Klynt start
+  if (klynt.utils.browser.iOS) {
+    setTimeout(function() {
+      self.onTimeUpdate();
+    }, 500);
+  }
+  // Klynt end
 
   // read-only properties: isPaused(), getTime()
   this.isPaused = function() { return mediaPlayerAPI.paused; };
@@ -1464,6 +1483,9 @@ function smilTimeItem(domNode, parentNode, targetNode) {
       consoleLog(domNode.nodeName + "#" + domNode.id + " -- reset()");
     } catch(e) {}
     self.setTargetState(state);
+    // Klynt start
+    self.dispatchEvent("reset");
+    // Klynt end
     self.addEventListener(beginEvents, onbeginListener);
     self.removeEventListener(endEvents, onendListener);
     //consoleLog("time node: " + self.getNode().nodeName + "/" + self.timeAction + " -- " + state);

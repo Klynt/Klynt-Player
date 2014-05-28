@@ -5,8 +5,8 @@
  * */
 
 (function (klynt) {
-    klynt.iFrameRenderer = function (element, $parent) {
-        klynt.ElementRenderer.call(this, element, $parent);
+    klynt.iFrameRenderer = function (element, sequence) {
+        klynt.ElementRenderer.call(this, element, sequence);
     };
 
     klynt.iFrameRenderer.prototype._initDOM = function () {
@@ -23,6 +23,11 @@
 
     klynt.iFrameRenderer.prototype._onEnd = function (event) {
         klynt.ElementRenderer.prototype._onEnd.call(this, event);
+        this._$element.html(null);
+    };
+
+    klynt.iFrameRenderer.prototype._onReset = function (event) {
+        klynt.ElementRenderer.prototype._onReset.call(this, event);
         this._$element.html(null);
     };
 
