@@ -23,7 +23,7 @@
         },
 
         get autoplay() {
-            return !!this._data.autoplay || !this.controls;
+            return !!this._data.autoplay;
         },
 
         get controls() {

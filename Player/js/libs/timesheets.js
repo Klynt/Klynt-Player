@@ -634,12 +634,14 @@ function parseMediaElement(node) {
     var nodeDiv = node.parentNode;
     var renderer = nodeDiv.renderer;
     
-  var constructor = (node.controls && window.MediaElementPlayer) || MediaElement;
+    var constructor = window.MediaElementPlayer || MediaElement;
     var m = new constructor(node, {
+      controls: node.controls,
+      alwaysShowControls: true,
       autoRewind: false,
       enablePluginSmoothing: true,
       clickToPlayPause: true,
-      alwaysShowControls: true,
+	    defaultAudioHeight: 50,
       pauseOtherPlayers: false,
       features: ["playpause","progress"],
       plugins: klynt.utils.browser.local && klynt.utils.browser.chrome ? ['youtube', 'flash', 'silverlight'] : ['flash', 'youtube', 'silverlight'],

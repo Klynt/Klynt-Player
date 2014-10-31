@@ -9,7 +9,6 @@
         this._sequence = sequence;
         this._$parent = $parent;
         this._init();
-        this._mediaRenderers = this._videoRenderers.concat(this._externalVideoRenderers).concat(this._audioRenderers);
     };
 
     klynt.SequenceRenderer.prototype = {
@@ -44,7 +43,7 @@
         },
 
         get currentTime() {
-            return this._$element ? this._$element[0].timing.getCurrentTime() : 0;
+            return this._$element && this._$element[0].timing ? this._$element[0].timing.getCurrentTime() : 0;
         },
 
         get audioRenderers() {
@@ -55,7 +54,6 @@
             return this instanceof klynt.OverlayRenderer;
         },
 
-        _renderers: [],
         _buttonRenderers: null,
         _textRenderers: null,
         _iframeRenderers: null,
@@ -64,6 +62,7 @@
         _videoRenderers: null,
         _externalVideoRenderers: null,
         _audioRenderers: null,
+        _renderers: null,
         _mediaRenderers: null
     };
 
@@ -86,6 +85,7 @@
         }
 
         this._renderers.forEach(function (element) {
+            element.destroy();
             element.sequence = null;
         });
     };
@@ -102,6 +102,7 @@
     };
 
     klynt.SequenceRenderer.prototype._initChildren = function () {
+        this._renderers = [];
         this._videoRenderers = this.createRendrers(this.sequence.videos, klynt.VideoRenderer);
         this._externalVideoRenderers = this.createRendrers(this.sequence.externalVideos, klynt.ExternalVideoRenderer);
         this._audioRenderers = this.createRendrers(this.sequence.audios, klynt.AudioRenderer);
@@ -111,6 +112,8 @@
         this._buttonRenderers = this.createRendrers(this.sequence.buttons, klynt.ButtonRenderer, this);
         this._textRenderers = this.createRendrers(this.sequence.texts, klynt.TextRenderer, this);
         this._iframeRenderers = this.createRendrers(this.sequence.iframes, klynt.iFrameRenderer, this);
+
+        this._mediaRenderers = this._videoRenderers.concat(this._externalVideoRenderers).concat(this._audioRenderers);
 
         this._$element.tooltip({
             track: true,
@@ -131,6 +134,28 @@
         }
 
         return elements.map(createRenderer.bind(this));
+    };
+
+    klynt.SequenceRenderer.prototype.getElementRenderer = function (id) {
+        for (var i = 0; i < this._renderers.length; i++) {
+            var renderer = this._renderers[i];
+            if (renderer.element.id == id) {
+                return renderer;
+            }
+        }
+
+        return null;
+    };
+
+    klynt.SequenceRenderer.prototype.getMediaRenderer = function (id) {
+        for (var i = 0; i < this._mediaRenderers.length; i++) {
+            var renderer = this._mediaRenderers[i];
+            if (renderer.element.id == id) {
+                return renderer;
+            }
+        }
+
+        return null;
     };
 
     klynt.SequenceRenderer.prototype.updateSize = function (ratio) {
@@ -160,7 +185,8 @@
         document.dispatchEvent(event);
     };
 
-    klynt.SequenceRenderer.prototype.play = function () {
+    klynt.SequenceRenderer.prototype.play = function (overlay) {
+
         if (!this._playing) {
             this._playing = true;
             /*if (this._ended) {
@@ -169,7 +195,7 @@
             }*/
 
             this._mediaRenderers.forEach(function playMedia(media) {
-                media.resumeFromStatus();
+                media.resumeFromStatus(overlay);
                 //media.play();
             });
 
@@ -183,14 +209,12 @@
     klynt.SequenceRenderer.prototype.pause = function (overlay) {
         var ended = this._ended;
 
-        this._mediaRenderers.forEach(function playMedia(media) {
-            media.saveStatus();
-            media.pause(ended, overlay);
-        });
-
         if (this._playing) {
+            this._mediaRenderers.forEach(function playMedia(media) {
+                media.saveStatus();
+                media.pause(ended, overlay);
+            });
             this._playing = false;
-
             this._$element[0].timing.Pause();
         }
     };

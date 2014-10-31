@@ -14,12 +14,24 @@
 	klynt.PopTransitionRenderer.prototype.execute = function (source, target) {
 		klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-		target.$element.stop().addClass('pop');
+		var paramsAnimation = {
+			duration: this.duration / 1000,
+			fromProperties: {
+				opacity: 0,
+				scale: 0.2
 
-		window.setTimeout(function () {
-			target.$element.removeClass('pop');
+			},
+			toProperties: {
+				opacity: 1,
+				scale: 1
+			}
+		}
+
+		paramsAnimation.toProperties.onComplete = function () {
 			this._notifyComplete();
-		}.bind(this), this.duration);
+		}.bind(this);
+
+		klynt.animation.fromTo(paramsAnimation, target.$element);
 	};
 
 	klynt.PopTransitionRenderer.prototype = klynt.utils.mergePrototypes(klynt.TransitionRenderer, klynt.PopTransitionRenderer);

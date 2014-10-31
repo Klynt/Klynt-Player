@@ -16,6 +16,10 @@
         this._style = data.style ? new klynt.Style(data.style) : null;
         this._transitionIn = data.transitionIn ? new klynt.ElementTransition(data.transitionIn) : null;
         this._transitionOut = data.transitionOut ? new klynt.ElementTransition(data.transitionOut) : null;
+
+        this._rollOver = data.rollOver ? data.rollOver.map(createInteraction) : null;
+        this._rollOut = data.rollOut ? data.rollOut.map(createInteraction) : null;
+        this._click = data.click ? data.click.map(createInteraction) : null;
     };
 
     klynt.Element.prototype = {
@@ -27,6 +31,10 @@
 
         get fitToWindow() {
             return this._data.fitToWindow;
+        },
+
+        get ignoreMouseEvents() {
+            return this._data.ignoreMouseEvents;
         },
 
         get scales() {
@@ -115,6 +123,25 @@
         _action: null,
         get action() {
             return this._action;
+        },
+
+        _rollOver: null,
+        get rollOver() {
+            return this._rollOver;
+        },
+
+        _rollOut: null,
+        get rollOut() {
+            return this._rollOut;
+        },
+
+        _click: null,
+        get click() {
+            return this._click;
         }
+    }
+
+    function createInteraction(data) {
+        return new klynt.Interaction(data);
     }
 })(window.klynt);

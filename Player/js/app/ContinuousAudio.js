@@ -15,9 +15,11 @@
 	var overlayContinuousAudios = [];
 
 	function init() {
-		$sequenceAudiosContainer = $('<div id="sequence-audio-container">');
-		$overlayAudiosContainer = $('<div id="overlay-audio-container">');
-		$('<div id="continuous-audio-container">').appendTo(klynt.sequenceContainer.$element)
+		$sequenceAudiosContainer = $('<div>').attr('id', 'sequence-audio-container');
+		$overlayAudiosContainer = $('<div>').attr('id', 'overlay-audio-container');
+
+		$('<div id="continuous-audio-container">')
+			.appendTo(klynt.sequenceContainer.$element)
 			.append($sequenceAudiosContainer)
 			.append($overlayAudiosContainer);
 	}

@@ -78,9 +78,13 @@
         }
     };
 
-    klynt.AudioRenderer.prototype.play = function () {
+    klynt.AudioRenderer.prototype.play = function (overlay) {
         if (this.element.continuous) {
-            this.setVolume(this.element.volume);
+            if (overlay) {
+                klynt.action.volume(this, this.element.volume, 1);
+            } else {
+                this.setVolume(this.element.volume);
+            }
         }
         klynt.MediaRenderer.prototype.play.call(this);
     };
@@ -88,14 +92,18 @@
     klynt.AudioRenderer.prototype.pause = function (sequenceEnded, overlay) {
         if (this.element.continuous) {
             if (sequenceEnded) {
-                this.setVolume(this.element.sequenceEndVolume);
+                klynt.action.volume(this, this.element.sequenceEndVolume, 1);
             } else if (overlay) {
-                this.setVolume(this.element.overlayVolume);
+                klynt.action.volume(this, this.element.overlayVolume, 1);
             } else {
                 klynt.MediaRenderer.prototype.pause.call(this);
             }
         } else {
-            klynt.MediaRenderer.prototype.pause.call(this);
+            if (sequenceEnded) {
+                klynt.action.volume(this, 0, 3);
+            } else {
+                klynt.MediaRenderer.prototype.pause.call(this);
+            }
         }
     };
 
@@ -106,7 +114,7 @@
             } else if (overlay) {
                 this.setVolume(this.element.overlayVolume);
             } else {
-                this.setVolume(this.element.volume);
+                klynt.MediaRenderer.prototype.unmute.call(this);
             }
         } else {
             klynt.MediaRenderer.prototype.unmute.call(this);

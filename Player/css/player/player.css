@@ -77,16 +77,27 @@
 }
 
 .footer-mobile-button{
-    float: left;
-    line-height: 26px;
-    font-size: 17px;
-    margin-left: 15px;
     cursor: pointer;
-    -webkit-transition: color 0.2s ease;
-    -moz-transition: color 0.2s ease;
-    -ms-transition: color 0.2s ease;
-    -o-transition: color 0.2s ease;
-    transition: color 0.2s ease;
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    -webkit-transition: border-color 0.2s ease;
+    -moz-transition: border-color 0.2s ease;
+    -ms-transition: border-color 0.2s ease;
+    -o-transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease;
+}
+
+.footer-mobile-button:before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 12px;
+    height: 2px;
+    border-top: 6px double;
+    border-bottom: 2px solid;
+    border-color: inherit;
 }
 
 /*----- CONTENT -----*/
@@ -1034,10 +1045,10 @@ only screen and (min-resolution: 192dpi) {
 
 .modal {
     background-color: #fff;
-    height: 360px;
+    height: 300px;
     left: 50%;
     margin-left: -205px;
-    margin-top: -250px;
+    margin-top: -150px;
     position: absolute;
     top: 50%;
     width: 410px;
@@ -1100,6 +1111,10 @@ only screen and (min-resolution: 192dpi) {
     font-size: 14px;
     font-weight: bold;
 }
+
+.modal-title-bis {
+    display: inline-block;
+}
 .modal-content label {
     font-size: 15px;
 }
@@ -1114,6 +1129,12 @@ only screen and (min-resolution: 192dpi) {
     font-size: 13px;
     cursor: default;
 }
+.copy-url {
+    display: inline-block!important;
+    width: 328px!important;
+    margin-left: 11px!important;
+}
+
 .link{
     padding: 8px 8px 8px 35px !important;
     background: #f3f3f3 url(img/share/link.png) no-repeat;
@@ -1135,14 +1156,18 @@ only screen and (min-resolution: 192dpi) {
 .modal-content-line-right{
     width: 50%;
 }
+.modal-share-buttons {
+    display: inline-block;
+    margin-left: 9px;
+}
 .modal-share-buttons > div{
     display: inline-block;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: 2px;
-    width: 40px;
-    height: 40px;
+    width: 37px;
+    height: 37px;
     cursor: pointer;
     background-size: 20px;
     background-repeat: no-repeat;
@@ -1150,6 +1175,10 @@ only screen and (min-resolution: 192dpi) {
     vertical-align: middle;
     margin-right: 15px;
 }
+.modal-share-buttons > div:last-child {
+    margin-right: 0px;
+}
+
 .modal-share-buttons-facebook{
     background-color: #3d599b;
     background-image: url('img/share/facebook.png');
@@ -1184,6 +1213,50 @@ only screen and (min-resolution: 192dpi) {
     top: 8px;
     left: 121px;
 }
+
+.modal-player {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.modal-player > * {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+}   
+.modal-player > * > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.modal-player > div{
+    cursor: pointer;
+}
+.modal-player label{
+    margin-left: 8px;
+}
+.player-width {
+    margin: 0px 4px 0px 6px;
+}
+.player-height {
+    margin: 0px 4px 0px 0px;
+}
+.modal-player input[type=text] {
+    padding: 0px 2px;
+    width: 30px;
+}
+.modal-player-custom{
+    margin-left: 8px;
+}
+.modal-player-custom-options {
+    display: none;
+}
+.modal-player-custom-options > * {
+    font-size: 12px;
+}
+.modal-player-separator{
+    font-weight: bold;
+    margin: 0px 4px;
+}
+
 .modal-miniplayer {
     display: none;
     margin-top: 5px;
@@ -1214,8 +1287,9 @@ only screen and (min-resolution: 192dpi) {
 }
 .modal-miniplayer-separator{
     font-weight: bold;
-    margin: 0px 12px;
+    margin: 0px 4px;
 }
+
 .error{
     border: 1px solid rgba(237,71,71,0.8)!important;
     background-color:  rgba(237,71,71,0.7)!important;

@@ -247,6 +247,15 @@
 
 @font-face {
 	font-family: Lobster Two;
+	font-weight: normal;
+	font-style: normal;
+	src: url('fonts/LobsterTwo-Regular.eot');
+	src: url('fonts/LobsterTwo-Regular.eot?#iefix') format('embedded-opentype'),
+	     url('fonts/LobsterTwo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Lobster Two;
 	font-weight: bold;
 	font-style: normal;
 	src: url('fonts/LobsterTwo-Bold.eot');
@@ -261,14 +270,5 @@
 	src: url('fonts/LobsterTwo-Italic.eot');
 	src: url('fonts/LobsterTwo-Italic.eot?#iefix') format('embedded-opentype'),
 	     url('fonts/LobsterTwo-Italic.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: Lobster Two;
-	font-weight: normal;
-	font-style: normal;
-	src: url('fonts/LobsterTwo-Regular.eot');
-	src: url('fonts/LobsterTwo-Regular.eot?#iefix') format('embedded-opentype'),
-	     url('fonts/LobsterTwo-Regular.ttf') format('truetype');
 }
 

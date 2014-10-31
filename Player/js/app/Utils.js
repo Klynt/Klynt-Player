@@ -161,9 +161,17 @@
             iOS: /ip(hone|od|ad)/.test(userAgent),
             chrome: /chrome/.test(userAgent),
             safari: /safari/.test(userAgent) && !/chrome/.test(userAgent),
-            android: /android/.test(userAgent)
+            android: /android/.test(userAgent),
+            webkit: isWebkit(),
+            touch: Modernizr.touch ? 'touchstart' : 'click'
         }
     });
+
+    function isWebkit() {
+        var documentStyles = window.getComputedStyle(document.documentElement, '');
+        var stylesString = Array.prototype.slice.call(documentStyles).join('');
+        return stylesString.indexOf('-webkit-') != -1;
+    }
 })(window.klynt);
 
 (function parsingUtils(klynt) {

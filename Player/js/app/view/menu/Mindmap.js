@@ -279,38 +279,28 @@
                 }
 
                 infoShow = setTimeout(function () {
-                    currentArrow.stop().show().animate({
-                        opacity: 1
-                    }, 400);
-                    sequenceInfo.stop().show().animate({
-                        opacity: 1
-                    }, 400);
+                    var paramsAnimation = {
+                        duration: 0.4,
+                        properties: {
+                            opacity: 1
+                        }
+                    }
+
+                    klynt.animation.killTweens([currentArrow, sequenceInfo]);
+                    currentArrow.add(sequenceInfo).show();
+                    klynt.animation.to(paramsAnimation, [currentArrow, sequenceInfo]);
+
                     $('.ellipsis').ellipsis();
                 }, 250);
                 $('.mindmap-graph-renderer').addClass('mouse-over-node');
             });
 
             s.bind('outNode', function (e) {
-
                 clearTimeout(infoShow);
 
-                // currentArrow.stop().animate({
-                //     opacity: 0
-                // }, 400, function () {
-                //     $(this).hide();
-                // });
+                klynt.animation.killTweens([currentArrow, sequenceInfo]);
 
-                // sequenceInfo.stop().animate({
-                //     opacity: 0
-                // }, 400, function () {
-                //     $(this).html('').hide();
-                // });
-
-                currentArrow.stop().css({
-                    opacity: 0
-                }).hide();
-
-                sequenceInfo.stop().css({
+                currentArrow.add(sequenceInfo).css({
                     opacity: 0
                 }).hide();
 
@@ -327,7 +317,8 @@
 
         }
 
-        var oldposition = {}, currentPosition = {};
+        var oldposition = {},
+            currentPosition = {};
         oldposition.x = c.x;
         oldposition.y = c.y;
         currentPosition.x = c.x;

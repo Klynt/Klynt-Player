@@ -18,25 +18,38 @@
     klynt.SlideTransitionRenderer.prototype.execute = function (source, target) {
         klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
+        var duration = this.duration / 1000;
         var animation = this._getAnimationDescription();
 
-        if (source) {
-            source.$element
-                .stop()
-                .css(animation.source.from)
-                .animate(animation.source.to, this.duration, this.easing);
+        var sourceParams = {
+            duration: duration,
+            fromProperties: animation.source.from,
+            toProperties: animation.source.to
         }
 
-        target.$element
-            .stop()
-            .css(animation.target.from)
-            .animate(animation.target.to, this.duration, this.easing, this._notifyComplete.bind(this));
+        var targetParams = {
+            duration: duration,
+            fromProperties: animation.target.from,
+            toProperties: animation.target.to
+        }
+
+        if (source) {
+            klynt.animation.killTweens(source.$element);
+            klynt.animation.fromTo(sourceParams, source.$element);
+        }
+
+        targetParams.toProperties.onComplete = function () {
+            this._notifyComplete();
+        }.bind(this);
+
+        klynt.animation.killTweens(target.$element);
+        klynt.animation.fromTo(targetParams, target.$element);
     };
 
     klynt.SlideTransitionRenderer.prototype._getAnimationDescription = function () {
-        var width = klynt.sequenceContainer.width;
-        var height = klynt.sequenceContainer.height;
-        var scale = klynt.player.getRatioToWindow();
+        var width = klynt.sequenceContainer.$fullscreenWrapper.width();
+        var height = klynt.sequenceContainer.$fullscreenWrapper.height();
+
         var source = {
             from: {
                 left: 0,
@@ -60,20 +73,20 @@
 
         switch (this.direction) {
         case DIRECTION.UP:
-            source.to.top = -height * scale;
-            target.from.top = height * scale;
+            source.to.top = -height;
+            target.from.top = height;
             break;
         case DIRECTION.DOWN:
-            source.to.top = height * scale;
-            target.from.top = -height * scale;
+            source.to.top = height;
+            target.from.top = -height;
             break;
         case DIRECTION.LEFT:
-            source.to.left = -width * scale;
-            target.from.left = width * scale;
+            source.to.left = -width;
+            target.from.left = width;
             break;
         case DIRECTION.RIGHT:
-            source.to.left = width * scale;
-            target.from.left = -width * scale;
+            source.to.left = width;
+            target.from.left = -width;
         }
 
         return {

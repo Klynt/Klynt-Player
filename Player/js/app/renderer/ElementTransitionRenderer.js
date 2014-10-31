@@ -77,27 +77,34 @@
     };
 
     klynt.ElementTransitionRenderer.prototype._executeBarWipeTransition = function () {
+        var params, duration = this.duration / 1000;
+
         switch (this._direction) {
         case klynt.ElementTransitionRenderer.IN:
-            this._$element
-                .stop()
-                .css({
+            params = {
+                duration: duration,
+                fromProperties: {
                     clip: getClipString(this._$element, 0, 0)
-                })
-                .animate({
+                },
+                toProperties: {
                     clip: getClipString(this._$element, 0, 1)
-                }, this.duration);
+                }
+            }
+            klynt.animation.killTweens(this._$element);
+            klynt.animation.fromTo(params, this._$element);
             break;
         case klynt.ElementTransitionRenderer.OUT:
-            this._$element
-                .stop()
-                .css({
+            params = {
+                duration: duration,
+                fromProperties: {
                     clip: getClipString(this._$element, 0, 1)
-                })
-                .animate({
+                },
+                toProperties: {
                     clip: getClipString(this._$element, 1, 1)
-                }, this.duration);
-            break;
+                }
+            }
+            klynt.animation.killTweens(this._$element);
+            klynt.animation.fromTo(params, this._$element);
         }
     };
 
@@ -116,34 +123,3 @@
     klynt.ElementTransitionRenderer.IN = 'in';
     klynt.ElementTransitionRenderer.OUT = 'out';
 })(window.klynt);
-
-(function clipAniamtionPlugin(jQuery) {
-    jQuery.fx.step.clip = function (fx) {
-        if (fx.pos === 0) {
-            var cRE = /rect\(([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)[,]? ([0-9]{1,})(px|em)\)/;
-            fx.start = cRE.exec(fx.elem.style.clip.replace(/,/g, ''));
-            fx.end = cRE.exec(splitFxEnd());
-        }
-        var sarr = [],
-            earr = [],
-            spos = fx.start.length,
-            epos = fx.end.length,
-            emOffset = fx.start[ss + 1] === 'em' ? (parseInt($(fx.elem).css('fontSize')) * 1.333 * parseInt(fx.start[ss])) : 1;
-        for (var ss = 1; ss < spos; ss += 2) {
-            sarr.push(parseInt(emOffset * fx.start[ss]));
-        }
-        for (var es = 1; es < epos; es += 2) {
-            earr.push(parseInt(emOffset * fx.end[es]));
-        }
-        fx.elem.style.clip = 'rect(' +
-            parseInt((fx.pos * (earr[0] - sarr[0])) + sarr[0]) + 'px ' +
-            parseInt((fx.pos * (earr[1] - sarr[1])) + sarr[1]) + 'px ' +
-            parseInt((fx.pos * (earr[2] - sarr[2])) + sarr[2]) + 'px ' +
-            parseInt((fx.pos * (earr[3] - sarr[3])) + sarr[3]) + 'px)';
-
-        function splitFxEnd() {
-            var end = (fx.end instanceof Array) ? fx.end[0] : fx.end;
-            return end.replace(/,/g, '');
-        }
-    };
-})(jQuery);

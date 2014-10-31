@@ -43,7 +43,7 @@
         '{{/items}}' +
         '</ul>';
 
-    template += '<span class="footer-mobile-button klynt-secondary-color klynt-tertiary-color-hover">&#9776;</span>';
+    template += '<span class="footer-mobile-button klynt-secondary-color-border klynt-tertiary-border-hover" style="top:' + ((data.height - 10) / 2) + 'px"></span>';
 
     var mobileMenuTemplate =
         '<ul class="mobile-menu-items klynt-secondary-border-color nano-content">' +
@@ -63,16 +63,8 @@
     function init() {
         data.useMenu = typeof klynt.data.menu !== 'undefined';
 
-        // var newButtons = [];
-
-        // for (var i in data.buttons) {
-        //     var button = data.buttons[i];
-        //     if (button.type != 'fullscreen') {
-        //         newButtons.push(button);
-        //     }
-        // }
-
-        // data.buttons = newButtons;
+        var clickOrTouch = klynt.utils.browser.touch;
+        var calc = klynt.utils.browser.webkit ? '-webkit-calc' : 'calc';
 
         $element = $('<div>')
             .attr('id', 'footer')
@@ -80,9 +72,9 @@
             .css('height', data.height + 'px')
             .appendTo(klynt.player.$element)
             .html(Mustache.render(template, data))
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.footer-btn-menu', onClickMenu)
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.footer-item', onClickFooter)
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.footer-button', onClickButton);
+            .on(clickOrTouch, '.footer-btn-menu', onClickMenu)
+            .on(clickOrTouch, '.footer-item', onClickFooter)
+            .on(clickOrTouch, '.footer-button', onClickButton);
 
         $mobileMenu = $('<div>')
             .attr('id', 'mobile-menu')
@@ -94,10 +86,11 @@
             .css('bottom', klynt.footer.height + 'px')
             .css('left', -mobileMenuWidth + 'px')
             .css('width', mobileMenuWidth + 'px')
+            .css('height', calc + '(100% - ' + klynt.footer.height + 'px)')
             .appendTo(klynt.player.$element)
             .html(Mustache.render(mobileMenuTemplate, data))
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.mobile-menu-item', onClickFooter)
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.mobile-menu-item', closeMobileMenu);
+            .on(clickOrTouch, '.mobile-menu-item', onClickFooter)
+            .on(clickOrTouch, '.mobile-menu-item', closeMobileMenu);
 
         setTimeout(function () {
             $('.nano-container').nanoScroller({
@@ -110,7 +103,7 @@
         $buttons = $element.find('.footer-button');
         $mobileButton = $element.find('.footer-mobile-button');
 
-        $mobileButton.on(Modernizr.touch ? 'touchstart' : 'click', toggleMobileMenu);
+        $mobileButton.on(clickOrTouch, toggleMobileMenu);
 
         if (data.useMenu) {
             $element.hammer({
@@ -141,6 +134,7 @@
         });
         buttonsWidth = $('.footer-buttons').width();
         breakPoint1 = itemsWidth + buttonsWidth + 15 + 30;
+
         $buttons.find('span:first-child').hide();
 
         // SECOND BREAK POINT //
@@ -158,6 +152,18 @@
         $(window).on('resize', function () {
             changeFooter(breakPoint1, breakPoint2);
         })
+    }
+
+    function firstBreakPoint() {
+        var buttonsWidth, itemsWidth = 0;
+
+        $items.each(function () {
+            itemsWidth += $(this).width() + $(this).outerWidth();
+        });
+
+        buttonsWidth = $('.footer-buttons').width();
+
+        return itemsWidth + buttonsWidth + 15 + 30;
     }
 
     function changeFooter(breakPoint1, breakPoint2) {
@@ -189,9 +195,6 @@
     }
 
     function toggleMobileMenu() {
-
-        console.log(isMenuOpened);
-
         if (!isMenuOpened) {
             openMobileMenu();
         } else {
@@ -200,12 +203,26 @@
     }
 
     function openMobileMenu() {
-        $mobileMenu.css('left', '0px');
+        var animationParams = {
+            duration: 0.2,
+            properties: {
+                left: '0px'
+            }
+        };
+
+        klynt.animation.to(animationParams, $mobileMenu);
         isMenuOpened = true;
     }
 
     function closeMobileMenu() {
-        $mobileMenu.css('left', -mobileMenuWidth + 'px');
+        var animationParams = {
+            duration: 0.2,
+            properties: {
+                left: -mobileMenuWidth + 'px'
+            }
+        };
+
+        klynt.animation.to(animationParams, $mobileMenu);
         isMenuOpened = false;
     }
 

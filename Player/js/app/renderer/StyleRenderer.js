@@ -60,7 +60,7 @@
         }
 
         if (this._element.scales && klynt.player.scaleToFullWindow) {
-            params.scale = klynt.player.getRatioToWindow();
+            //params.scale = klynt.player.getRatioToWindow();
         }
 
         TweenLite.to(this._$element[0], this._model.rollOverAnimationDuration, params);
@@ -91,7 +91,7 @@
             }
 
             if (this._element.scales && klynt.player.scaleToFullWindow) {
-                params.scale = klynt.player.getRatioToWindow();
+                //params.scale = klynt.player.getRatioToWindow();
             }
 
             TweenLite.to(this._$element[0], this._model.rollOverAnimationDuration, params);

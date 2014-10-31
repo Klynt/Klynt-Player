@@ -14,21 +14,39 @@
     klynt.FadeTransitionRenderer.prototype.execute = function (source, target) {
         klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-        if (source) {
-            source.$element
-                .stop()
-                .css({
-                    opacity: 1
-                })
-                .fadeTo(this.duration, 0, this.easing);
+        var duration = this.duration / 1000;
+
+        var sourceParams = {
+            duration: duration,
+            fromProperties: {
+                opacity: 1
+            },
+            toProperties: {
+                opacity: 0
+            }
         }
 
-        target.$element
-            .stop()
-            .css({
+        var targetParams = {
+            duration: duration,
+            fromProperties: {
                 opacity: 0
-            })
-            .fadeTo(this.duration, 1, this.easing, this._notifyComplete.bind(this));
+            },
+            toProperties: {
+                opacity: 1
+            }
+        }
+
+        if (source) {
+            klynt.animation.killTweens(source.$element);
+            klynt.animation.fromTo(sourceParams, source.$element);
+        }
+
+        targetParams.toProperties.onComplete = function () {
+            this._notifyComplete();
+        }.bind(this);
+
+        klynt.animation.killTweens(target.$element);
+        klynt.animation.fromTo(targetParams, target.$element);
     };
 
     klynt.FadeTransitionRenderer.prototype = klynt.utils.mergePrototypes(klynt.TransitionRenderer, klynt.FadeTransitionRenderer);

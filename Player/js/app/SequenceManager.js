@@ -186,7 +186,7 @@
         }
 
         if (klynt.sequenceContainer.currentSequenceRenderer) {
-            klynt.sequenceContainer.currentSequenceRenderer.play();
+            klynt.sequenceContainer.currentSequenceRenderer.play(true);
         }
     }
 

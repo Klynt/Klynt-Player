@@ -73,19 +73,19 @@
         },
 
         get closeButtonLeft() {
-            return this._data.closeButtonLeft;
+            return this._data.closeButtonLeft || klynt.data.general.overlayCloseButtonLeft;
         },
 
         get closeButtonRight() {
-            return this._data.closeButtonRight;
+            return this._data.closeButtonRight || klynt.data.general.overlayCloseButtonRight;
         },
 
         get closeButtonTop() {
-            return this._data.closeButtonTop;
+            return this._data.closeButtonTop || klynt.data.general.overlayCloseButtonTop;
         },
 
         get closeButtonBottom() {
-            return this._data.closeButtonBottom;
+            return this._data.closeButtonBottom || klynt.data.general.overlayCloseButtonBottom;
         },
 
         // Link to url

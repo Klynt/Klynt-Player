@@ -52,6 +52,9 @@
     klynt.getModule('menu', accessors).expose(resetDimensions, toggle, open, close, init, initWidget, renderMaps, searchButton);
 
     function init() {
+
+        var clickOrTouch = klynt.utils.browser.touch;
+
         $element = $('<div>')
             .attr('id', 'menu')
             .addClass('menu')
@@ -59,8 +62,8 @@
             .prependTo(klynt.player.$element)
             .html(Mustache.render(template, data, templatePartials))
             .css('paddingTop', data.offset_sequence)
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.menu-btn-close', close)
-            .on(Modernizr.touch ? 'touchstart' : 'click', '.menu-btn-search', search);
+            .on(clickOrTouch, '.menu-btn-close', close)
+            .on(clickOrTouch, '.menu-btn-search', search);
         $bar = $element.find('.menu-bar');
         $barPhantom = $element.find('.menu-bar-phantom');
         $background = $element.find('.menu-background');
@@ -135,19 +138,27 @@
         }
     }
 
-    function setSequenceContainerOffset(px, animate) {
+    function setSequenceContainerOffset(px) {
         var $sequenceContainer = klynt.sequenceContainer.$element;
-
-        $sequenceContainer.removeClass("animate");
-        if (animate) $sequenceContainer.addClass("animate");
+        var animationParams = {
+            duration: 0.5
+        }
 
         if (Modernizr.csstransforms3d) {
-            $sequenceContainer.css("transform", px ? ("translate3d(0," + px + "px,0)") : "none");
+            animationParams.properties = {
+                transform: "translate3d(0," + px + "px,0)"
+            }
         } else if (Modernizr.csstransforms) {
-            $sequenceContainer.css("transform", px ? ("translate(0," + px + "px)") : "none");
+            animationParams.properties = {
+                transform: "translate(0," + px + "px)"
+            }
         } else {
-            $sequenceContainer.css("top", px + "px");
+            animationParams.properties = {
+                top: px + "px"
+            }
         }
+
+        klynt.animation.to(animationParams, $sequenceContainer);
 
         $barPhantom.toggle(isOpen);
     }
@@ -284,24 +295,37 @@
                 contentClass: 'nano-content'
             });
         }, 100);
-        widget.$element.animate({
-            left: '0px'
-        }, timer);
-        widgets[0].$element.animate({
-            left: direction[1] + 'px'
-        }, timer, function () {
-            $(this).remove();
 
-            if (!searchTest) {
-                $element.find('.menu-bar-item').text(newLabel);
-            } else {
-                $element.find('.menu-bar-item').text('search');
+        var newWidgetparamsAnimation = {
+            duration: timer / 1000,
+            properties: {
+                left: '0px'
             }
+        }
 
-            if (searchButton) {
-                $('input[name="search"]').focus();
+        klynt.animation.to(newWidgetparamsAnimation, widget.$element);
+
+        var oldWidgetparamsAnimation = {
+            duration: timer / 1000,
+            properties: {
+                left: direction[1] + 'px',
+                onComplete: function () {
+                    $(this.target).remove();
+
+                    if (!searchTest) {
+                        $element.find('.menu-bar-item').text(newLabel);
+                    } else {
+                        $element.find('.menu-bar-item').text('SEARCH');
+                    }
+
+                    if (searchButton) {
+                        $('input[name="search"]').focus();
+                    }
+                }
             }
-        });
+        }
+
+        klynt.animation.to(oldWidgetparamsAnimation, widgets[0].$element);
     }
 
     function emptyWidgetContainer() {

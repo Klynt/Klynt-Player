@@ -7,75 +7,71 @@
  * */
 
 APIHandler.defineCommand('openUrl', function (url) {
-	if (url) {
-		window.open(url, '_blank');
-	}
+	klynt.action.openUrl(url);
 });
 
 APIHandler.defineCommand('share', function () {
-	klynt.player.toggleModal(klynt.ShareModal);
+	klynt.action.openModalShare();
 });
 
-APIHandler.defineCommand('toggleMute', function () {
-	klynt.player.toggleMute();
+APIHandler.defineCommand('toggleMute', function (id) {
+	klynt.action.toggleMute(id);
 });
 
-APIHandler.defineCommand('mute', function () {
-	klynt.player.mute();
+APIHandler.defineCommand('mute', function (id) {
+	klynt.action.mute(id);
 });
 
-APIHandler.defineCommand('unmute', function () {
-	klynt.player.unmute();
+APIHandler.defineCommand('unmute', function (id) {
+	klynt.action.unmute(id);
 });
 
 APIHandler.defineCommand('toggleFullScreen', function () {
-	klynt.fullscreen.toggle();
+	klynt.action.toggleFullScreen();
 });
 
 APIHandler.defineCommand('enterFullScreen', function () {
-	klynt.fullscreen.toggle();
+	klynt.action.requestFullscreen();
 });
 
 APIHandler.defineCommand('exitFullScreen', function () {
-	klynt.fullscreen.toggle();
+	klynt.action.exitFullScreen();
 });
 
-APIHandler.defineCommand('togglePlayPause', function () {
-	klynt.player.togglePlayPause();
+APIHandler.defineCommand('togglePlayPause', function (id) {
+	klynt.action.togglePlayPause(id);
 });
 
-APIHandler.defineCommand('seek', function (time) {
-	klynt.player.seekTo(time);
+APIHandler.defineCommand('play', function (id) {
+	klynt.action.play(id);
 });
 
-APIHandler.defineCommand('play', function () {
-	klynt.player.play();
+APIHandler.defineCommand('pause', function (id) {
+	klynt.action.pause(id);
 });
 
-APIHandler.defineCommand('pause', function () {
-	klynt.player.pause();
+APIHandler.defineCommand('seek', function (id, time) {
+	klynt.action.seekTo(id, time);
 });
 
-APIHandler.defineCommand('openSequence', function (params) {
-	klynt.player.open(params);
+APIHandler.defineCommand('seekDelta', function (id, time) {
+	klynt.action.seekDelta(id, delta);
 });
 
-APIHandler.defineCommand('openOverlay', function (params) {
-	if (typeof params === 'string') {
-		klynt.sequenceManager.openLink({
-			target: params,
-			overlay: true,
-			type: 'linkToSequence'
-		});
-	}
+APIHandler.defineCommand('openSequence', function (id) {
+	klynt.action.openSequence(id);
+});
+
+APIHandler.defineCommand('openOverlay', function (id) {
+	klynt.action.openOverlay(id);
 });
 
 APIHandler.defineCommand('openWidget', function (id) {
-	klynt.menu.initWidget(id, -1);
+	klynt.action.openWidget(id);
 });
 
 APIHandler.defineCommand('closeOverlay', function () {
-	klynt.sequenceManager.closeOverlay();
+	klynt.action.closeOverlay();
 });
 
 /* Old commands kept for compatibility*/

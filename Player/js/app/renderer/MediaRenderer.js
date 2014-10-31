@@ -11,6 +11,7 @@
 
     klynt.MediaRenderer.prototype = {
         _$mediaElement: null,
+        _volumeSet: false,
 
         get $mediaElement() {
             return this._$mediaElement;
@@ -105,8 +106,25 @@
         this.mediaAPI.pause();
     };
 
+    klynt.MediaRenderer.prototype.togglePlayPause = function () {
+        if (this.mediaAPI.paused) {
+            this.play();
+        } else {
+            this.pause();
+        }
+    };
+
+    klynt.MediaRenderer.prototype.stop = function () {
+        this.mediaAPI.pause();
+        this.mediaAPI.setCurrentTime(0);
+    };
+
     klynt.MediaRenderer.prototype.seekTo = function (time) {
-        this.mediaAPI.setCurrentTime(time);
+        if (time < 1) {
+            this.stop();
+        } else {
+            this.mediaAPI.setCurrentTime(Math.min(time, this.mediaAPI.duration));
+        }
     };
 
     klynt.MediaRenderer.prototype._load = function () {
@@ -114,24 +132,41 @@
     };
 
     klynt.MediaRenderer.prototype.setVolume = function (volume) {
-        this.mediaAPI.setVolume(klynt.sequenceManager.muted ? 0 : volume);
+        try {
+            this.mediaAPI.setVolume(volume);
+            this._volumeSet = true;
+        } catch (error) {
+
+        }
+    };
+
+    klynt.MediaRenderer.prototype.getVolume = function () {
+        return this.mediaAPI.volume;
     };
 
     klynt.MediaRenderer.prototype.mute = function () {
-        this.setVolume(0);
+        this.mediaAPI.setMuted(true);
     };
 
     klynt.MediaRenderer.prototype.unmute = function () {
-        this.setVolume(this.element.volume);
+        this.mediaAPI.setMuted(false);
+    };
+
+    klynt.MediaRenderer.prototype.toggleMute = function () {
+        if (this.mediaAPI.muted) {
+            this.unmute();
+        } else {
+            this.mute();
+        }
     };
 
     klynt.MediaRenderer.prototype.saveStatus = function () {
         this._wasPlaying = this.mediaAPI.duration && !this.mediaAPI.ended && !this.mediaAPI.paused
     };
 
-    klynt.MediaRenderer.prototype.resumeFromStatus = function () {
-        if (this._wasPlaying) {
-            this.play();
+    klynt.MediaRenderer.prototype.resumeFromStatus = function (overlay) {
+        if (this._wasPlaying || this.element.syncMaster) {
+            this.play(overlay);
         };
     };
 
@@ -139,9 +174,10 @@
         this._mediaAPI.addEventListener('play', this._onPlay.bind(this), false);
         this._mediaAPI.addEventListener('pause', this._onPause.bind(this), false);
 
+        this.$element.find('.mejs-overlay-play').hide();
+
         if (this._element.syncMaster) {
             this._mediaAPI.addEventListener('ended', this._onSyncMasterEnd.bind(this), false);
-            this.$element.find('.mejs-overlay-play').hide();
         } else {
             this.hide();
         }
@@ -150,8 +186,9 @@
             this._load();
         }
 
-        if (this.element.fitToWindow && !this.element.syncMaster) {
+        if (!this.element.syncMaster) {
             $('.control_' + this.element.id).hide();
+            this.$element.find('.mejs-controls').hide();
         }
     };
 
@@ -162,12 +199,21 @@
     };
 
     klynt.MediaRenderer.prototype._onPlay = function (event) {
+        if (!this._volumeSet) {
+            this.setVolume(this.element.volume);
+        }
         klynt.sequenceManager.muted ? this.mute() : this.unmute();
+        if (this._element.syncMaster) {
+            this.sequence.play();
+        }
     };
 
     klynt.MediaRenderer.prototype._onPause = function (event) {
         if (this.mediaAPI.ended || this.sequence.ended) {
             this.$element.find('.mejs-overlay-play').hide();
+        }
+        if (this._element.syncMaster) {
+            this.sequence.pause();
         }
     };
 
@@ -176,16 +222,18 @@
         if (this.element.autoplay) {
             this.play();
         }
-        if (this.element.fitToWindow && !this.element.syncMaster) {
+        if (this.element.controls && !this.element.syncMaster) {
             $('.control_' + this.element.id).show();
+            this.$element.find('.mejs-controls').show();
         }
     };
 
     klynt.MediaRenderer.prototype._onEnd = function (event) {
         klynt.ElementRenderer.prototype._onEnd.call(this);
         this.pause();
-        if (this.element.fitToWindow && !this.element.syncMaster) {
+        if (!this.element.syncMaster) {
             $('.control_' + this.element.id).hide();
+            this.$element.find('.mejs-controls').hide();
         }
     };
 

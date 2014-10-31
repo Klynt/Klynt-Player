@@ -64,7 +64,9 @@
 		'Player/js/app/model/Transition.js',
 		'Player/js/app/model/ElementTransition.js',
 		'Player/js/app/model/Animation.js',
-		'Player/js/app/model/Action.js',
+		'Player/js/app/model/Interaction.js',
+		'Player/js/app/Animation.js',
+		'Player/js/app/Action.js',
 		'Player/js/app/Sequences.js',
 		'Player/js/app/Hashtag.js',
 		'Player/js/app/Fullscreen.js',
@@ -74,7 +76,6 @@
 		'Player/js/app/SequenceManager.js',
 		'Player/js/app/SequenceContainer.js',
 		'Player/js/app/ContinuousAudio.js',
-		'Player/js/app/renderer/StyleRenderer.js',
 		'Player/js/app/renderer/ElementRenderer.js',
 		'Player/js/app/renderer/ButtonRenderer.js',
 		'Player/js/app/renderer/TextRenderer.js',
@@ -87,6 +88,10 @@
 		'Player/js/app/renderer/AudioRenderer.js',
 		'Player/js/app/renderer/SequenceRenderer.js',
 		'Player/js/app/renderer/OverlayRenderer.js',
+		'Player/js/app/renderer/interaction/InteractionRenderer.js',
+		'Player/js/app/renderer/interaction/ActionInteractionRenderer.js',
+		'Player/js/app/renderer/interaction/StyleInteractionRenderer.js',
+		'Player/js/app/renderer/interaction/LayoutInteractionRenderer.js',
 		'Player/js/app/renderer/transition/TransitionRenderer.js',
 		'Player/js/app/renderer/transition/NoTransitionRenderer.js',
 		'Player/js/app/renderer/transition/SlideTransitionRenderer.js',
@@ -221,8 +226,10 @@
 				backgroundPositionY: '53%'
 			}, 500, 'swing', function () {
 				if (klynt.params.miniPlayer) {
-					klynt.player.setDimensions(screen.width, screen.height);
-					klynt.menu.resetDimensions();
+					if (!klynt.player.scaleToFullWindow) {
+						klynt.player.setDimensions(screen.width, screen.height);
+						klynt.menu.resetDimensions();
+					}
 					klynt.player.$element.trigger('open.fullscreen');
 				}
 

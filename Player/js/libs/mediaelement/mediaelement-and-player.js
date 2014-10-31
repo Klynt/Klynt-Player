@@ -2026,7 +2026,6 @@ if (typeof jQuery != 'undefined') {
 		controlsAreVisible: true,
 
 		init: function () {
-
 			var
 				t = this,
 				mf = mejs.MediaFeatures,
@@ -2095,6 +2094,10 @@ if (typeof jQuery != 'undefined') {
 						.insertBefore(t.$media);
 
 					t.options.sequence.$element.append('<div class="mejs-controls control_' + t.options.id + '"></div>');
+					t.controls = t.options.sequence.$element.find('.mejs-controls');
+					if (t.options.syncMaster) {
+						t.controls.attr('timeAction', 'none');
+					}
 				} else {
 
 					t.container =
@@ -2108,6 +2111,7 @@ if (typeof jQuery != 'undefined') {
 							'</div>')
 						.addClass(t.$media[0].className)
 						.insertBefore(t.$media);
+					t.controls = t.container.find('.mejs-controls');
 				}
 
 				// add classes for user and content
@@ -2140,7 +2144,7 @@ if (typeof jQuery != 'undefined') {
 				}
 
 				// find parts
-				t.controls = t.options.sequence.$element.find('.mejs-controls');
+				//t.controls = t.options.sequence.$element.find('.mejs-controls');
 				t.layers = t.container.find('.mejs-layers');
 
 				// determine the size
@@ -2177,6 +2181,10 @@ if (typeof jQuery != 'undefined') {
 
 				// set the size, while we wait for the plugins to load below
 				t.setPlayerSize(t.width, t.height);
+
+				if (!t.options.controls) {
+					t.disableControls();
+				}
 
 				// create MediaElementShim
 				meOptions.pluginWidth = t.height;

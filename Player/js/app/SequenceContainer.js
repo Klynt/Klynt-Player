@@ -56,27 +56,29 @@
 
     function init() {
 
+        var calc = klynt.utils.browser.webkit ? '-webkit-calc' : 'calc';
+
         $element = $('<div>')
             .attr('id', 'sequence-container')
             .addClass('sequence-container')
             .css({
                 top: '0px',
                 bottom: klynt.footer.height + 'px'
-            }).appendTo(klynt.player.$element);
-        //.css('height', klynt.player.scaleToFullWindow ? 'calc(100% - ' + klynt.footer.height + 'px)' : this.height)
+            }).appendTo(klynt.player.$element)
+            .css('height', klynt.player.scaleToFullWindow ? calc + '(100% - ' + klynt.footer.height + 'px)' : this.height);
 
         $fullscreenWrapper = $('<div>')
             .attr('id', 'fullscreen-wrapper')
             .addClass('fullscreen-wrapper')
             .css('width', klynt.player.scaleToFullWindow ? '100%' : this.width)
-            .css('height', klynt.player.scaleToFullWindow ? '100%' : this.height)
+            .css('height', klynt.player.scaleToFullWindow ? calc + '(100% - ' + klynt.footer.height + 'px)' : this.height)
             .appendTo($element);
 
         resetDimensions();
 
         if (watermark && watermark.enabled) {
             $element.append('<img src="Player/css/editor/img/watermark.png" class="watermark watermark-' + watermark.position + '"></img>');
-            $element.on(Modernizr.touch ? 'touchstart' : 'click', '.watermark', actionWatermark);
+            $element.on(klynt.utils.browser.touch, '.watermark', actionWatermark);
         }
 
         var touchEnabled = false;

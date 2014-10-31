@@ -10,10 +10,22 @@
     };
 
     klynt.ImageRenderer.prototype = {
+        _animationRenderer: null,
+
         _$image: null,
         get $image() {
             return this._$image;
+        },
+
+        _zoomValue: 1
+    };
+
+    klynt.ImageRenderer.prototype._init = function () {
+        if (this._element.animation) {
+            this._animationRenderer = new klynt.AnimationRenderer(this._element.animation, this);
         }
+
+        klynt.ElementRenderer.prototype._init.call(this);
     };
 
     klynt.ImageRenderer.prototype._initDOM = function () {
@@ -31,27 +43,63 @@
             .appendTo(this._$element);
     };
 
-    klynt.ImageRenderer.prototype.updateSize = function (ratio) {
-        klynt.ElementRenderer.prototype.updateSize.call(this, ratio);
+    klynt.ImageRenderer.prototype.updateSize = function (ratio, data) {
+        var data;
+        if (this.element.animation && this.element.animation.type == 'panZoom' && this.currentTime >= this.element.animation.duration) {
+            data = this.element.animation;
+        } else {
+            data = this.element;
+        }
 
-        this._updateImageDimensions();
+        klynt.ElementRenderer.prototype.updateSize.call(this, ratio, data);
+
+        this._$image.css(this.getImagePositionCSS(data));
+        this._executePanAndZoom();
     };
 
-    klynt.ImageRenderer.prototype._updateImageDimensions = function () {
+    klynt.ImageRenderer.prototype.zoom = function (zoom) {
+        this._zoomValue = zoom;
+        return this.getImagePositionCSS(this.element);
+    }
+
+    klynt.ImageRenderer.prototype.getImagePositionCSS = function (data) {
+
+        var css = {};
+        var zoom = this._zoomValue;
+
         if (this.element.scaleMode == 'stretch') {
-            this._$image.css({
-                width: '100%',
-                height: '100%'
-            });
+            css.width = '100%';
+            css.height = '100%';
         } else {
             var horizontalAlign = this.element.horizontalAlign;
             var verticalAlign = this.element.verticalAlign;
-            var parentWidth = this.$element.innerWidth();
-            var parentHeight = this.$element.innerHeight();
             var mediaWidth = this.element.mediaWidth;
             var mediaHeight = this.element.mediaHeight;
-            var ratio, leftMultiplier, topMultiplier;
 
+            var currentLeft = this.$element.css('left');
+            var currentRight = this.$element.css('right');
+            var currentTop = this.$element.css('top');
+            var currentBottom = this.$element.css('bottom');
+
+            var parentWidth;
+            if (data.fitToWindow || this.FTW) {
+                parentWidth = this.sequence.$element.width();
+            } else if (data.width != undefined) {
+                parentWidth = data.width;
+            } else {
+                parentWidth = this.sequence.$element.width() - data.left - data.right;
+            }
+
+            var parentHeight;
+            if (data.fitToWindow || this.FTW) {
+                parentHeight = this.sequence.$element.height();
+            } else if (data.height != undefined) {
+                parentHeight = data.height;
+            } else {
+                parentHeight = this.sequence.$element.height() - data.top - data.bottom;
+            }
+
+            var ratio, leftMultiplier, topMultiplier;
             if (this.element.scaleMode == 'zoom') {
                 ratio = Math.max(parentWidth / mediaWidth, parentHeight / mediaHeight);
                 leftMultiplier = horizontalAlign == 'left' ? 0 : horizontalAlign == 'right' ? 1 : 0.5;
@@ -61,15 +109,16 @@
                 leftMultiplier = topMultiplier = 0.5;
             }
 
-            mediaWidth *= ratio;
-            mediaHeight *= ratio;
-            this._$image.css({
-                width: parseInt(mediaWidth, 10) + 'px',
-                height: parseInt(mediaHeight, 10) + 'px',
-                marginLeft: parseInt((parentWidth - mediaWidth) * leftMultiplier, 10) + 'px',
-                marginTop: parseInt((parentHeight - mediaHeight) * topMultiplier, 10) + 'px'
-            });
+            mediaWidth *= ratio * zoom;
+            mediaHeight *= ratio * zoom;
+
+            css.width = parseInt(mediaWidth, 10) + 'px',
+            css.height = parseInt(mediaHeight, 10) + 'px',
+            css.marginLeft = parseInt((parentWidth - mediaWidth) * leftMultiplier, 10) + 'px',
+            css.marginTop = parseInt((parentHeight - mediaHeight) * topMultiplier, 10) + 'px'
         }
+
+        return css;
     };
 
     klynt.ImageRenderer.prototype._onBegin = function (event) {
@@ -79,20 +128,9 @@
     };
 
     klynt.ImageRenderer.prototype._executePanAndZoom = function () {
-        if (this._element.animation) {
-            new klynt.AnimationRenderer(this._element.animation, this).execute(this.currentTime, this.sequence);
+        if (this._animationRenderer) {
+            this._animationRenderer.execute();
         }
-    };
-
-    klynt.ImageRenderer.prototype.getCroppingDimensions = function (containerWidth, containerHeight) {
-        var ratio = Math.max(containerWidth / this.element.mediaWidth, containerHeight / this.element.mediaHeight);
-        return {
-            width: this.element.mediaWidth * ratio,
-            height: this.element.mediaHeight * ratio
-        };
-    };
-    klynt.ImageRenderer.prototype.getRatio = function (containerWidth, containerHeight) {
-        return Math.max(containerWidth / this.this.element.mediaWidth, containerHeight / this.element.mediaHeight);
     };
 
     klynt.ImageRenderer.prototype = klynt.utils.mergePrototypes(klynt.ElementRenderer, klynt.ImageRenderer);

@@ -14,11 +14,24 @@
 	klynt.FlipTransitionRenderer.prototype.execute = function (source, target) {
 		klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
-		target.$element.stop().addClass('flip');
-		window.setTimeout(function () {
-			target.$element.removeClass('flip');
+		var paramsAnimation = {
+			duration: this.duration / 1000,
+			fromProperties: {
+				opacity: 0.8,
+				rotationY: 180
+
+			},
+			toProperties: {
+				opacity: 1,
+				rotationY: 0
+			}
+		}
+
+		paramsAnimation.toProperties.onComplete = function () {
 			this._notifyComplete();
-		}.bind(this), this.duration);
+		}.bind(this);
+
+		klynt.animation.fromTo(paramsAnimation, target.$element);
 	};
 
 	klynt.FlipTransitionRenderer.prototype = klynt.utils.mergePrototypes(klynt.TransitionRenderer, klynt.FlipTransitionRenderer);
