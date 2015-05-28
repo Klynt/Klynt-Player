@@ -99,12 +99,9 @@
     klynt.Map.prototype._addMarkers = function () {
         var icons = {
             standard: {
-                path: 'M10.5,0C4.701,0,0,4.701,0,10.5S10.317,32,10.5,32C10.853,32,21,16.299,21,10.5S16.299,0,10.5,0z M10.5,14 C8.567,14,7,12.433,7,10.5S8.567,7,10.5,7S14,8.567,14,10.5S12.433,14,10.5,14z',
-                fillColor: '#000',
-                fillOpacity: 1,
-                strokeColor: '#000',
-                strokeOpacity: 0.3,
-                anchor: new google.maps.Point(10, 32)
+                url: 'Player/css/player/img/map-marker.svg',
+                anchor: new google.maps.Point(10, 32),
+                size: new google.maps.Size(21, 32)
             },
             viewed: {
                 url: 'Player/css/player/img/map-marker-viewed.svg',
@@ -164,13 +161,10 @@
     };
 
     klynt.Map.prototype._addControls = function () {
-
-        var clickOrTouch = klynt.utils.browser.touch;
-
-        $('.map-controls')
-            .on(clickOrTouch, '.map-controls-zoomin', this._onClickControlHandler(1).bind(
+        $('.map-controls').hammer()
+            .on('click', '.map-controls-zoomin', this._onClickControlHandler(1).bind(
                 this))
-            .on(clickOrTouch, '.map-controls-zoomout', this._onClickControlHandler(-1).bind(
+            .on('click', '.map-controls-zoomout', this._onClickControlHandler(-1).bind(
                 this));
 
         if (this._data.params.zoom == this._data.params.maxZoom) $('.map-controls-zoomin').addClass('inactive');

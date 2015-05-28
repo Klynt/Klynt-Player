@@ -1,3 +1,15 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS attributes directly in the EDITOR  */
+/*  For more informations, you can check our support center @ http://support.klynt.net or our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
+/*------- editor/buttons.css (level 2) -------*/
+
+/* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved */
+
+.button_container {
+	position: absolute;
+}
+
 .button > * {
 	-webkit-transition: all 0.5s ease-out;
 	-moz-transition: all 0.5s ease-out;
@@ -103,10 +115,6 @@
 	background-color: rgba(123,156,154,1);
 }
 
-.btn-button-5:active {
-	top: 1px;
-}
-
 .btn-button-6 {
 	background-color: rgba(245,198,62,0.6);
 	-webkit-border-radius: 2px;
@@ -127,10 +135,6 @@
 
 .btn-button-6:hover {
 	background-color: rgba(245,198,62,1);
-}
-
-.btn-button-6:active {
-	top: 1px;
 }
 
 .btn-button-7 {
@@ -155,10 +159,6 @@
 	background-color: rgba(191,98,17,1);
 }
 
-.btn-button-7:active {
-	top: 1px;
-}
-
 .btn-button-8 {
 	background-color: rgba(140,39,3,0.8);
 	-webkit-border-radius: 2px;
@@ -179,10 +179,6 @@
 
 .btn-button-8:hover {
 	background-color: rgba(140,39,3,1);
-}
-
-.btn-button-8:active {
-	top: 1px;
 }
 
 .btn-button-9 {
@@ -207,10 +203,6 @@
 	background-color: rgba(66,90,112,1);
 }
 
-.btn-button-9:active {
-	top: 1px;
-}
-
 .btn-arrow-left {
 	background-repeat: no-repeat;
 	background-image: url("img/arrow-left.png");
@@ -220,17 +212,17 @@
 	position: relative;
 	width: 49px;
 	z-index: 100 !important;
-	background-color: rgba(51,153,153,0.5);
+	background-color: rgba(0,0,0,0.5);
 	opacity: 1;
 }
 
 .btn-arrow-left:hover {
 	opacity: 1;
-	background-color: rgba(51,153,153,1);
+	background-color: rgba(0,0,0,1);
 }
 
 .btn-arrow-left_tooltip {
-	background-color: rgba(51,153,153,0);
+	background-color: rgba(0,0,0,0.5);
 	color: rgba(255,255,255,1);
 	float: left;
 	font-family: Open Sans,sans-serif;
@@ -256,17 +248,17 @@
 	position: relative;
 	width: 49px;
 	z-index: 100 !important;
-	background-color: rgba(51,153,153,0.5);
+	background-color: rgba(0,0,0,0.5);
 	opacity: 1;
 }
 
 .btn-arrow-right:hover {
 	opacity: 1;
-	background-color: rgba(51,153,153,1);
+	background-color: rgba(0,0,0,1);
 }
 
 .btn-arrow-right_tooltip {
-	background-color: rgba(51,153,153,0);
+	background-color: rgba(0,0,0,0.5);
 	color: rgba(255,255,255,1);
 	float: right;
 	font-family: Open Sans,sans-serif;
@@ -359,10 +351,6 @@
 	float: left;
 	position: absolute;
 	z-index: 100 !important;
-}
-
-.button_container {
-	position: absolute;
 }
 
 .transparent {

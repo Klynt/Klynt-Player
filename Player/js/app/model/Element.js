@@ -12,7 +12,6 @@
         this._duration = klynt.utils.getTimeFromString(this._data.duration);
 
         this._link = data.link ? new klynt.Link(data.link) : null;
-        this._action = data.action ? new klynt.Action(data.action) : null;
         this._style = data.style ? new klynt.Style(data.style) : null;
         this._transitionIn = data.transitionIn ? new klynt.ElementTransition(data.transitionIn) : null;
         this._transitionOut = data.transitionOut ? new klynt.ElementTransition(data.transitionOut) : null;
@@ -120,11 +119,6 @@
             return this._link;
         },
 
-        _action: null,
-        get action() {
-            return this._action;
-        },
-
         _rollOver: null,
         get rollOver() {
             return this._rollOver;
@@ -138,7 +132,30 @@
         _click: null,
         get click() {
             return this._click;
+        },
+
+        get classNames() {
+            return this._data.classNames || null;
+        },
+
+        get attributes() {
+            return this._data.attributes || null;
+        },
+
+        get annotation() {
+            return this._data.annotation;
         }
+    }
+
+    klynt.Element.prototype.getLinkedSequences = function () {
+        var sequences = [];
+
+        var linkTarget = this.link && this.link.target;
+        if (linkTarget) {
+            sequences.push(linkTarget);
+        }
+
+        return sequences;
     }
 
     function createInteraction(data) {

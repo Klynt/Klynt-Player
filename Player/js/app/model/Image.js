@@ -14,7 +14,7 @@
 
     klynt.Image.prototype = {
         get source() {
-            return this._data.src;
+            return klynt.utils.replaceSource(this._data.src, klynt.player.basePhotoURL, 'Medias/Photos/');
         },
 
         get alt() {

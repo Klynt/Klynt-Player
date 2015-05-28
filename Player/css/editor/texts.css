@@ -1,60 +1,68 @@
+/*  This CSS file is PROTECTED, any modifications made on it will be overwritten at each saving of your project  */
+/*  You can modify these CSS attributes directly in the EDITOR  */
+/*  For more informations, you can check our support center @ http://support.klynt.net or our GITHUB @ https://github.com/Klynt/Klynt-Player/wiki/CSSArchitecture */
+
+/*------- player/texts.css (level 2) -------*/
+
+/* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved*/
+
 .txt-Default {
-	font-family: Open Sans;
-	font-style: normal;
-	font-size: 25px;
-	color: rgba(255,255,255,1);
-	text-align: left;
-	padding: 2px;
-	line-height: 1.3;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 25px;
+    color: #ffffff;
+    text-align: left;
+    padding: 2px;
+    line-height:1.3;
 }
 
 .txt-Title-1 {
-	font-family: Abril Fatface;
-	font-style: normal;
-	font-size: 48px;
-	color: rgba(255,255,255,1);
-	text-align: left;
-	padding: 2px;
-	line-height: 1.2;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 44px;
+    color: #ffffff;
+    text-align: left;
+    padding: 2px;
+    line-height:1.2;
 }
 
 .txt-Title-2 {
-	font-family: Abril Fatface;
-	font-style: normal;
-	font-size: 36px;
-	color: rgba(255,255,255,1);
-	text-align: left;
-	padding: 2px;
-	line-height: 1.2;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 36px;
+    color: #ffffff;
+    text-align: left;
+    padding: 2px;
+    line-height:1.2;
 }
 
 .txt-Title-3 {
-	font-family: Abril Fatface;
-	font-style: normal;
-	font-size: 20px;
-	color: rgba(255,255,255,1);
-	text-align: left;
-	padding: 2px;
-	line-height: 1.2;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 28px;
+    color: #ffffff;
+    text-align: left;
+    padding: 2px;
+    line-height:1.2;
 }
 
 .txt-Subtitle {
-	font-family: Open Sans;
-	font-style: normal;
-	font-size: 20px;
-	color: rgba(255,255,255,1);
-	text-align: center;
-	padding: 2px;
-	line-height: 1.2;
-	text-shadow: -1px 1px 0px rgba(0,0,0,1);
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    padding: 2px;
+    line-height:1.2;
+    text-shadow: -1px 1px black;
 }
 
 .txt-Paragraph {
-	font-family: Open Sans;
-	font-style: normal;
-	font-size: 14px;
-	color: rgba(255,255,255,1);
-	text-align: justify;
-	padding: 2px;
-	line-height: 1.2;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: justify;
+    padding: 2px;
+    line-height:1.2;
 }

@@ -11,14 +11,22 @@
     var sequencesMap = null;
     var sequencesArray = null;
     var mainSequence = null;
+    var startupSequence = null;
 
     var accessors = {
         get list() {
             return sequencesArray || [];
         },
 
+        /* Main sequence defined in the project's data file */
         get mainSequence() {
             return mainSequence;
+        },
+
+        /* The startup sequence launched after the splashscreen.It is defined by the url hash, and defaults to
+        the mainSequence if there is no hash.*/
+        get startupSequence() {
+            return startupSequence;
         },
 
         get index() {
@@ -48,6 +56,7 @@
         sequencesMap = wrap(klynt.data.sequences);
         sequencesArray = mapToArray(sequencesMap);
         mainSequence = find(klynt.data.mainSequence);
+        startupSequence = find(klynt.hashtag.toSequenceId()) || klynt.sequences.mainSequence;
     }
 
     function findAll(sequences) {

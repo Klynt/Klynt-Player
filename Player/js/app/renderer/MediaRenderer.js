@@ -49,6 +49,7 @@
     klynt.MediaRenderer.prototype._createMediaElement = function () {
         if (this._$mediaElement) {
             this._addSources();
+            this._addSubtitles();
             this._addProperties();
             this._$element[0].renderer = this;
             this._$mediaElement.appendTo(this._$element);
@@ -56,7 +57,21 @@
     };
 
     klynt.MediaRenderer.prototype._addSources = function () {
-        this.element.sources.map(createSource).forEach(appendToMedia.bind(this));
+        var sources = this.element.sources;
+        if (!sources) {
+            var result = klynt.utils.getCachedVideoData(this.element);
+            if (result) {
+                sources = [{
+                    src: result.url,
+                    type: 'video/mp4'
+                }];
+                this.dataRate = result.rate;
+            }
+        }
+
+        if (sources) {
+            sources.map(createSource).forEach(appendToMedia.bind(this));
+        }
 
         function createSource(source) {
             var $source = $('<source>').attr('src', source.src);
@@ -69,6 +84,12 @@
         function appendToMedia($source) {
             $source.appendTo(this._$mediaElement);
         }
+    };
+
+    klynt.MediaRenderer.prototype._addSubtitles = function () {
+        if (this.element.subtitlesURL) {
+            $('<track kind="subtitles" src="' + this.element.subtitlesURL + '" srclang="en"/>').appendTo(this._$mediaElement);
+        } 
     };
 
     klynt.MediaRenderer.prototype._addProperties = function () {
@@ -95,15 +116,23 @@
         }
     };
 
+    klynt.MediaRenderer.prototype.destroy = function () {
+        klynt.ElementRenderer.prototype.destroy.call(this);
+        
+        try {this.mediaAPI.stop();} catch (e) {};
+        try {this.mediaAPI.setSrc('');} catch (e) {};
+        try {this.mediaAPI.load();} catch (e) {};
+    }
+
     klynt.MediaRenderer.prototype.play = function () {
         if (this.element.syncMaster || this.$element[0].timing.isActive()) {
-            this.mediaAPI.play();
+            this.mediaAPI && this.mediaAPI.play();
             this._wasPlaying = false;
         }
     };
 
     klynt.MediaRenderer.prototype.pause = function () {
-        this.mediaAPI.pause();
+        this.mediaAPI && this.mediaAPI.pause();
     };
 
     klynt.MediaRenderer.prototype.togglePlayPause = function () {
@@ -115,20 +144,18 @@
     };
 
     klynt.MediaRenderer.prototype.stop = function () {
-        this.mediaAPI.pause();
-        this.mediaAPI.setCurrentTime(0);
-    };
-
-    klynt.MediaRenderer.prototype.seekTo = function (time) {
-        if (time < 1) {
-            this.stop();
-        } else {
-            this.mediaAPI.setCurrentTime(Math.min(time, this.mediaAPI.duration));
+        if (this.mediaAPI) {
+            this.mediaAPI.pause();
+            this.mediaAPI.setCurrentTime(0);
         }
     };
 
+    klynt.MediaRenderer.prototype.seekTo = function (time) {
+        this.mediaAPI && this.mediaAPI.setCurrentTime(Math.min(time, this.mediaAPI.duration));
+    };
+
     klynt.MediaRenderer.prototype._load = function () {
-        this.mediaAPI.load();
+        this.mediaAPI && this.mediaAPI.load();
     };
 
     klynt.MediaRenderer.prototype.setVolume = function (volume) {
@@ -141,27 +168,29 @@
     };
 
     klynt.MediaRenderer.prototype.getVolume = function () {
-        return this.mediaAPI.volume;
+        return this.mediaAPI ? this.mediaAPI.volume : 1;
     };
 
     klynt.MediaRenderer.prototype.mute = function () {
-        this.mediaAPI.setMuted(true);
+        this.mediaAPI && this.mediaAPI.setMuted(true);
     };
 
     klynt.MediaRenderer.prototype.unmute = function () {
-        this.mediaAPI.setMuted(false);
+        this.mediaAPI && this.mediaAPI.setMuted(false);
     };
 
     klynt.MediaRenderer.prototype.toggleMute = function () {
-        if (this.mediaAPI.muted) {
-            this.unmute();
-        } else {
-            this.mute();
+        if (this.mediaAPI) {
+            if (this.mediaAPI.muted) {
+                this.unmute();
+            } else {
+                this.mute();
+            }
         }
     };
 
     klynt.MediaRenderer.prototype.saveStatus = function () {
-        this._wasPlaying = this.mediaAPI.duration && !this.mediaAPI.ended && !this.mediaAPI.paused
+        this._wasPlaying = this.mediaAPI && this.mediaAPI.duration && !this.mediaAPI.ended && !this.mediaAPI.paused
     };
 
     klynt.MediaRenderer.prototype.resumeFromStatus = function (overlay) {
@@ -174,7 +203,7 @@
         this._mediaAPI.addEventListener('play', this._onPlay.bind(this), false);
         this._mediaAPI.addEventListener('pause', this._onPause.bind(this), false);
 
-        this.$element.find('.mejs-overlay-play').hide();
+        //this.$element.find('.mejs-overlay-play').hide();
 
         if (this._element.syncMaster) {
             this._mediaAPI.addEventListener('ended', this._onSyncMasterEnd.bind(this), false);
@@ -186,8 +215,10 @@
             this._load();
         }
 
-        if (!this.element.syncMaster) {
-            $('.control_' + this.element.id).hide();
+        if (this.element.syncMaster) {
+            this.sequence.$element.find('.control_' + this.element.id).addClass('syncmaster-controls');
+        } else {
+            this.sequence.$element.find('.control_' + this.element.id).hide();
             this.$element.find('.mejs-controls').hide();
         }
     };
@@ -212,7 +243,7 @@
         if (this.mediaAPI.ended || this.sequence.ended) {
             this.$element.find('.mejs-overlay-play').hide();
         }
-        if (this._element.syncMaster) {
+        if (this._element.syncMaster && !this.mediaAPI.ended) {
             this.sequence.pause();
         }
     };
@@ -223,7 +254,7 @@
             this.play();
         }
         if (this.element.controls && !this.element.syncMaster) {
-            $('.control_' + this.element.id).show();
+            this.sequence.$element.find('.control_' + this.element.id).show();
             this.$element.find('.mejs-controls').show();
         }
     };
@@ -232,7 +263,7 @@
         klynt.ElementRenderer.prototype._onEnd.call(this);
         this.pause();
         if (!this.element.syncMaster) {
-            $('.control_' + this.element.id).hide();
+            this.sequence.$element.find('.control_' + this.element.id).hide();
             this.$element.find('.mejs-controls').hide();
         }
     };

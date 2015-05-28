@@ -19,11 +19,13 @@
         },
 
         get poster() {
-            return klynt.utils.browser.iOS || !this.autoplay ? this._data.poster || '' : '';
+            //var value = this._data.poster || '';
+            var value = klynt.utils.browser.iOS || !this.autoplay ? this._data.poster || '' : '';
+            return klynt.utils.replaceSource(value, klynt.player.basePosterURL, 'Medias/Posters/');
         },
 
         get autoplay() {
-            return !!this._data.autoplay;
+            return !!this._data.autoplay; 
         },
 
         get controls() {
@@ -36,6 +38,10 @@
 
         get volume() {
             return this._data.volume || 0;
+        },
+
+        get subtitlesURL() {
+            return this._data.subtitles ? 'Medias/Subtitles/' + this._data.subtitlesURL : null;
         }
     };
 

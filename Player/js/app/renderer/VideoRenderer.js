@@ -9,7 +9,9 @@
         klynt.MediaRenderer.call(this, video, sequence);
     };
 
-    klynt.VideoRenderer.prototype = {};
+    klynt.VideoRenderer.prototype = {
+        dataRate: 0
+    };
 
     klynt.VideoRenderer.prototype._initDOM = function () {
         klynt.MediaRenderer.prototype._initDOM.call(this);
@@ -17,7 +19,7 @@
     };
 
     klynt.VideoRenderer.prototype._createMediaElement = function () {
-        this._$mediaElement = $('<video>');
+        this._$mediaElement = $('<video webkit-playsinline>');
         klynt.MediaRenderer.prototype._createMediaElement.call(this);
     };
 
@@ -34,7 +36,7 @@
         this._updateVideoDimensions();
     };
 
-    klynt.VideoRenderer.prototype._onMetadataLoaded = function () {
+    klynt.VideoRenderer.prototype._onMetadataLoaded = function () { 
         if (klynt.player.scaleToFullWindow) {
             this._updateVideoDimensions();
         }
@@ -69,14 +71,14 @@
         mediaWidth *= ratio;
         mediaHeight *= ratio;
         var css = {
-            width: parseInt(mediaWidth, 10) + 'px',
-            height: parseInt(mediaHeight, 10) + 'px',
-            marginLeft: parseInt((parentWidth - mediaWidth) * leftMultiplier, 10) + 'px',
-            marginTop: parseInt((parentHeight - mediaHeight) * topMultiplier, 10) + 'px'
+            width: Math.round(mediaWidth) + 'px',
+            height: Math.round(mediaHeight) + 'px',
+            marginLeft: Math.round((parentWidth - mediaWidth) * leftMultiplier) + 'px',
+            marginTop: Math.round((parentHeight - mediaHeight) * topMultiplier) + 'px'
         };
 
         video.css(css);
-        this.$element.find('.mejs-poster,.me-plugin').css(css);
+        this.$element.find('.me-plugin').css(css);
     };
 
     klynt.VideoRenderer.prototype.getImagePositionCSS = function (data) {
@@ -109,12 +111,12 @@
         mediaHeight *= ratio;
 
         var css = {
-            width: parseInt(mediaWidth, 10) + 'px',
-            height: parseInt(mediaHeight, 10) + 'px',
-            marginLeft: parseInt((parentWidth - mediaWidth) * leftMultiplier, 10) + 'px',
-            marginTop: parseInt((parentHeight - mediaHeight) * topMultiplier, 10) + 'px'
+            width: Math.round(mediaWidth) + 'px',
+            height: Math.round(mediaHeight) + 'px',
+            marginLeft: Math.round((parentWidth - mediaWidth) * leftMultiplier) + 'px',
+            marginTop: Math.round((parentHeight - mediaHeight) * topMultiplier) + 'px'
         };
-
+        
         return css;
     };
 

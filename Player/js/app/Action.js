@@ -85,14 +85,14 @@
         }
     }
 
-    function seekDelta(idOrRenderer, delta) {
+    function seekDelta(delta, idOrRenderer) {
         var renderer = getMediaRenderer(idOrRenderer);
         var currentTime = renderer ? renderer.mediaAPI.currentTime : klynt.sequenceContainer.currentRenderer.currentTime;
 
-        klynt.action.seekTo(idOrRenderer, parseFloat(currentTime) + parseFloat(delta));
+        klynt.action.seekTo(parseFloat(currentTime) + parseFloat(delta), idOrRenderer);
     }
 
-    function seekTo(idOrRenderer, time) {
+    function seekTo(time, idOrRenderer) {
         if (idOrRenderer) {
             var renderer = getMediaRenderer(idOrRenderer);
             if (renderer) {
@@ -180,126 +180,138 @@
 
     function showControls(idOrRenderer) {
         var renderer = getMediaRenderer(idOrRenderer);
-        var $controls = renderer.$element.find('.mejs-controls');
-        $controls.show();
+        if (renderer) {
+            var $controls = renderer.$element.find('.mejs-controls');
+            $controls.show();
+        }
     }
 
     function hideControls(idOrRenderer) {
         var renderer = getMediaRenderer(idOrRenderer);
-        var $controls = renderer.$element.find('.mejs-controls');
-        $controls.hide();
+        if (renderer) {
+            var $controls = renderer.$element.find('.mejs-controls');
+            $controls.hide();
+        }
     }
 
     function toggleControls(idOrRenderer) {
         var renderer = getMediaRenderer(idOrRenderer);
-        var $controls = renderer.$element.find('.mejs-controls');
-        if ($controls.css('display') == 'none') {
-            showControls(idOrRenderer);
-        } else {
-            hideControls(idOrRenderer);
+        var $controls = renderer ? renderer.$element.find('.mejs-controls') : null;
+        if ($controls) {
+            if ($controls.css('display') == 'none') {
+                showControls(idOrRenderer);
+            } else {
+                hideControls(idOrRenderer);
+            }
         }
     }
 
     function volume(idOrRenderer, value, duration) {
-        if (idOrRenderer) {
-            var renderer = getMediaRenderer(idOrRenderer);
-            if (renderer) {
-                var initialVolume = renderer.getVolume();
-                if (duration == 0) {
-                    renderer.setVolume(value);
-                    return initialVolume;
-                } else {
-                    var diffVolume = initialVolume - value;
-                    var properties = {
-                        onUpdate: function (tween) {
-                            var progress = tween.totalProgress();
-                            var volume = initialVolume - (diffVolume * progress);
-                            renderer.setVolume(volume);
-                        },
-                        onComplete: function () {
-                            var finalVolume = Math.round(renderer.getVolume() * 10) / 10;
-                            renderer.setVolume(finalVolume);
-                        },
-                        onUpdateParams: ['{self}']
-                    }
-                    return TweenLite.to(renderer, duration, properties);
+        var renderer = getMediaRenderer(idOrRenderer);
+        if (renderer) {
+            var initialVolume = renderer.getVolume();
+            if (duration == 0) {
+                renderer.setVolume(value);
+                return initialVolume;
+            } else {
+                var diffVolume = initialVolume - value;
+                var properties = {
+                    onUpdate: function (tween) {
+                        var progress = tween.totalProgress();
+                        var volume = initialVolume - (diffVolume * progress);
+                        renderer.setVolume(volume);
+                    },
+                    onComplete: function () {
+                        var finalVolume = Math.round(renderer.getVolume() * 10) / 10;
+                        renderer.setVolume(finalVolume);
+                    },
+                    onUpdateParams: ['{self}']
                 }
+                return TweenLite.to(renderer, duration, properties);
             }
         }
     }
 
     function zIndex(idOrRenderer, value) {
         var renderer = getElementRenderer(idOrRenderer);
-        renderer.$element.css('z-index', value);
+        if (renderer) {
+            renderer.$element.css('z-index', value);
+        }
     }
 
     function bringToFront(idOrRenderer) {
         var renderer = getElementRenderer(idOrRenderer);
-        var rendererZIndex = renderer.$element.css('z-index');
-        var maxZIndex = -Number.MAX_VALUE;
+        if (renderer) {
+            var rendererZIndex = renderer.$element.css('z-index');
+            var maxZIndex = -Number.MAX_VALUE;
 
-        klynt.sequenceContainer.currentRenderer._renderers.forEach(function (otherRenderer) {
-            var otherZindex = otherRenderer.$element.css('z-index');
+            renderer.sequence._renderers.forEach(function (otherRenderer) {
+                var otherZindex = otherRenderer.$element.css('z-index');
 
-            if (maxZIndex < otherZindex) {
-                maxZIndex = otherZindex;
-            }
+                if (maxZIndex < otherZindex) {
+                    maxZIndex = otherZindex;
+                }
 
-            if (rendererZIndex < otherZindex) {
-                otherRenderer.$element.css('z-index', otherZindex - 1);
-            }
+                if (rendererZIndex < otherZindex) {
+                    otherRenderer.$element.css('z-index', otherZindex - 1);
+                }
 
-        });
+            });
 
-        renderer.$element.css('z-index', maxZIndex);
+            renderer.$element.css('z-index', maxZIndex);
+        }
     }
 
     function bringToBack(idOrRenderer) {
         var renderer = getElementRenderer(idOrRenderer);
-        var rendererZIndex = renderer.$element.css('z-index');
-        var minZIndex = Number.MAX_VALUE;
+        if (renderer) {
+            var rendererZIndex = renderer.$element.css('z-index');
+            var minZIndex = Number.MAX_VALUE;
 
-        klynt.sequenceContainer.currentRenderer._renderers.forEach(function (otherRenderer) {
-            var otherZindex = otherRenderer.$element.css('z-index');
+            renderer.sequence._renderers.forEach(function (otherRenderer) {
+                var otherZindex = otherRenderer.$element.css('z-index');
 
-            if (minZIndex > otherZindex) {
-                minZIndex = otherZindex;
-            }
+                if (minZIndex > otherZindex) {
+                    minZIndex = otherZindex;
+                }
 
-            if (rendererZIndex > otherZindex) {
-                otherRenderer.$element.css('z-index', parseInt(otherZindex) + 1);
-            }
-        });
+                if (rendererZIndex > otherZindex) {
+                    otherRenderer.$element.css('z-index', parseInt(otherZindex) + 1);
+                }
+            });
 
-        renderer.$element.css('z-index', minZIndex);
+            renderer.$element.css('z-index', minZIndex);
+        }
     }
 
     function reverseBringToFront(idOrRenderer, value) {
         var renderer = getElementRenderer(idOrRenderer);
+        if (renderer) {
+            renderer.sequence._renderers.forEach(function (otherRenderer) {
+                var otherZindex = otherRenderer.$element.css('z-index');
 
-        klynt.sequenceContainer.currentRenderer._renderers.forEach(function (otherRenderer) {
-            var otherZindex = otherRenderer.$element.css('z-index');
+                if (value <= otherZindex) {
+                    otherRenderer.$element.css('z-index', parseInt(otherZindex) + 1);
+                }
+            });
 
-            if (value <= otherZindex) {
-                otherRenderer.$element.css('z-index', parseInt(otherZindex) + 1);
-            }
-        });
-
-        renderer.$element.css('z-index', value);
+            renderer.$element.css('z-index', value);
+        }
     }
 
     function reverseBringToBack(idOrRenderer, value) {
         var renderer = getElementRenderer(idOrRenderer);
+        if (renderer) {
+            renderer.sequence._renderers.forEach(function (otherRenderer) {
+                var otherZindex = otherRenderer.$element.css('z-index');
 
-        klynt.sequenceContainer.currentRenderer._renderers.forEach(function (otherRenderer) {
-            var otherZindex = otherRenderer.$element.css('z-index');
+                if (value >= otherZindex) {
+                    otherRenderer.$element.css('z-index', parseInt(otherZindex) - 1);
+                }
+            });
 
-            if (value >= otherZindex) {
-                otherRenderer.$element.css('z-index', parseInt(otherZindex) - 1);
-            }
-        });
-
-        renderer.$element.css('z-index', value);
+            renderer.$element.css('z-index', value);
+        }
     }
 
     function getElementRenderer(idOrRenderer) {

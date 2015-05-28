@@ -121,9 +121,9 @@ klynt.analytics.trackPageView('miniplayer');
                 playerSizeOptions +
                 '<div class="modal-miniplayer">' +
                 '   <div class="modal-miniplayer-horizontal" data-check="true">' + this._miniCheckedButton + '</div>' +
-                '   <label class="" for="horizontal">Horizontal</label>' +
+                '   <label class="" for="horizontal">{{horizontalWording}}</label>' +
                 '   <div class="modal-miniplayer-vertical" data-check="false">' + this._miniUncheckedButton + '</div>' +
-                '   <label class="" for="vertical">Vertical</label>' +
+                '   <label class="" for="vertical">{{verticalWording}}</label>' +
                 '   <input name="width" class="miniplayer-width" type="text" value="534" maxlength="3"></input>' +
                 '   <span class="">px</span>' +
                 '   <span class="modal-miniplayer-separator">x</span>' +

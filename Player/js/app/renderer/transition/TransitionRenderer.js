@@ -5,7 +5,7 @@
  * */
 
 (function (klynt) {
-    var DEFAULT_DURATION = 1000;
+    var DEFAULT_DURATION = 500;
     var DEFAULT_EASING = null;
 
     klynt.TransitionRenderer = function (model) {
@@ -45,6 +45,11 @@
 
         get easing() {
             return DEFAULT_EASING;
+        },
+
+        _killed: false,
+        get killed() {
+            return this._killed;
         }
     };
 
@@ -77,11 +82,50 @@
         if (this.result) {
             this.result.$element.removeClass('transition-running');
         }
+        
+        if (!this.killed) {
+            $(this).trigger('complete.animation', this);
+        }
+    };
 
-        $(this).trigger('complete.animation', this);
+    klynt.TransitionRenderer.prototype.prepareForTarget = function (source, target, callback) {
+        if (source) {
+            source.showSequenceLoader();
+            source._end();
+        }
+
+        var shouldPauseTarget = true;
+        var didPauseTarget = false;
+
+        klynt.loader.prepareForSequence(target.sequence, function() {
+            shouldPauseTarget = false;
+            klynt.utils.callLater(function () {
+                if (source) {
+                    source.hideSequenceLoader();
+                }
+
+                klynt.utils.callLater(function () {
+                    if (target && didPauseTarget) {
+                        target.play();
+                    }
+                });
+
+                if (callback) {
+                    callback();
+                }
+            }, 150);
+        });
+
+        klynt.utils.callLater(function () {
+            if (target && shouldPauseTarget) {
+                target.pause();
+                didPauseTarget = true;
+            }
+        }, 150);
     };
 
     klynt.TransitionRenderer.prototype.kill = function () {
         this._notifyComplete();
+        this._killed = true;
     };
 })(window.klynt);

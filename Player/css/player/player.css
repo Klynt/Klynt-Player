@@ -22,26 +22,122 @@
 /* XIV  WATERMARK               */
 /* XV   TRANSITIONS             */
 
-.sequence > .mejs-controls{
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    bottom: 0px;
-    left: 0;
-    height: 22px;
+.pulsar {
     width: 100%;
-    list-style: none;
-    z-index: 100;
+    height: 100%;
 }
 
-.sequence > .mejs-controls > .mejs-button {
+.annotation-marker-container {
+    bottom: 9px;
+    z-index: 1001 !important;
+}
+
+.annotation-marker  {
+    width : 10px;
+    height: 10px;
+    background: rgba(168, 167, 167, 1);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.annotation-tooltip-container {
+    opacity: 0;
+    display: none;
+    position : absolute;
+    max-width: 250px;
+    min-width: 20px;
+    z-index: 1002;
+    bottom: 30px;
+}
+
+.annotation-tooltip {
+    text-align: left;
+    margin-top: 1px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    max-height: 48px;
+}
+
+.annotation-tooltip .annotation-tooltip-label {
+    font-size: 11px;
+    max-height: 40px;
+    margin: 4px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.annotation-tooltip.has-image .annotation-tooltip-label {
+    min-width: 78px;
+    max-width: 148px;
+}
+
+.annotation-tooltip-image {
+    overflow: hidden;
+    float: left;
+    width: 84px;
+    height: 48px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.annotation-tooltip-image p {
+    display: none;
+    font-size: 10px;
+    font-weight: bold;
     position: absolute;
-    bottom: 46px;
+    bottom: 2px;
+    left: 4px;
 }
 
-.sequence > .mejs-controls .mejs-time-float-current{
-    margin: 0 0 0 3px!important;
-    font-size: 12px;
+.annotation-tooltip-arrow {
+    width: 0px;
+    height: 0px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid;
+    position: absolute;
+}
+
+.annotation-tooltip:nth-child(1) {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.annotation-tooltip:nth-last-child(2) {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.annotation-marker {
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.annotation-tooltip, .annotation-tooltip-arrow {
+    -webkit-transition: background-color 0.3s, border-top-color 0.3s;
+    transition: background-color 0.3s, border-top-color 0.3s;
+}
+
+
+
+.sequence-loader-background {
+    width: 100%;
+    height: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000000;
+    position: absolute;
+}
+
+.sequence-loader {
+    width: 100%;
+    height: 100%;
+    background-repeat:no-repeat;
+    background-position: 50% 50%; 
 }
 
 .ellipsis {
@@ -149,6 +245,10 @@ table {border-collapse: collapse; border-spacing: 0;}
 
 em {font-style: italic;}
 strong {font-weight: bold;}
+
+.typeWriter {
+    display: inline !important;
+}
 
 /* III. LINKS & BUTTONS */
 
@@ -1370,12 +1470,6 @@ only screen and (min-resolution: 192dpi) {
 .watermark-bottom-right{
     bottom: 10px;
     right: 10px;
-}
-
-/* XIV . MEDIA ELEMENT */
-
-.mejs-mediaelement {
-    z-index: -1;
 }
 
 /* XV . TRANSITIONS */

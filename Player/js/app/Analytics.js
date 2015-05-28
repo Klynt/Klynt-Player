@@ -47,7 +47,7 @@
 
     function handleSequenceEvent(event, sequence) {
         if (event.type === 'open') {
-            trackPageView(sequence.title);
+            trackPageView(sequence.alias);
         }
     }
 
@@ -59,7 +59,7 @@
 
     function trackPageView(page) {
         if (_gaq) {
-            _gaq.push(['_trackPageview', document.location.pathname + '#' + encodeURIComponent(page)]);
+            _gaq.push(['_trackPageview', document.location.pathname + '_' + encodeURIComponent(page)]);
         }
     }
 

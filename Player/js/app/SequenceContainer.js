@@ -78,7 +78,7 @@
 
         if (watermark && watermark.enabled) {
             $element.append('<img src="Player/css/editor/img/watermark.png" class="watermark watermark-' + watermark.position + '"></img>');
-            $element.on(klynt.utils.browser.touch, '.watermark', actionWatermark);
+            $element.hammer().on('click', '.watermark', actionWatermark);
         }
 
         var touchEnabled = false;

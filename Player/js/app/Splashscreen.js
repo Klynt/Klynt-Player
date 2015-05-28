@@ -17,15 +17,17 @@
 	klynt.getModule('splashscreen').expose(accessors, init);
 
 	var finished = false;
-	var $splashscreen, $logo;
+	var $splashscreen, $logo, loader;
 	var count = 0;
 
 	var playerCssFiles = [
 		'Player/js/libs/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css',
 		'Player/css/player/media-element/mediaelementplayer.css',
+		'Player/css/player/media-element/mejs-skin.css',
 		'Player/css/player/player.css',
 		'Player/css/player/message.css',
 		'Player/css/player/nanoscroller.css',
+		'Player/css/editor/mejs-skin.css',
 		'Player/css/editor/player.css',
 		'Player/css/editor/texts.css',
 		'Player/css/editor/fonts.css',
@@ -61,6 +63,7 @@
 		'Player/js/app/model/Video.js',
 		'Player/js/app/model/ExternalVideo.js',
 		'Player/js/app/model/Audio.js',
+		'Player/js/app/model/Annotation.js',
 		'Player/js/app/model/Transition.js',
 		'Player/js/app/model/ElementTransition.js',
 		'Player/js/app/model/Animation.js',
@@ -73,6 +76,7 @@
 		'Player/js/app/Metadata.js',
 		'Player/js/app/Stats.js',
 		'Player/js/app/Events.js',
+		'Player/js/app/Loader.js',
 		'Player/js/app/SequenceManager.js',
 		'Player/js/app/SequenceContainer.js',
 		'Player/js/app/ContinuousAudio.js',
@@ -84,8 +88,8 @@
 		'Player/js/app/renderer/ImageRenderer.js',
 		'Player/js/app/renderer/MediaRenderer.js',
 		'Player/js/app/renderer/VideoRenderer.js',
-		'Player/js/app/renderer/ExternalVideoRenderer.js',
 		'Player/js/app/renderer/AudioRenderer.js',
+		'Player/js/app/renderer/AnnotationRenderer.js',
 		'Player/js/app/renderer/SequenceRenderer.js',
 		'Player/js/app/renderer/OverlayRenderer.js',
 		'Player/js/app/renderer/interaction/InteractionRenderer.js',
@@ -128,7 +132,6 @@
 	}
 
 	function init() {
-
 		if (!('backgroundPositionY' in document.createElement('div').style)) {
 			$.cssHooks.backgroundPositionY = {
 				get: function (elem, computed, extra) {
@@ -144,15 +147,9 @@
 			$(document).on('fullscreenchange mozfullscreenchange webkitfullscreenchange MSFullscreenChange', onFullscreenChange);
 		}
 
-		$splashscreen = $('<div>', {
-			id: 'splashscreen'
-		});
+		$splashscreen = $('<div id="splashscreen">').appendTo($('#player-container'));
+		$logo = $('<div id="logo">').appendTo($splashscreen);
 
-		$logo = $('<div>', {
-			id: 'logo'
-		});
-
-		$('#player-container').append($splashscreen.append($logo));
 
 		if (klynt.params.miniPlayer) {
 			$splashscreen.css({
@@ -167,31 +164,58 @@
 			backgroundPositionY: '50%'
 		}, 500, 'swing');
 
-		loadSequence();
+		loadPlayer();
 
 		setTimeout(function () {
 			hideSplashscreen();
 		}, 500);
 	}
 
-	function loadSequence() {
+	function loadPlayer() {
+		var referenceTime = new Date().getTime();
+
+		var count = playerCssFiles.length + playerLibFiles.length + playerJSFiles.length;
+		this.loader = new klynt.LoaderView($splashscreen, count, function () {
+			hideSplashscreen();
+		});
+
 		LazyLoad.css(playerCssFiles, function () {
 			LazyLoad.js(playerLibFiles, function () {
 				LazyLoad.js(playerJSFiles, function () {
-					if ((klynt.data.general.level === 0) && (document.location.protocol !== 'file:')) {
+					if (klynt.data.general.level === 0 && !klynt.utils.browser.local) {
 						errorMessage();
+					} else if (klynt.data.advanced.hasRemoteVideos && !klynt.utils.browser.local) {
+						estimateBandwith();
 					} else {
-						initPlayer();
-
-						hideSplashscreen();
-
-						if (klynt.params.miniPlayer) {
-							klynt.miniPlayer.initBind();
-						}
+						handlePlayerLoaded();
 					}
-				});
+				}, this.loader);
+			}, this.loader);
+		}, this.loader);
+
+		function estimateBandwith() {
+			LazyLoad.js('Player/js/app/Bandwidth.js', function () {
+				var filesLoadTime = new Date().getTime() - referenceTime;
+				klynt.bandwidth.estimateBandwidth(filesLoadTime, handlePlayerLoaded);
 			});
-		});
+		}
+
+		function handlePlayerLoaded() {
+			initPlayer();
+			
+			var startupImages = klynt.loader.getSequenceStartupImages(klynt.sequences.startupSequence);
+			this.loader.addImageFilesToQueue(startupImages ? startupImages.length : 0);
+
+			klynt.loader.prepareForSequence(klynt.sequences.startupSequence, function() {
+				hideSplashscreen();
+
+				if (klynt.params.miniPlayer) {
+					klynt.miniPlayer.initBind();
+				}
+			}, null, function () {
+				this.loader.incrementLoaded();
+			}.bind(this));
+		}
 
 		function initPlayer() {
 			klynt.player.init();
@@ -206,6 +230,7 @@
 			klynt.footer.init();
 			klynt.events.init();
 			klynt.player.$element.on('open.sequence open.overlay', klynt.analytics.handleSequenceEvent);
+			klynt.player.prefetchStartSequenceVideos();
 		}
 
 		function errorMessage() {
@@ -220,7 +245,11 @@
 
 	function hideSplashscreen() {
 		count++;
-		if (count > 1) {
+		if (count > 2) {
+			if (this.loader) {
+				this.loader.hide();
+			}
+
 			$logo.animate({
 				opacity: 0,
 				backgroundPositionY: '53%'

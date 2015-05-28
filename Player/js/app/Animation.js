@@ -45,18 +45,6 @@
             klynt.animation.to(videoProperties, $video.parent().parent().find('.mejs-poster'));
         }
 
-        if (renderer instanceof klynt.ExternalVideoRenderer) {
-            var $video = renderer.$mediaElement;
-
-            var videoProperties = {
-                duration: animation.duration,
-                easing: animation.easing,
-                properties: childPosition
-            };
-
-            klynt.animation.to(videoProperties, $video.parent().children());
-        }
-
         klynt.animation.to(animation, $element);
     }
 

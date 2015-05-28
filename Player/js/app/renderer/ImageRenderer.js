@@ -38,7 +38,7 @@
             .css('overflow', 'hidden')
             .attr('id', 'img_' + this.element.id)
             .addClass('img_' + this.element.id)
-            .attr('src', this.element.source)
+            //.attr('src', this.element.source)
             .attr('alt', this.element.alt)
             .appendTo(this._$element);
     };
@@ -123,7 +123,9 @@
 
     klynt.ImageRenderer.prototype._onBegin = function (event) {
         klynt.ElementRenderer.prototype._onBegin.call(this);
-
+        if (!this._$image.attr('src')) {
+           this._$image.attr('src', this.element.source);
+        }
         this._executePanAndZoom();
     };
 

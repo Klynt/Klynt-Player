@@ -19,31 +19,25 @@
         klynt.TransitionRenderer.prototype.execute.call(this, source, target);
 
         var duration = this.duration / 1000;
+
         var animation = this._getAnimationDescription();
-
-        var sourceParams = {
-            duration: duration,
-            fromProperties: animation.source.from,
-            toProperties: animation.source.to
-        }
-
-        var targetParams = {
-            duration: duration,
-            fromProperties: animation.target.from,
-            toProperties: animation.target.to
-        }
+        animation.target.to.onComplete = this._notifyComplete.bind(this);
 
         if (source) {
             klynt.animation.killTweens(source.$element);
-            klynt.animation.fromTo(sourceParams, source.$element);
+            klynt.animation.to({duration: 0, properties: animation.source.from}, source.$element);
         }
 
-        targetParams.toProperties.onComplete = function () {
-            this._notifyComplete();
-        }.bind(this);
-
         klynt.animation.killTweens(target.$element);
-        klynt.animation.fromTo(targetParams, target.$element);
+        klynt.animation.to({duration: 0, properties: animation.target.from}, target.$element);
+
+        this.prepareForTarget(source, target, function () {
+            if (source) {
+                klynt.animation.to({duration: duration, properties: animation.source.to}, source.$element);
+            }
+
+            klynt.animation.to({duration: duration, properties: animation.target.to}, target.$element);
+        });
     };
 
     klynt.SlideTransitionRenderer.prototype._getAnimationDescription = function () {

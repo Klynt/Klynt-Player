@@ -61,7 +61,7 @@
         },
 
         get pauseParent() {
-            return !!this._data.pauseParent;
+            return this._data.pauseParent === undefined || !!this._data.pauseParent;
         },
 
         get automaticClose() {
@@ -69,23 +69,23 @@
         },
 
         get closeButton() {
-            return !!this._data.closeButton;
+            return this._data.closeButton === undefined || !!this._data.closeButton;
         },
 
         get closeButtonLeft() {
-            return this._data.closeButtonLeft || klynt.data.general.overlayCloseButtonLeft;
+            return this._data.closeButtonLeft !== undefined ? this._data.closeButtonLeft : klynt.data.general.overlayCloseButtonLeft;
         },
 
         get closeButtonRight() {
-            return this._data.closeButtonRight || klynt.data.general.overlayCloseButtonRight;
+            return this._data.closeButtonRight !== undefined ? this._data.closeButtonRight : klynt.data.general.overlayCloseButtonRight;
         },
 
         get closeButtonTop() {
-            return this._data.closeButtonTop || klynt.data.general.overlayCloseButtonTop;
+            return this._data.closeButtonTop !== undefined ? this._data.closeButtonTop : klynt.data.general.overlayCloseButtonTop;
         },
 
         get closeButtonBottom() {
-            return this._data.closeButtonBottom || klynt.data.general.overlayCloseButtonBottom;
+            return this._data.closeButtonBottom !== undefined ? this._data.closeButtonBottom : klynt.data.general.overlayCloseButtonBottom;
         },
 
         // Link to url

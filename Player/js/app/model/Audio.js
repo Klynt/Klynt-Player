@@ -18,6 +18,10 @@
             return this._data.mediaId;
         },
 
+        get sources() {
+            return klynt.utils.replaceSource(this._data.src || [], klynt.player.baseAudioURL, 'Medias/Audios/');
+        },
+
         // Overrides Media's loop property.
         get loop() {
             return !!this._data.loop || this.continuous;

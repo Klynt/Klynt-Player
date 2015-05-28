@@ -14,11 +14,33 @@
             return this._data.externalId;
         },
 
+        get url() {
+            return this._data.url;
+        },
+
+        get platform() {
+            return this._data.platform;
+        },
+
         get sources() {
-            return this.externalId ? [{
-                src: 'http://www.youtube.com/watch?v=' + this.externalId,
-                type: 'video/youtube'
-            }] : [];
+            if (this.platform == 'youtube') {
+                return this.externalId ? [{
+                    src: 'http://www.youtube.com/watch?v=' + this.externalId,
+                    type: 'video/youtube'
+                }] : [];
+            } else if (this.platform == 'http') {
+                return this.url ? [{
+                    src: this.url,
+                    type: 'video/mp4'
+                }] : [];
+            } else {
+                return null;
+                /*var cachedURL = klynt.utils.getCachedVideoData(this);
+                return cachedURL ? [{
+                    src: cachedURL,
+                    type: 'video/mp4'
+                }] : []*/
+            }
         }
     };
 

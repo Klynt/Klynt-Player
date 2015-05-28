@@ -5,20 +5,20 @@
 /*------- player/nanoscroller.css (level 1) -------*/
 
 .nano-container {
-  position : relative;
-  width    : 100%;
-  height   : 100%;
-  overflow : hidden;
+	position : relative;
+	width    : 100%;
+	height   : 100%;
+	overflow : hidden;
+}
+
+.nano-container.element {
+	position: absolute;
 }
 
 /* HACK */
 .nano-container.text {
 	width: auto;
 	height: auto;
-}
-
-.nano-container.element {
-  position : absolute;
 }
 
 .nano-container .nano-content {
@@ -35,12 +35,12 @@
 	outline: 0;
 }
 
-.nano-container .nano-content::-webkit-scrollbar {
-	visibility: hidden;
+.nano-container > .nano-content::-webkit-scrollbar {
+	display: none;
 }
 
-.has-scrollbar .nano-content::-webkit-scrollbar {
-	visibility: visible;
+.has-scrollbar > .nano-content::-webkit-scrollbar {
+	display: block;
 }
 
 .nano-container > .nano-pane {
@@ -61,8 +61,8 @@
 	border-radius         : 5px;
 }
 
-.nano-container > .nano-pane > .slider {
-	background: #444;
+.nano-container > .nano-pane > .nano-slider {
+	background: #fff;
 	background: rgba(255, 255, 255, 1);
 	position              : relative;
 	margin                : 0 1px;

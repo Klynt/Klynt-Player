@@ -52,9 +52,6 @@
     klynt.getModule('menu', accessors).expose(resetDimensions, toggle, open, close, init, initWidget, renderMaps, searchButton);
 
     function init() {
-
-        var clickOrTouch = klynt.utils.browser.touch;
-
         $element = $('<div>')
             .attr('id', 'menu')
             .addClass('menu')
@@ -62,8 +59,9 @@
             .prependTo(klynt.player.$element)
             .html(Mustache.render(template, data, templatePartials))
             .css('paddingTop', data.offset_sequence)
-            .on(clickOrTouch, '.menu-btn-close', close)
-            .on(clickOrTouch, '.menu-btn-search', search);
+            .hammer()
+            .on('click', '.menu-btn-close', close)
+            .on('click', '.menu-btn-search', search);
         $bar = $element.find('.menu-bar');
         $barPhantom = $element.find('.menu-bar-phantom');
         $background = $element.find('.menu-background');
@@ -116,7 +114,7 @@
     function open() {
         if (!isOpen) {
             isOpen = true;
-            klynt.player.pause();
+            klynt.player.pause(true);
             resetDimensions();
             klynt.player.$element.trigger('open.menu');
         }
@@ -128,7 +126,7 @@
             setSequenceContainerOffset(0, true);
             setTimeout(function () {
                 emptyWidgetContainer();
-                klynt.player.play();
+                klynt.player.play(true);
             }, 500);
             klynt.player.$element.trigger('close.menu');
             widgets = [];

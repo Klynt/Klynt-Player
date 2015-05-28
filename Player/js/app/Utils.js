@@ -152,12 +152,17 @@
     }
 })(window.klynt);
 
+$(function() {
+    //FastClick.attach(document.body);
+});
+
 (function browserUtils(klynt) {
     var userAgent = navigator.userAgent.toLowerCase();
 
     klynt.getModule('utils').expose({
         browser: {
             local: document.location.protocol === 'file:',
+            IE: /msie|trident/.test(userAgent),
             iOS: /ip(hone|od|ad)/.test(userAgent),
             chrome: /chrome/.test(userAgent),
             safari: /safari/.test(userAgent) && !/chrome/.test(userAgent),
@@ -166,6 +171,13 @@
             touch: Modernizr.touch ? 'touchstart' : 'click'
         }
     });
+
+    klynt.utils.browser.mouseDetected = false;
+    function onMouseMove(e) {
+        $(document).off('mousemove', onMouseMove);
+        klynt.utils.browser.mouseDetected = true;
+    }
+    $(document).on('mousemove', onMouseMove);
 
     function isWebkit() {
         var documentStyles = window.getComputedStyle(document.documentElement, '');
@@ -178,7 +190,7 @@
     klynt.getModule('utils').expose(getTimeFromString, getStringFromTime);
 
     function getTimeFromString(timeString) {
-        var timeParts = timeString.split(':');
+        var timeParts = timeString ? timeString.split(':') : [];
         var time = 0;
         while (timeParts.length) {
             time *= 60;
@@ -204,5 +216,110 @@
 
     function callLater(func, delay) {
         setTimeout(func, delay || 0);
+    }
+})(window.klynt);
+
+(function mediaUtils(klynt) {
+    klynt.getModule('utils').expose(getVideoDataFromAPI, getVideosDataFromAPI, getCachedVideoData, replaceSource);
+
+    var apiVideos = {};
+
+    function getVideoDataFromAPI(video, callback) {
+        var cacheKey = video.platform + '-' + video.externalId;
+        var cachedVideo = apiVideos[cacheKey];
+
+        if (cachedVideo) {
+            if (callback) {
+                callback(selectURL(cachedVideo));
+            }
+        } else {
+            var url = klynt.player.remoteVideosAPIURL;
+            $.ajax({
+                url: url,
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                data: {
+                    video_id: video.externalId,
+                    platform: video.platform
+                }
+            }).done(function (data) {
+                apiVideos[cacheKey] = data;
+                if (callback) {
+                    callback(selectURL(data));
+                }
+            }).error(function (e) {
+                //console.log(e.responseText);
+            });
+        }
+    }
+
+    function getVideosDataFromAPI(videos) {
+        (videos || []).forEach(function (video) {
+            getVideoDataFromAPI(video);
+        });
+    }
+
+    function getCachedVideoData(video) {
+        var cacheKey = video.platform + '-' + video.externalId;
+        var cachedVideo = apiVideos[cacheKey];
+        return cachedVideo ? selectURL(cachedVideo) : null;
+    }
+
+    function selectURL(data) {
+        var bandwidth = 0;
+        if (klynt.bandwidth) {
+            bandwidth = Math.round(klynt.bandwidth.bandwidth * 0.8);
+        } else if (klynt.data.advanced.remoteVideosAPILocalBitrate == 'best') {
+            bandwidth = Number.MAX_VALUE;
+        } else if (!isNaN(klynt.data.advanced.remoteVideosAPILocalBitrate)) {
+            bandwidth = parseInt(klynt.data.advanced.remoteVideosAPILocalBitrate);
+        }
+        var maxBandwidth = 0;
+        var minBandwidth = Number.MAX_VALUE;
+        var selectedRate = 0;
+        var rates = [];
+        for (rate in data.urls) {
+            rate = parseFloat(rate);
+            rates.push(rate);
+
+            minBandwidth = Math.min(minBandwidth, rate);
+            maxBandwidth = Math.max(maxBandwidth, rate);
+            if (rate < bandwidth) {
+                selectedRate = Math.max(selectedRate, rate);
+            }
+        }
+
+        if (!selectedRate) {
+            selectedRate = minBandwidth;
+        }
+        /*
+        console.log("\nVideo: ", data.name);
+        console.log(klynt.bandwidth ? "Bandwidth(80%): " : "Local Bandwidth: ", bandwidth);
+        console.log("Rates: ", rates);
+        console.log("Selected rate: ", selectedRate);
+        */
+        return {
+            rate: selectedRate,
+            url: data.urls[selectedRate]
+        };
+    }
+
+    function replaceSource(source, baseURL, defaultBaseURL) {
+        if (source && baseURL && baseURL != defaultBaseURL) {
+            var regrex = new RegExp('^' + defaultBaseURL);
+            if ($.isArray(source)) {
+                return source.map(function (item) {
+                    return item ? {
+                        src: item.src ? item.src.replace(regrex, baseURL) : item.src,
+                        type: item.type
+                    } : null;
+                });
+            } else {
+                return source.replace(regrex, baseURL);
+            }
+        } else {
+            return source;
+        }
     }
 })(window.klynt);

@@ -628,91 +628,116 @@ EVENTS.onSMILReady(function() {
 // Find all <audio|video> elements in the current document
 // ===========================================================================
 function parseMediaElement(node) {
-  // use MediaElement.js when available: http://mediaelementjs.com/
-  if (window.MediaElement) {
-// Klynt start
-    var nodeDiv = node.parentNode;
-    var renderer = nodeDiv.renderer;
-    
-    var constructor = window.MediaElementPlayer || MediaElement;
-    var m = new constructor(node, {
-      controls: node.controls,
-      alwaysShowControls: true,
-      autoRewind: false,
-      enablePluginSmoothing: true,
-      clickToPlayPause: true,
-	    defaultAudioHeight: 50,
-      pauseOtherPlayers: false,
-      features: ["playpause","progress"],
-      plugins: klynt.utils.browser.local && klynt.utils.browser.chrome ? ['youtube', 'flash', 'silverlight'] : ['flash', 'youtube', 'silverlight'],
-      playpauseText: '',
-      stopText: '',
-      muteText: '',
-      fullscreenText: '',
-      syncMaster: renderer.element.syncMaster,
-      fitToWindow: renderer.element.fitToWindow,
-      scales: renderer.element.scales ? true : false,
-      scaleMode: renderer.element.scaleMode,
-      id: renderer.element.id,
-      sequence: renderer.sequence,
-// Klynt end
-      success: function(mediaAPI, element) {
-        // note: element == node here
-        consoleLog("MediaElement with " + mediaAPI.pluginType + " player");
-        if ((/^(flash|silverlight)$/i).test(mediaAPI.pluginType)) {
-          // we're using a Flash/Silverlight <object|embed> fallback
-          // now find the related <object|embed> element -- by default, it
-          // should be the previous sibling of the <audio|video> element.
-          var pluginElement = element.previousSibling;
-          // XXX this is precisely what I dislike about MediaElement.js:
-          //  * there's no proper way to get the <object> node ref
-          //  * the <object> node can be included in a <div> container
-          //  * the <object> node is not a child of the <audio|video> element
-          //    IE: pluginElement = <object id="me_[flash|Silverlight]_##" ... </object>
-          // other: pluginElement = <div class="me-plugin"><object ... </object></div>
-          if (element.firstChild &&
-              (/^(object|embed)$/i).test(element.firstChild.nodeName)) {
-            // Good news! We're using mediaelement4oldie.js:
-            // the <object> fallback is a child of the <audio|video> element
-            pluginElement = element.firstChild;
-            consoleLog("  (childNode)");
-          } else if (pluginElement && (
-              (/^me_flash/).test(pluginElement.id)       || // IE<9 + Flash
-              (/^me_silverlight/).test(pluginElement.id) || // IE<9 + Silverlight
-              (pluginElement.className == "me-plugin")
-          )) {
-            // Bad news: MediaElement.js has inserted the <object|embed>
-            // fallback outside of the <audio|video> element.
-            // XXX ugly hack to avoid a "display: none" on the <object> container
-            pluginElement.setAttribute("timeAction", "none");
-            consoleLog("  (previousSibling)");
-          }
-          // store a pointer to the <object|embed> element, just in case
-          nodeDiv.pluginElement = pluginElement;
-          nodeDiv.mediaAPI = renderer.mediaAPI = mediaAPI;
-        }
-// Klynt start   
-          nodeDiv.pluginElement = pluginElement;
-          nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
+  var nodeDiv = node.parentNode;
+  var renderer = nodeDiv.renderer;
 
-          renderer.pluginElement = nodeDiv.pluginElement;
-          renderer.mediaAPI = nodeDiv.mediaAPI;
-// Klynt end
-        EVENTS.trigger(document, "MediaElementLoaded");
-      },
-      error: function() {
-        //throw("MediaElement error");
-        alert("MediaElement error");
+  if (renderer.$element.find('source').length) {
+    createMediaElementPlayer();
+  } else {
+    klynt.utils.getVideoDataFromAPI(renderer.element, function (result) {
+
+      if (result) {
+        $('<source>')
+          .attr('src', result.url)
+          .attr('type', 'video/mp4')
+          .appendTo(renderer.$element.find('video'));
+
+        renderer.dataRate = result.rate;
       }
+
+      createMediaElementPlayer();
     });
   }
-  else { // native HTML5 media element
-    //node.pause(); // disable autoplay
-    node.setCurrentTime = function(time) {
-      node.currentTime = time;
-    };
-    // TODO: add other MediaElement setters
-    EVENTS.trigger(document, "MediaElementLoaded");
+
+  function createMediaElementPlayer() {
+    // use MediaElement.js when available: http://mediaelementjs.com/
+    if (window.MediaElement) {
+// Klynt start
+      var constructor = window.MediaElementPlayer || MediaElement;
+      var m = new constructor(node, {
+        controls: node.controls,
+        alwaysShowControls: klynt.utils.browser.iOS || klynt.utils.browser.android,
+        loop: renderer.element.loop,
+        autoRewind: false,
+        enablePluginSmoothing: true,
+        clickToPlayPause: true,
+  	    defaultAudioHeight: 50,
+        pauseOtherPlayers: false,
+        plugins: ['youtube', 'flash', 'silverlight'],
+        features: ["playpause","progress","tracks"],
+        playpauseText: '',
+        stopText: '',
+        muteText: '',
+        fullscreenText: '',
+        syncMaster: renderer.element.syncMaster,
+        fitToWindow: renderer.element.fitToWindow,
+        scales: renderer.element.scales ? true : false,
+        scaleMode: renderer.element.scaleMode,
+        id: renderer.element.id,
+        sequence: renderer.sequence,
+        renderer: renderer,
+        startLanguage: 'en',
+        translationSelector: false,
+        enableKeyboard: false,
+// Klynt end
+        success: function(mediaAPI, element) {
+          // note: element == node here
+          consoleLog("MediaElement with " + mediaAPI.pluginType + " player");
+          if ((/^(flash|silverlight)$/i).test(mediaAPI.pluginType)) {
+            // we're using a Flash/Silverlight <object|embed> fallback
+            // now find the related <object|embed> element -- by default, it
+            // should be the previous sibling of the <audio|video> element.
+            var pluginElement = element.previousSibling;
+            // XXX this is precisely what I dislike about MediaElement.js:
+            //  * there's no proper way to get the <object> node ref
+            //  * the <object> node can be included in a <div> container
+            //  * the <object> node is not a child of the <audio|video> element
+            //    IE: pluginElement = <object id="me_[flash|Silverlight]_##" ... </object>
+            // other: pluginElement = <div class="me-plugin"><object ... </object></div>
+            if (element.firstChild &&
+                (/^(object|embed)$/i).test(element.firstChild.nodeName)) {
+              // Good news! We're using mediaelement4oldie.js:
+              // the <object> fallback is a child of the <audio|video> element
+              pluginElement = element.firstChild;
+              consoleLog("  (childNode)");
+            } else if (pluginElement && (
+                (/^me_flash/).test(pluginElement.id)       || // IE<9 + Flash
+                (/^me_silverlight/).test(pluginElement.id) || // IE<9 + Silverlight
+                (pluginElement.className == "me-plugin")
+            )) {
+              // Bad news: MediaElement.js has inserted the <object|embed>
+              // fallback outside of the <audio|video> element.
+              // XXX ugly hack to avoid a "display: none" on the <object> container
+              pluginElement.setAttribute("timeAction", "none");
+              consoleLog("  (previousSibling)");
+            }
+            // store a pointer to the <object|embed> element, just in case
+            nodeDiv.pluginElement = pluginElement;
+            nodeDiv.mediaAPI = renderer.mediaAPI = mediaAPI;
+          }
+  // Klynt start   
+            nodeDiv.pluginElement = pluginElement;
+            nodeDiv.mediaAPI = element.mediaAPI || mediaAPI || element;
+
+            renderer.pluginElement = nodeDiv.pluginElement;
+            renderer.mediaAPI = nodeDiv.mediaAPI;
+  // Klynt end
+          EVENTS.trigger(document, "MediaElementLoaded");
+        },
+        error: function() {
+          //throw("MediaElement error");
+          alert("MediaElement error");
+        }
+      });
+    }
+    else { // native HTML5 media element
+      //node.pause(); // disable autoplay
+      node.setCurrentTime = function(time) {
+        node.currentTime = time;
+      };
+      // TODO: add other MediaElement setters
+      EVENTS.trigger(document, "MediaElementLoaded");
+    }
   }
 }
 function parseAllMediaElements(div) {
@@ -1752,7 +1777,7 @@ function smilTimeContainer_generic(timeContainerNode, parentNode, timerate) {
   timer.onTimeUpdate = function() {
     self.onTimeUpdate();
 // Klynt start
-    // self.target.sequence.updateTime(timer.getTime());
+    self.target && self.target.sequence && self.target.sequence.updateTime(timer.getTime());
 // Klynt end
   };
 

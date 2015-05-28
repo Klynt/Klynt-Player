@@ -78,6 +78,12 @@
         }
     };
 
+    klynt.AudioRenderer.prototype.destroy = function () {
+        if (this._$mediaElement.closest('#continuous-audio-container').length == 0) {
+            klynt.MediaRenderer.prototype.destroy.call(this);
+        }
+    }
+
     klynt.AudioRenderer.prototype.play = function (overlay) {
         if (this.element.continuous) {
             if (overlay) {

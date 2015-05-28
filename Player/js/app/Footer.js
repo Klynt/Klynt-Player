@@ -63,7 +63,6 @@
     function init() {
         data.useMenu = typeof klynt.data.menu !== 'undefined';
 
-        var clickOrTouch = klynt.utils.browser.touch;
         var calc = klynt.utils.browser.webkit ? '-webkit-calc' : 'calc';
 
         $element = $('<div>')
@@ -72,9 +71,10 @@
             .css('height', data.height + 'px')
             .appendTo(klynt.player.$element)
             .html(Mustache.render(template, data))
-            .on(clickOrTouch, '.footer-btn-menu', onClickMenu)
-            .on(clickOrTouch, '.footer-item', onClickFooter)
-            .on(clickOrTouch, '.footer-button', onClickButton);
+            .hammer()
+            .on('click', '.footer-btn-menu', onClickMenu)
+            .on('click', '.footer-item', onClickFooter)
+            .on('click', '.footer-button', onClickButton);
 
         $mobileMenu = $('<div>')
             .attr('id', 'mobile-menu')
@@ -89,8 +89,9 @@
             .css('height', calc + '(100% - ' + klynt.footer.height + 'px)')
             .appendTo(klynt.player.$element)
             .html(Mustache.render(mobileMenuTemplate, data))
-            .on(clickOrTouch, '.mobile-menu-item', onClickFooter)
-            .on(clickOrTouch, '.mobile-menu-item', closeMobileMenu);
+            .hammer()
+            .on('click', '.mobile-menu-item', onClickFooter)
+            .on('click', '.mobile-menu-item', closeMobileMenu);
 
         setTimeout(function () {
             $('.nano-container').nanoScroller({
@@ -103,7 +104,7 @@
         $buttons = $element.find('.footer-button');
         $mobileButton = $element.find('.footer-mobile-button');
 
-        $mobileButton.on(clickOrTouch, toggleMobileMenu);
+        $mobileButton.hammer().on('click', toggleMobileMenu);
 
         if (data.useMenu) {
             $element.hammer({
@@ -130,7 +131,7 @@
 
         itemsWidth = 0;
         $items.each(function () {
-            itemsWidth += $(this).width() + $(this).outerWidth();
+            itemsWidth += $(this).outerWidth(true);
         });
         buttonsWidth = $('.footer-buttons').width();
         breakPoint1 = itemsWidth + buttonsWidth + 15 + 30;
@@ -141,7 +142,7 @@
 
         itemsWidth = 0;
         $items.each(function () {
-            itemsWidth += $(this).width() + $(this).outerWidth();
+            itemsWidth += $(this).outerWidth(true);
         });
         buttonsWidth = $('.footer-buttons').width();
         breakPoint2 = itemsWidth + buttonsWidth + 15 + 30;
@@ -151,46 +152,27 @@
 
         $(window).on('resize', function () {
             changeFooter(breakPoint1, breakPoint2);
-        })
-    }
-
-    function firstBreakPoint() {
-        var buttonsWidth, itemsWidth = 0;
-
-        $items.each(function () {
-            itemsWidth += $(this).width() + $(this).outerWidth();
         });
-
-        buttonsWidth = $('.footer-buttons').width();
-
-        return itemsWidth + buttonsWidth + 15 + 30;
     }
 
     function changeFooter(breakPoint1, breakPoint2) {
-
         var footerWidth = $element.width();
         var mobileButton = $('.footer-mobile-button');
 
-        if (breakPoint2 > footerWidth) {
+        if (footerWidth > breakPoint1) {
+            $buttons.find('span:first-child').show();
+            $('.footer-items').show();
+            closeMobileMenu();
+            mobileButton.hide();
+        } else if (footerWidth > breakPoint2) {
+            $buttons.find('span:first-child').hide();
+            $('.footer-items').show();
+            closeMobileMenu();
+            mobileButton.hide();
+        } else {
             $buttons.find('span:first-child').hide();
             $('.footer-items').hide();
             mobileButton.show();
-        } else {
-            if (footerWidth > breakPoint1) {
-                $buttons.find('span:first-child').show();
-                $('.footer-items').show();
-                closeMobileMenu();
-                mobileButton.hide();
-            } else if (footerWidth > breakPoint2) {
-                $buttons.find('span:first-child').hide();
-                $('.footer-items').show();
-                closeMobileMenu();
-                mobileButton.hide();
-            } else {
-                $buttons.find('span:first-child').hide();
-                $('.footer-items').hide();
-                mobileButton.show();
-            }
         }
     }
 

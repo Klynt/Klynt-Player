@@ -5,11 +5,17 @@
  * */
 
 (function (klynt) {
+	var DEFAULT_BASE_URL = 'Medias/Videos/';
+
 	klynt.Video = function (data) {
 		klynt.Media.call(this, data);
 	};
 
 	klynt.Video.prototype = {
+        get sources() {
+            return klynt.utils.replaceSource(this._data.src || [], klynt.player.baseVideoURL, 'Medias/Videos/');
+        },
+
 		get scaleMode() {
 			return this._data.scaleMode;
 		},

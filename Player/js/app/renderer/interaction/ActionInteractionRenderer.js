@@ -58,10 +58,10 @@
 			klynt.action.closeOverlay();
 			break;
 		case 'seekDelta':
-			klynt.action.seekDelta(this.targetRenderer, value);
+			klynt.action.seekDelta(value, this.targetRenderer);
 			break;
 		case 'seekTo':
-			klynt.action.seekTo(this.targetRenderer, value);
+			klynt.action.seekTo(value, this.targetRenderer);
 			break;
 		case 'play':
 			klynt.action.play(this.targetRenderer);

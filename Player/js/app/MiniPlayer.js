@@ -16,8 +16,6 @@
 	function init() {
 		miniPlayer = new klynt.MiniPlayer(klynt.params.miniPlayer, klynt.miniPlayerData);
 
-		$('body').append(miniPlayer.$element);
-
 		miniPlayer.$element.find('.miniplayer-button').click(function () {
 			var ua = navigator.userAgent;
 			var safariVersion;

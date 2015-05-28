@@ -5,11 +5,15 @@
  * */
 
 (function (klynt) {
+    var DEFAULT_THUMBNAIL_BASE_URL = 'Medias/Thumbnails/';
+
     klynt.Sequence = function (rawData) {
         this._rawData = rawData;
         this._alias = klynt.sequences.getAliasBySequenceId(this.id);
         this._tags = (rawData.tags || '').split(',');
         this._links = [];
+        this._elements = [];
+        this._annotations = [];
 
         this._buttons = this._wrapCollection(rawData.buttons, klynt.Button);
         this._texts = this._wrapCollection(rawData.texts, klynt.Text);
@@ -99,7 +103,8 @@
         },
 
         get thumbnail() {
-            return this._rawData.thumbnail || this._rawData.thumbnailUrl || null;
+            var value = this._rawData.thumbnail || this._rawData.thumbnailUrl || null;
+            return klynt.utils.replaceSource(value, klynt.player.baseThumbnailURL, 'Medias/Thumbnails/');
         },
 
         get geolocated() {
@@ -165,6 +170,11 @@
             return this._medias;
         },
 
+        _elements: null,
+        get elements() {
+            return this._elements;
+        },
+
         _syncMaster: null,
         get syncMaster() {
             return this._syncMaster;
@@ -175,6 +185,11 @@
             date.setSeconds(this.duration);
             var time = date.toTimeString();
             return this.duration > 3600 ? time.substr(0, 8) : time.substr(3, 5);
+        },
+
+        _annotations: null,
+        get annotations() {
+            return this._annotations;
         }
     };
 
@@ -182,22 +197,37 @@
         return (collection || []).map(createWrapper.bind(this));
 
         function createWrapper(data) {
-            var syncMaster = data.id === this._rawData.syncMaster;
-            updateElementTiming(data, this.duration, syncMaster);
+            updateElementTiming(data, this.duration);
             var element = new wrapper(data);
-            if (syncMaster) {
-                element.syncMaster = true;
+            if (element.syncMaster) {
                 this._syncMaster = element;
             }
             if (element.link) {
                 this._links.push(element.link);
             }
+            if (element.annotation) {
+                var annotation = null;
+                for (var i = this._annotations.length - 1; i >= 0; i--) {
+                    var m = this._annotations[i];
+                    if (Math.abs(m.time - element.begin) <= 1) {
+                        annotation = m;
+                        break;
+                    }
+                }
+                if (!annotation) {
+                    annotation = new klynt.Annotation(element);
+                    this._annotations.push(annotation);
+                } else {
+                    annotation.addElement(element);
+                }
+            }
+            this._elements.push(element);
             return element;
         }
 
-        function updateElementTiming(data, sequenceDuration, syncMaster) {
+        function updateElementTiming(data, sequenceDuration) {
             var elementEnd = klynt.utils.getTimeFromString(data.dataend);
-            if (elementEnd >= sequenceDuration && !syncMaster) {
+            if (elementEnd >= sequenceDuration && !data.syncMaster) {
                 data.dataend = klynt.utils.getStringFromTime(elementEnd + 1);
                 data.duration = klynt.utils.getStringFromTime(klynt.utils.getTimeFromString(data.duration) + 1);
             }

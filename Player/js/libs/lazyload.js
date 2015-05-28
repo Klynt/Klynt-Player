@@ -102,6 +102,11 @@ LazyLoad = (function (doc) {
       urls.shift();
       pollCount = 0;
 
+      var loader = p.obj;
+      if (loader) {
+        loader.incrementLoaded();
+      }
+
       // If this is the last of the pending URLs, execute the callback and
       // start the next request in the queue (if any).
       if (!urls.length) {

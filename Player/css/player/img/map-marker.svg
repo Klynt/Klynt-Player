@@ -2,6 +2,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="21px" height="32px" viewBox="0 0 21 32" enable-background="new 0 0 21 32" xml:space="preserve">
-<path d="M10.5,0C4.701,0,0,4.701,0,10.5S10.317,32,10.5,32C10.853,32,21,16.299,21,10.5S16.299,0,10.5,0z M10.5,14
+<path stroke-opacity="0.8" d="M10.5,0C4.701,0,0,4.701,0,10.5S10.317,32,10.5,32C10.853,32,21,16.299,21,10.5S16.299,0,10.5,0z M10.5,14
 	C8.567,14,7,12.433,7,10.5S8.567,7,10.5,7S14,8.567,14,10.5S12.433,14,10.5,14z"/>
 </svg>

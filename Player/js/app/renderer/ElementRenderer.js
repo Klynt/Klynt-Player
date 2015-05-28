@@ -100,10 +100,11 @@
     };
 
     klynt.ElementRenderer.prototype._initDOM = function () {
-        this._$element = $('<div>')
+        this._$element = $('<div ' + (this.element.attributes ? ' ' + this.element.attributes : '') + '>')
             .attr('id', 'element_' + this.element.id)
             .addClass('element_' + this.element.id)
             .addClass('element')
+            .addClass(this.element.classNames)
             .css('zIndex', this.element.zIndex)
             .appendTo(this._$parent);
 
@@ -459,33 +460,36 @@
     }
 
     klynt.ElementRenderer.prototype._addEventListeners = function () {
-        this._$element.on(klynt.utils.browser.touch, this._onClick.bind(this)); // ADD TOUCH INTERACTION //
+        this._$element.hammer().on('tap', this._onClick.bind(this)); // ADD TOUCH INTERACTION //
 
-        if (klynt.utils.browser.touch != 'touchstart') {
-            this._$element.hover(this._onRollover.bind(this), this._onRollout.bind(this));
-        }
+        //if (klynt.utils.browser.touch != 'touchstart')
+        this._$element.hover(this._onRollover.bind(this), this._onRollout.bind(this));
 
         var domElement = this._$element[0];
         domElement.addEventListener('begin', this._onBegin.bind(this));
         domElement.addEventListener('end', this._onEnd.bind(this));
-        domElement.addEventListener('_onReset', this._onReset.bind(this));
+        domElement.addEventListener('reset', this._onReset.bind(this));
     };
 
     klynt.ElementRenderer.prototype._onClick = function (event) {
+        if (this.sequence.willDestroy) {
+            return;
+        }
+
+        if (!klynt.utils.browser.mouseDetected && klynt.utils.browser.touch == 'touchstart') {
+            var hasClickEvent = this._interactionsParams['click'].interactions.length > 0 || this._interactionsParams['click'].dispatchInteractions.length > 0;
+
+            if (hasClickEvent) {
+                this.executeInteractions('click');
+            } else {
+                this.executeInteractions('rollOver');
+            }
+        } else {
+            this.executeInteractions('click');
+        }
+
         if (this._element.link) {
             this._element.link.execute();
-        } else {
-            if (klynt.utils.browser.touch == 'touchstart') {
-                var hasClickEvent = this._interactionsParams['click'].interactions.length > 0 || this._interactionsParams['click'].dispatchInteractions.length > 0;
-
-                if (hasClickEvent) {
-                    this.executeInteractions('click');
-                } else {
-                    this.executeInteractions('rollOver');
-                }
-            } else {
-                this.executeInteractions('click');
-            }
         }
     };
 
@@ -501,7 +505,7 @@
 
     klynt.ElementRenderer.prototype.executeInteractions = function (interactionEvent, reverse, dispatchChain) {
         var params = this._interactionsParams[interactionEvent];
-        var isTouchDevice = klynt.utils.browser.touch == 'touchstart';
+        var isTouchDevice = !klynt.utils.browser.mouseDetected && klynt.utils.browser.touch == 'touchstart';
 
         if (!dispatchChain || dispatchChain.indexOf(this) == -1) {
             params.dispatchInteractions.forEach(function (interaction) {
@@ -527,7 +531,7 @@
 
     klynt.ElementRenderer.prototype._doExecuteInteractions = function (interactionEvent, reverse, dispatchChain) {
         var params = this._interactionsParams[interactionEvent];
-        var isTouchDevice = klynt.utils.browser.touch == 'touchstart';
+        var isTouchDevice = !klynt.utils.browser.mouseDetected && klynt.utils.browser.touch == 'touchstart';
 
         clearTimeout(params.timeOut);
         params.timeOut = 0;
@@ -554,6 +558,10 @@
 
     klynt.ElementRenderer.prototype._onEnd = function (event) {
         this._active = false;
+        
+        if (this._transitionInRenderer) {
+            this._transitionInRenderer.reset();
+        }
         if (this._transitionOutRenderer) {
             this._transitionOutRenderer.reset();
         }
@@ -570,6 +578,14 @@
             this._$element.children()
                 .css('width', this.element.width)
                 .css('height', this.element.height);
+        }
+
+        this._active = false;
+        if (this._transitionInRenderer) {
+            this._transitionInRenderer.reset();
+        }
+        if (this._transitionOutRenderer) {
+            this._transitionOutRenderer.reset();
         }
     };
 

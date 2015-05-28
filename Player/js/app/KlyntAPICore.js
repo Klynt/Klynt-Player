@@ -50,21 +50,34 @@ APIHandler.defineCommand('pause', function (id) {
 	klynt.action.pause(id);
 });
 
-APIHandler.defineCommand('seek', function (id, time) {
-	klynt.action.seekTo(id, time);
+APIHandler.defineCommand('seek', function (time, id) {
+	klynt.action.seekTo(time, id);
 });
 
-APIHandler.defineCommand('seekDelta', function (id, time) {
-	klynt.action.seekDelta(id, delta);
+APIHandler.defineCommand('seekDelta', function (delta, id) {
+	klynt.action.seekDelta(delta, id);
 });
 
-APIHandler.defineCommand('openSequence', function (id) {
-	klynt.action.openSequence(id);
+APIHandler.defineCommand('openSequence', function (params) {
+	klynt.player.open(APIHandler.getLinkFromParams(params, false));
 });
 
-APIHandler.defineCommand('openOverlay', function (id) {
-	klynt.action.openOverlay(id);
+APIHandler.defineCommand('openOverlay', function (params) {
+	klynt.player.open(APIHandler.getLinkFromParams(params, true));
 });
+
+APIHandler.getLinkFromParams = function (params, overlay) {
+	if (typeof params === 'string') {
+		params = {
+			targetSequence: params
+		}
+	}
+
+	params.overlay = overlay || params.overlay;
+	params.type = 'linkToSequence';
+
+	return new klynt.Link(params);
+};
 
 APIHandler.defineCommand('openWidget', function (id) {
 	klynt.action.openWidget(id);

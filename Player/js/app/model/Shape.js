@@ -9,5 +9,11 @@
 		klynt.Element.call(this, data);
 	};
 
+    klynt.Shape.prototype = {
+        get type() {
+            return this._data.type;
+        }
+    };
+
 	klynt.Shape.prototype = klynt.utils.mergePrototypes(klynt.Element, klynt.Shape);
 })(window.klynt);

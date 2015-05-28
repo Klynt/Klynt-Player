@@ -31,8 +31,8 @@
                 '<div class="horizontal miniplayer-menu">' +
                 '<div class="horizontal miniplayer-button">' + playButton + '</div>' +
                 '<div class="horizontal miniplayer-menu-text">' +
-                '<h1 class="horizontal miniplayer-menu-title">{{titleWording}}</h1>' +
-                '<p class="horizontal miniplayer-menu-subtitle">{{subtitleWording}}</p>' +
+                '<h1 class="horizontal miniplayer-menu-title">{{title}}</h1>' +
+                '<p class="horizontal miniplayer-menu-subtitle">{{description}}</p>' +
                 '</div>' +
                 '</div>' +
                 '<div class="horizontal miniplayer-return klynt-primary-color-bg-80">' +
@@ -62,8 +62,8 @@
                 '<div class="vertical miniplayer-button">' + playButton + '</div>' +
                 '</div>' +
                 '<div class="vertical miniplayer-text">' +
-                '<h1 class="vertical miniplayer-text-title">{{titleWording}}</h1>' +
-                '<p class="vertical miniplayer-text-subtitle">{{subtitleWording}}</p>' +
+                '<h1 class="vertical miniplayer-text-title">{{title}}</h1>' +
+                '<p class="vertical miniplayer-text-subtitle">{{description}}</p>' +
                 '</div>' +
                 '<div class="vertical miniplayer-return klynt-primary-color-bg-80">' +
                 '<h1 class="vertical miniplayer-return-info">{{thanksForWatchingWording}}</h1>' +
@@ -77,6 +77,8 @@
 
         this.init();
         this.render();
+        $('body').append(this.$element);
+        $('.horizontal#miniPlayer, .vertical.miniplayer-poster').css('background-image', 'url(' + klynt.miniPlayerData.thumbnail + ')');
     };
 
     klynt.MiniPlayer.prototype = {
@@ -87,7 +89,6 @@
     };
 
     klynt.MiniPlayer.prototype.init = function () {
-
         this._$element = $('<div>').attr('id', 'miniPlayer');
 
         if (this._type === 'horizontal') {

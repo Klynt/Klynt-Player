@@ -106,12 +106,17 @@
                 }
             }
 
+            if (klynt.sequenceContainer.currentSequenceRenderer) {
+                klynt.sequenceContainer.currentSequenceRenderer.willDestroy = true;
+            }
+
             if (!klynt.sequenceContainer.currentSequenceRenderer) {
                 klynt.sequenceContainer.currentSequenceRenderer = nextRenderer;
             }
 
             klynt.hashtag.setCurrentSequence(sequence.id);
             klynt.player.$element.trigger('open.sequence', sequence);
+            klynt.loader.setCurrentSequence(sequence);
         });
 
         $(transitionRenderer).on('complete.animation', function (event) {
@@ -125,6 +130,10 @@
         });
 
         $(transitionRenderer).on('cancel.animation', function (event) {
+            if (klynt.sequenceContainer.currentSequenceRenderer) {
+                klynt.sequenceContainer.currentSequenceRenderer.willDestroy = false;
+            }
+
             if (transitionRenderer.target) {
                 transitionRenderer.target.destroy(true);
                 klynt.continuousAudio.clean(false);
@@ -149,6 +158,7 @@
 
         $(transitionRenderer).on('validate.animation', function (event) {
             klynt.player.$element.trigger('open.overlay', sequence);
+            klynt.loader.setCurrentSequence(sequence);
         });
 
         $(transitionRenderer).on('complete.animation', function (event) {
@@ -186,6 +196,7 @@
         }
 
         if (klynt.sequenceContainer.currentSequenceRenderer) {
+            klynt.loader.setCurrentSequence(klynt.sequenceContainer.currentSequence);
             klynt.sequenceContainer.currentSequenceRenderer.play(true);
         }
     }
@@ -198,13 +209,13 @@
         }
     }
 
-    function play() {
-        klynt.sequenceContainer.currentRenderer.play();
+    function play(overlayOrMenu) {
+        klynt.sequenceContainer.currentRenderer.play(overlayOrMenu);
     }
 
-    function pause() {
+    function pause(overlayOrMenu) {
         klynt.sequenceContainer.currentRenderers.forEach(function (renderer) {
-            renderer.pause();
+            renderer.pause(overlayOrMenu);
         });
     }
 

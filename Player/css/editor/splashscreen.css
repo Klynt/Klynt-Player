@@ -7,13 +7,25 @@
 /* This file is auto-generated. All modifications directly in the file will be overwritten by editor when project is saved*/
 
 body {
-	background-color: rgba(0, 0, 0, 1); /* PRIMARY_COLOR */
+	background-color: rgba(51, 51, 51, 1); /* PRIMARY_COLOR */
 }
 
 #splashscreen {
-	background: rgba(0, 0, 0, 1); /* PRIMARY_COLOR */
+	background: rgba(51, 51, 51, 1); /* PRIMARY_COLOR */
 }
 
 #logo {
 	background-image:url(img/splashscreen.svg); /* SPLASHSCREEN_LOGO */
+}
+
+.loader-stroke-color-empty {
+	stroke: rgba(231, 57, 61, 1); /* TERTIARY_COLOR */
+}
+
+.loader-stroke-color-filled {
+	stroke: rgba(231, 57, 61, 1); /* TERTIARY_COLOR */
+}
+
+.loader-label {
+	color: rgba(231, 57, 61, 1); /* TERTIARY_COLOR */
 }
